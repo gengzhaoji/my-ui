@@ -1,0 +1,1 @@
+export default ['icon-train', 'icon-myPractice', 'icon-tools', 'icon-home1', 'icon-golf_course', 'icon-examination', 'icon-myExamination', 'icon-edit', 'icon-close', 'icon-download', 'icon-menu', 'icon-menu2', 'icon-shoucang', 'icon-shoucang_1'];

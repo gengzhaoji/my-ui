@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'five';
+  src: url('./five.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DS-DIGI';
+  src: url('./DS-DIGI-1.ttf') format('truetype');
+}
