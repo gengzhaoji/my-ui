@@ -2,24 +2,16 @@
     <div class="p-l-15 p-r-15">
         <el-divider content-position="left">主题色</el-divider>
         <div class="theme-box">
-            <theme-color
-                v-for="(item, key) in themeColorArr"
-                v-model:active="state.primaryColor"
-                v-model:activeTextColor="state.primaryTextColor"
-                :key="key"
-                :color="item.color"
-                :textColor="item.textColor"
-                :tip="item.tip"
-            />
+            <theme-color v-for="(item, key) in themeColorArr" v-model:active="state.primaryColor" :key="key" :color="item.color" :tip="item.tip" />
         </div>
         <el-divider content-position="left">布局</el-divider>
-        <el-radio-group class="three-columns" v-model="state.layout" size="small">
+        <el-radio-group class="three-columns" v-model="state.layout" :size="$store.user.size">
             <el-radio-button label="sidebar">左右</el-radio-button>
             <el-radio-button label="navbar">上下</el-radio-button>
             <el-radio-button label="both">上下 + 左右</el-radio-button>
         </el-radio-group>
         <el-divider content-position="left">其他设置</el-divider>
-        <el-form label-width="240px" label-position="left" size="small">
+        <el-form label-width="240px" label-position="left" :size="$store.user.size">
             <el-form-item label="开启折叠">
                 <el-switch v-model="state.collapsible"></el-switch>
             </el-form-item>
@@ -34,16 +26,15 @@
 </template>
 
 <script setup name="Setting">
-import themeIcon from './theme/theme-icon.vue';
 import themeColor from './theme/theme-color.vue';
 const $vm = inject('$vm'),
     themeColorArr = [
-        { color: '#4458FE', textColor: '#fff', tip: '默认蓝' },
-        { color: '#d60f20', textColor: '#fff', tip: '玫瑰红' },
-        { color: '#ac25e6', textColor: '#fff', tip: '优雅紫' },
-        { color: '#4dc86f', textColor: '#fff', tip: '故事绿' },
-        { color: '#13c2c2', textColor: '#fff', tip: '明青' },
-        { color: '#333', textColor: '#fff', tip: '极客黑' },
+        { color: '#4458FE', tip: '默认蓝' },
+        { color: '#d60f20', tip: '玫瑰红' },
+        { color: '#ac25e6', tip: '优雅紫' },
+        { color: '#4dc86f', tip: '故事绿' },
+        { color: '#13c2c2', tip: '明青' },
+        { color: '#333', tip: '极客黑' },
     ];
 // 只取值，不做computed
 const state = $vm.$store.user.theme;

@@ -14,10 +14,6 @@ const props = defineProps({
         type: String,
         default: '',
     },
-    activeTextColor: {
-        type: String,
-        default: '',
-    },
     tip: {
         type: String,
         default: '默认蓝',
@@ -26,16 +22,11 @@ const props = defineProps({
         type: String,
         default: '#409eff',
     },
-    textColor: {
-        type: String,
-        default: '#fff',
-    },
 });
-const emit = defineEmits(['update:active', 'update:activeTextColor']);
+const emit = defineEmits(['update:active']);
 // 点击事件，触发v-model修改active值
 const handleClick = () => {
     emit('update:active', props.color);
-    emit('update:activeTextColor', props.textColor);
 };
 </script>
 

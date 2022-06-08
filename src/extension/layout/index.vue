@@ -1,22 +1,18 @@
 <template>
-    <div id="layout" :class="theme.fixedTop ? 'overflow-hidden' : 'overflow-auto'">
+    <div id="layout">
         <el-container>
             <!-- header -->
             <el-header>
                 <el-aside class="title pointer" :width="`${aside_width}px`" @click="$router.push('/index')">
                     <div class="flex-center">
-                        <img src="@/assets/img/logo.png" class="m-t-10" v-show="theme.logo" alt />
+                        <img src="@/assets/img/logo.png" v-show="theme.logo" alt="logo" />
                         <span :class="['m-l-10', { titleHidden: collapse }]">
                             {{ TITLE }}
                         </span>
                     </div>
                 </el-aside>
                 <el-main class="f1 w0 flex p-0 top-r overflow-hidden">
-                    <i
-                        v-if="theme.collapsible && ['sidebar', 'both'].includes(theme.layout)"
-                        @click.prevent="collapse = !collapse"
-                        :class="[collapse ? 'icon-menu2' : 'icon-menu', 'btn']"
-                    />
+                    <i v-if="theme.collapsible && ['sidebar'].includes(theme.layout)" @click="collapse = !collapse" :class="[collapse ? 'icon-menu2' : 'icon-menu', 'btn']" />
                     <div class="message flex">
                         <div class="li f1 w0">
                             <my-menu
@@ -39,20 +35,6 @@
                                 unique-opened
                             />
                         </div>
-                        <div class="li navbar-icon-action">
-                            <Screen />
-                        </div>
-                        <div class="li navbar-icon-action">
-                            <el-switch
-                                v-model="$store.user.theme.type"
-                                @change="$store.user.stateChange($store.user.theme)"
-                                inline-prompt
-                                active-value="light"
-                                inactive-value="dark"
-                                active-icon="Sunny"
-                                inactive-icon="Moon"
-                            />
-                        </div>
                         <div class="li flex-center navbar-icon-action">
                             <el-dropdown style="margin-top: -6px">
                                 <span style="font-size: 18px">{{ userInfo.nickName }}</span>
@@ -64,6 +46,20 @@
                                     </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
+                        </div>
+                        <div class="li navbar-icon-action">
+                            <Screen />
+                        </div>
+                        <div class="li navbar-icon-action">
+                            <el-switch
+                                v-model="$store.user.theme.type"
+                                @change="nextTick($store.user.stateChange($store.user.theme))"
+                                inline-prompt
+                                active-value="light"
+                                inactive-value="dark"
+                                active-icon="Sunny"
+                                inactive-icon="Moon"
+                            />
                         </div>
                         <div class="li navbar-icon-action" @click="settingVisible = true">
                             <el-tooltip class="item" effect="dark" content="系统设置">
@@ -83,6 +79,9 @@
                         @select="menuRightSelect"
                         unique-opened
                     />
+                    <div v-if="theme.collapsible && ['both'].includes(theme.layout)" class="sidebar__trigger" @click="collapse = !collapse" :style="sidebarStyle">
+                        <i :class="[collapse ? 'icon-menu2' : 'icon-menu', 'btn']" />
+                    </div>
                 </el-aside>
                 <el-container>
                     <el-header height="40px" v-if="theme.showTabs">
@@ -248,17 +247,14 @@ $--line-height: var(--el-header-height);
                 text-overflow: clip;
                 white-space: nowrap;
                 img {
-                    height: 58px;
+                    height: 30px;
                     vertical-align: middle;
                 }
                 .m-l-10 {
                     font-family: 'five';
-                    margin: 0;
                     font-size: 28px;
                     font-weight: bold;
                     display: inline-block;
-                    letter-spacing: 5px;
-                    margin-top: -6px;
                     transition: all 0.3s;
                 }
                 .titleHidden {
@@ -311,6 +307,7 @@ $--line-height: var(--el-header-height);
             color: #b4b4b4;
         }
     }
+
     :deep(.el-dropdown) {
         color: var(--el-text-color-regular);
     }
@@ -319,8 +316,29 @@ $--line-height: var(--el-header-height);
         overflow-x: hidden;
         z-index: 1;
     }
+
     .menu {
         border-right: 1px solid var(--el-border-color);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        & > .el-menu--vertical {
+            flex: 1;
+            height: 0;
+        }
+        .sidebar__trigger {
+            position: relative;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background: rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 18px;
+            &:hover {
+                background: rgba(0, 0, 0, 0.08);
+                color: #1890ff;
+            }
+        }
     }
 
     .main {

@@ -20,9 +20,7 @@ export default defineStore({
         theme: {
             type: 'light',
             primaryColor: '#409eff',
-            primaryTextColor: '#fff',
             collapsible: true, //开启折叠
-            fixedTop: true, // 是否固定顶部, todo
             showTabs: true, // 是否显示导航历史
             layout: 'sidebar', // 布局
             logo: true, // 显示logo
