@@ -1,150 +1,147 @@
 <template>
-    <div class="page">
-        <div class="first">
-            <div class="left system-page-background b-r-4">
-                <div class="p-10" style="border-bottom: 1px solid #dcdfe6">
-                    <my-input placeholder="请输入部门名称" v-model="deptName">
-                        <template #append>
-                            <my-button icon="el-icon-search" @click.prevent="(deptName = queryParams.deptId = ''), refTree.setCurrentKey(null), refTable.reload()" />
-                        </template>
-                    </my-input>
-                </div>
-                <div class="f1 h0">
-                    <el-tree
-                        :data="$store.com.deptTree"
-                        :props="defaultProps"
-                        :expand-on-click-node="false"
-                        :filter-node-method="filterNode"
-                        highlight-current
-                        node-key="id"
-                        ref="refTree"
-                        default-expand-all
-                        @node-click="handleNodeClick"
-                    />
-                </div>
-            </div>
-            <div class="right system-page-background b-r-4">
-                <div class="p-10">
-                    <my-form
-                        inline
-                        query
-                        label-width="70px"
-                        :model="queryParams"
-                        :formItem="[
-                            {
-                                prop: 'likeNickName',
-                                label: '姓名',
-                                placeholder: '请输入姓名',
-                            },
-                            {
-                                prop: 'likePhonenumber',
-                                label: '手机号码',
-                                placeholder: '请输入手机号码',
-                            },
-                            {
-                                itemType: 'select',
-                                prop: 'status',
-                                label: '状态',
-                                type: 'GETsysNormalDisable',
-                            },
-                        ]"
-                        @searchFn="refTable.reload()"
-                        @resetFn="refTable.reload()"
-                    />
-                    <div class="m-t-10" v-hasPermi="['system:user:add', 'system:user:remove', 'system:user:export']">
-                        <my-button type="primary" @click="insertFn" icon="Plus" v-hasPermi="['system:user:add']">新 增</my-button>
-                        <el-button-group>
-                            <my-button-export :load="Export" v-hasPermi="['system:user:export']" />
-                        </el-button-group>
-                        <my-button type="danger" :disabled="!tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['system:user:remove']">
-                            删 除
-                        </my-button>
-                    </div>
-                </div>
-
-                <my-list-panel ref="refTable" :loadFn="loadData" :total="state.total">
-                    <template #default="{ page, size }">
-                        <my-table :data="state.list" :columns="state.columns" :initColumns="state.columns" @selection-change="(val) => (tableSelection = val)">
-                            <template #index="scope">
-                                {{ scope.$index + 1 + (page - 1) * size }}
-                            </template>
-                            <template #sex="{ row }">
-                                {{ selectDictLabel($store.dict.sysUserSex, row.sex) }}
-                            </template>
-                            <template #status="{ row }">
-                                <el-switch
-                                    v-model="row.status"
-                                    inline-prompt
-                                    :active-value="0"
-                                    :inactive-value="1"
-                                    active-text="启"
-                                    inactive-text="停"
-                                    @change="handleStatusChange(row)"
-                                />
-                            </template>
-                            <template #default="{ row }">
-                                <my-button type="text" class="caozuo" @click="handleUpdate(row)" v-hasPermi="['system:user:edit']"> 修改 </my-button>
-                                <my-button type="text" class="caozuo" @click="handleResetPwd(row)" v-hasPermi="['system:user:resetPwd']"> 重置 </my-button>
-                                <my-button type="text" class="caozuo" @click="deleteFn(row)" v-hasPermi="['secrecy:user:remove']">删除</my-button>
-                            </template>
-                        </my-table>
+    <div class="page" style="flex-direction: row">
+        <div class="left system-page-background b-r-4">
+            <div class="p-10" style="border-bottom: 1px solid var(--el-border-color)">
+                <my-input placeholder="请输入部门名称" v-model="deptName">
+                    <template #append>
+                        <my-button icon="el-icon-search" @click.prevent="(deptName = queryParams.deptId = ''), refTree.setCurrentKey(null), refTable.reload()" />
                     </template>
-                </my-list-panel>
+                </my-input>
+            </div>
+            <div class="f1 h0">
+                <el-tree
+                    :data="$store.com.deptTree"
+                    :props="defaultProps"
+                    :expand-on-click-node="false"
+                    :filter-node-method="filterNode"
+                    highlight-current
+                    node-key="id"
+                    ref="refTree"
+                    default-expand-all
+                    @node-click="handleNodeClick"
+                />
+            </div>
+        </div>
+        <div class="right system-page-background b-r-4">
+            <div class="p-10">
+                <my-form
+                    inline
+                    query
+                    label-width="70px"
+                    :model="queryParams"
+                    :formItem="[
+                        {
+                            prop: 'likeNickName',
+                            label: '姓名',
+                            placeholder: '请输入姓名',
+                        },
+                        {
+                            prop: 'likePhonenumber',
+                            label: '手机号码',
+                            placeholder: '请输入手机号码',
+                        },
+                        {
+                            itemType: 'select',
+                            prop: 'status',
+                            label: '状态',
+                            type: 'GETsysNormalDisable',
+                        },
+                    ]"
+                    @searchFn="refTable.reload()"
+                    @resetFn="refTable.reload()"
+                />
+                <div class="m-t-10" v-hasPermi="['system:user:add', 'system:user:remove', 'system:user:export']">
+                    <my-button type="primary" @click="insertFn" icon="Plus" v-hasPermi="['system:user:add']">新 增</my-button>
+                    <el-button-group>
+                        <my-button-export :load="Export" v-hasPermi="['system:user:export']" />
+                    </el-button-group>
+                    <my-button type="danger" :disabled="!tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['system:user:remove']">
+                        删 除
+                    </my-button>
+                </div>
             </div>
 
-            <!-- 添加或修改参数配置对话框 -->
-            <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(refDialogForm)">
-                <div v-loading="loading">
-                    <my-form
-                        ref="refDialogForm"
-                        :model="dialogForm"
-                        :rules="rules"
-                        label-width="80px"
-                        class="validate--bottom"
-                        row
-                        :formItem="[
-                            { prop: 'nickName', label: '姓名', col },
-                            {
-                                prop: 'deptId',
-                                label: '归属部门',
-                                itemType: 'cascader',
-                                type: 'GETdeptTree',
-                                props: {
-                                    expandTrigger: 'hover',
-                                    value: 'id',
-                                    label: 'deptName',
-                                    emitPath: false,
-                                    checkStrictly: true,
-                                },
-                                col,
-                            },
-                            { prop: 'userName', label: '登录名', show: dialog.title === '添加用户', col },
-                            { prop: 'password', label: '用户密码', show: dialog.title === '添加用户', showPassword: true, col },
-                            { prop: 'phonenumber', label: '手机号码', maxlength: 11, col },
-                            { prop: 'email', label: '邮箱', maxlength: 50, col },
-                            { prop: 'roleIds', label: '角色', itemType: 'select', list: roleOptions, fileType: { label: 'roleName', value: 'id' }, multiple: true, col },
-                            { prop: 'postIds', label: '岗位', itemType: 'select', list: postOptions, fileType: { label: 'postName', value: 'id' }, multiple: true, col },
-                            { prop: 'status', label: '状态', col },
-                            { prop: 'remark', label: '备注', type: 'textarea', col: { span: 24 } },
-                        ]"
-                    >
-                        <template #status="{ model, prop }">
-                            <el-radio-group v-model="model[prop]">
-                                <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue">
-                                    {{ dict.dictLabel }}
-                                </el-radio>
-                            </el-radio-group>
+            <my-list-panel ref="refTable" :loadFn="loadData" :total="state.total">
+                <template #default="{ page, size }">
+                    <my-table :data="state.list" :columns="state.columns" :initColumns="state.columns" @selection-change="(val) => (tableSelection = val)">
+                        <template #index="scope">
+                            {{ scope.$index + 1 + (page - 1) * size }}
                         </template>
-                    </my-form>
-                </div>
-                <template #footer>
-                    <div class="dialog-footer">
-                        <my-button type="primary" @click.prevent="submitForm"> 确 定 </my-button>
-                        <my-button @click.prevent="dialog.open = false">取 消</my-button>
-                    </div>
+                        <template #sex="{ row }">
+                            {{ selectDictLabel($store.dict.sysUserSex, row.sex) }}
+                        </template>
+                        <template #status="{ row }">
+                            <el-switch
+                                v-model="row.status"
+                                inline-prompt
+                                :active-value="0"
+                                :inactive-value="1"
+                                active-text="启"
+                                inactive-text="停"
+                                @change="handleStatusChange(row)"
+                            />
+                        </template>
+                        <template #default="{ row }">
+                            <my-button text link type="primary" class="caozuo" @click="handleUpdate(row)" v-hasPermi="['system:user:edit']"> 修改 </my-button>
+                            <my-button text link type="primary" class="caozuo" @click="handleResetPwd(row)" v-hasPermi="['system:user:resetPwd']"> 重置 </my-button>
+                            <my-button text link type="primary" class="caozuo" @click="deleteFn(row)" v-hasPermi="['secrecy:user:remove']">删除</my-button>
+                        </template>
+                    </my-table>
                 </template>
-            </el-dialog>
+            </my-list-panel>
         </div>
+        <!-- 添加或修改参数配置对话框 -->
+        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(refDialogForm)">
+            <div v-loading="loading">
+                <my-form
+                    ref="refDialogForm"
+                    :model="dialogForm"
+                    :rules="rules"
+                    label-width="80px"
+                    class="validate--bottom"
+                    row
+                    :formItem="[
+                        { prop: 'nickName', label: '姓名', col },
+                        {
+                            prop: 'deptId',
+                            label: '归属部门',
+                            itemType: 'cascader',
+                            type: 'GETdeptTree',
+                            props: {
+                                expandTrigger: 'hover',
+                                value: 'id',
+                                label: 'deptName',
+                                emitPath: false,
+                                checkStrictly: true,
+                            },
+                            col,
+                        },
+                        { prop: 'userName', label: '登录名', show: dialog.title === '添加用户', col },
+                        { prop: 'password', label: '用户密码', show: dialog.title === '添加用户', showPassword: true, col },
+                        { prop: 'phonenumber', label: '手机号码', maxlength: 11, col },
+                        { prop: 'email', label: '邮箱', maxlength: 50, col },
+                        { prop: 'roleIds', label: '角色', itemType: 'select', list: roleOptions, fileType: { label: 'roleName', value: 'id' }, multiple: true, col },
+                        { prop: 'postIds', label: '岗位', itemType: 'select', list: postOptions, fileType: { label: 'postName', value: 'id' }, multiple: true, col },
+                        { prop: 'status', label: '状态', col },
+                        { prop: 'remark', label: '备注', type: 'textarea', col: { span: 24 } },
+                    ]"
+                >
+                    <template #status="{ model, prop }">
+                        <el-radio-group v-model="model[prop]">
+                            <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue">
+                                {{ dict.dictLabel }}
+                            </el-radio>
+                        </el-radio-group>
+                    </template>
+                </my-form>
+            </div>
+            <template #footer>
+                <div class="dialog-footer">
+                    <my-button type="primary" @click.prevent="submitForm"> 确 定 </my-button>
+                    <my-button @click.prevent="dialog.open = false">取 消</my-button>
+                </div>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
@@ -389,28 +386,22 @@ function Export() {
 </script>
 
 <style scoped lang="scss">
-.first {
-    display: flex;
+.left {
     height: 100%;
-    background-color: var(--system-container-background);
-    box-sizing: border-box;
-    .left {
-        height: 100%;
-        width: 20%;
-        min-width: 350px;
-        overflow: auto;
-        display: flex;
-        flex-direction: column;
-    }
-    .right {
-        margin-left: 10px;
-        height: 100%;
-        flex: 1;
-        overflow: auto;
-        display: flex;
-        flex-direction: column;
-        width: 0;
-    }
+    width: 20%;
+    min-width: 350px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+.right {
+    margin-left: 10px;
+    height: 100%;
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 0;
 }
 .rightAdd {
     cursor: pointer;

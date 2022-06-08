@@ -45,7 +45,7 @@
                             {{ selectDictLabel($store.dict.sysOperType, row.businessType) }}
                         </template>
                         <template #default="{ row }">
-                            <my-button type="text" class="caozuo" @click.prevent="(open = true), (form = row)"> 详情 </my-button>
+                            <my-button text link type="primary" class="caozuo" @click.prevent="(open = true), (form = row)"> 详情 </my-button>
                         </template>
                     </my-table>
                 </template>

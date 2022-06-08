@@ -24,7 +24,9 @@ import lazyPlugin from 'vue3-lazy';
 import './assets/icon/style.css';
 import './assets/font/style.css';
 // ui样式-公用样式
-import 'element-plus/theme-chalk/index.css';
+import 'element-plus/theme-chalk/el-message.css';
+import 'element-plus/theme-chalk/el-message-box.css';
+import 'element-plus/theme-chalk/dark/css-vars.css';
 import './style/index.scss';
 
 /**

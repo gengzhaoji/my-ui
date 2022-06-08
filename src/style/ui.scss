@@ -6,7 +6,6 @@
 
 .el-drawer__header {
     outline: none;
-    color: #000 !important;
     font-size: 24px !important;
     border-bottom: 1px solid var(--el-border-color-light) !important;
 
@@ -15,21 +14,12 @@
     }
 }
 
-// 菜单部分
-.el-menu {
-    --el-menu-text-color: var(--system-menu-text-color);
-    --el-menu-hover-text-color: var(--system-menu-text-color);
-    --el-menu-bg-color: var(--system-menu-background);
-    --el-menu-hover-bg-color: var(--system-menu-hover-background);
-    --el-menu-active-color: var(--system-primary-color);
-}
 .el-menu {
     --el-menu-item-font-size: var(--el-font-size-medium);
     border-right: 0;
 
     .el-dropdown-link {
         cursor: pointer;
-        color: var(--system-primary-color);
     }
 
     .ArrowDown {
@@ -198,7 +188,7 @@
     --el-drawer-background-color: var(--el-dialog-background-color, var(--el-color-white));
     --el-drawer-padding-primary: var(--el-dialog-padding-primary, 20px);
     .el-drawer__body {
-        background-color: var(--system-container-background);
+        // background-color: var(--system-container-background);
         display: flex;
         flex-direction: column;
         padding: 0;

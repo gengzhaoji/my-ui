@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { authLogin, authLogout, infoUserProfile } from '@a/public';
 import router from '@/router';
 import guarder from './guarder';
-import { theme as configTheme } from '@/config/theme.js';
 
 export default defineStore({
     id: 'user', // id必填，且需要唯一
@@ -18,7 +17,16 @@ export default defineStore({
         avatar: '',
         permissions: [],
         roles: [],
-        theme: {},
+        theme: {
+            type: 'light',
+            primaryColor: '#409eff',
+            primaryTextColor: '#fff',
+            collapsible: true, //开启折叠
+            fixedTop: true, // 是否固定顶部, todo
+            showTabs: true, // 是否显示导航历史
+            layout: 'sidebar', // 布局
+            logo: true, // 显示logo
+        },
         // 表格自定义头部缓存数据
         columns: {},
     }),
@@ -32,20 +40,10 @@ export default defineStore({
         // 主题修改
         stateChange(data) {
             this.theme = data;
-            const userTheme = configTheme[this.theme.style];
             const body = document.documentElement;
             // 设置全局顶部body上的class名称，即为主题名称，便于自定义配置符合当前主题的样式统一入口
-            body.setAttribute('data-theme', this.theme.style);
-            // 设置主题色
-            body.style.setProperty('--system-primary-color', this.theme.primaryColor);
-            for (let i in userTheme) {
-                if (i === 'name') continue;
-                const item = userTheme[i];
-                for (let y in item) {
-                    let cssVarName = '--system-' + i + '-' + y.replace(/([A-Z])/g, '-$1').toLowerCase();
-                    body.style.setProperty(cssVarName, item[y]);
-                }
-            }
+            body.setAttribute('class', this.theme.type);
+            body.style.setProperty('--el-color-primary', this.theme.primaryColor);
         },
         // 页面表格头部缓存
         columnsChange(option) {

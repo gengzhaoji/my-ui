@@ -18,10 +18,11 @@
     position: relative;
     padding: 10px;
     box-sizing: border-box;
+    background-color: var(--el-bg-color-page);
 }
 
 .system-page-background {
-    background-color: var(--system-page-background);
+    background-color: var(--el-bg-color);
 }
 
 .caozuo + .caozuo {

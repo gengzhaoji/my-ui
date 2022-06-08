@@ -95,10 +95,4 @@ function getUser() {
     padding: 11px 0px;
     font-size: 13px;
 }
-:deep() {
-    .el-card__header {
-        background-color: var(--system-menu-background);
-        color: var(--system-menu-text-color);
-    }
-}
 </style>

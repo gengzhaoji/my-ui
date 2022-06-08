@@ -113,11 +113,5 @@ module.exports = {
             methods: 'useData',
             path: '/system/config/use/data',
         },
-        {
-            title: '消息-分页',
-            name: 'message',
-            methods: 'page',
-            path: '/message/info',
-        },
     ],
 };

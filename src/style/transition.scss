@@ -6,7 +6,7 @@ v-enter改成了v-enter-form，v-leave改成了v-leave-from。
 /* fade */
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.3s;
+    transition: var(--el-transition-all);
 }
 
 .fade-enter-from,
@@ -23,7 +23,7 @@ v-enter改成了v-enter-form，v-leave改成了v-leave-from。
 }
 /* 想要让动画平滑一点，需要加v-move的类名，v-可以别name的值 */
 .fade-transform-move {
-    transition: all 0.3s ease-out;
+    transition: var(--el-transition-all);
 }
 
 @keyframes fade-transform-in {
@@ -48,7 +48,7 @@ v-enter改成了v-enter-form，v-leave改成了v-leave-from。
 /* breadcrumb transition */
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
-    transition: all 0.3s;
+    transition: var(--el-transition-all);
 }
 
 .breadcrumb-enter-from,
@@ -58,21 +58,9 @@ v-enter改成了v-enter-form，v-leave改成了v-leave-from。
 }
 
 .breadcrumb-move {
-    transition: all 0.3s;
+    transition: var(--el-transition-all);
 }
 
 .breadcrumb-leave-active {
     position: absolute;
-}
-// logo切换动画
-.sidebarLogoFade-enter-active {
-    transition: opacity 1.5s;
-}
-
-.sidebarLogoFade-enter-from,
-.sidebarLogoFade-leave-to {
-    opacity: 0;
-}
-.fsidebarLogoFade-move {
-    transition: all 0.3s ease-out;
 }

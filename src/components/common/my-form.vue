@@ -158,7 +158,7 @@
                                     "
                                     >重 置</my-button
                                 >
-                                <my-button class="m-l-20" type="text" @click.stop.prevent="toggleCollapsed" v-if="collapsible" v-show="formItem.length > currentColumn">
+                                <my-button class="m-l-20" text @click.stop.prevent="toggleCollapsed" v-if="collapsible" v-show="formItem.length > currentColumn">
                                     <span>
                                         {{ currentCollapsed ? '展开' : '收起' }}
                                         <el-icon>

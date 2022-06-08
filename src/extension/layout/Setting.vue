@@ -1,20 +1,5 @@
 <template>
     <div class="p-l-15 p-r-15">
-        <el-divider content-position="left">整体风格</el-divider>
-        <div class="theme-box">
-            <theme-icon
-                v-model:active="state.style"
-                v-for="(row, index) in theme"
-                :key="index"
-                :name="index"
-                :tip="row.name"
-                :logo="row.logo.background"
-                :menu="row.menu.background"
-                :header="row.header.background"
-                :main="row.container.background"
-                :activeColor="row.page.color"
-            />
-        </div>
         <el-divider content-position="left">主题色</el-divider>
         <div class="theme-box">
             <theme-color
@@ -35,9 +20,6 @@
         </el-radio-group>
         <el-divider content-position="left">其他设置</el-divider>
         <el-form label-width="240px" label-position="left" size="small">
-            <!-- <el-form-item label="固定菜单栏">
-                <el-switch v-model="state.fixedTop"></el-switch>
-            </el-form-item> -->
             <el-form-item label="开启折叠">
                 <el-switch v-model="state.collapsible"></el-switch>
             </el-form-item>
@@ -54,8 +36,15 @@
 <script setup name="Setting">
 import themeIcon from './theme/theme-icon.vue';
 import themeColor from './theme/theme-color.vue';
-import { theme, themeColorArr } from '@/config/theme.js';
-const $vm = inject('$vm');
+const $vm = inject('$vm'),
+    themeColorArr = [
+        { color: '#4458FE', textColor: '#fff', tip: '默认蓝' },
+        { color: '#d60f20', textColor: '#fff', tip: '玫瑰红' },
+        { color: '#ac25e6', textColor: '#fff', tip: '优雅紫' },
+        { color: '#4dc86f', textColor: '#fff', tip: '故事绿' },
+        { color: '#13c2c2', textColor: '#fff', tip: '明青' },
+        { color: '#333', textColor: '#fff', tip: '极客黑' },
+    ];
 // 只取值，不做computed
 const state = $vm.$store.user.theme;
 // 监听数据的变化
@@ -64,7 +53,7 @@ watch(
     (newVal) => {
         $vm.$store.user.stateChange(newVal);
     },
-    { immediate: true }
+    { immediate: true, deep: true }
 );
 </script>
 

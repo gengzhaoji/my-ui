@@ -37,9 +37,9 @@
                         <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
                     </template>
                     <template #default="{ row }">
-                        <my-button type="text" class="caozuo" @click="Update(row)" v-hasPermi="['system:dep:edit']"> 修改 </my-button>
-                        <my-button type="text" class="caozuo" @click="Add(row)" v-hasPermi="['system:dep:add']"> 新增 </my-button>
-                        <my-button v-if="!row.children.length" type="text" class="caozuo" @click="Delete(row)" v-hasPermi="['system:dep:remove']"> 删除 </my-button>
+                        <my-button text link type="primary" class="caozuo" @click="Update(row)" v-hasPermi="['system:dep:edit']"> 修改 </my-button>
+                        <my-button text link type="primary" class="caozuo" @click="Add(row)" v-hasPermi="['system:dep:add']"> 新增 </my-button>
+                        <my-button text link type="primary" class="caozuo" @click="Delete(row)" v-hasPermi="['system:dep:remove']" v-if="!row.children.length"> 删除 </my-button>
                     </template>
                 </my-table>
             </div>

@@ -1,5 +1,5 @@
 <template>
-    <el-tooltip class="item" effect="dark" :content="tip" placement="top">
+    <el-tooltip class="item" :content="tip" placement="top">
         <div class="theme-icon" @click="handleClick">
             <div class="theme-icon-sidebar">
                 <div class="theme-icon-sidebar-logo" :style="{ 'background-color': logo }"></div>
@@ -8,8 +8,8 @@
             <div class="theme-icon-content">
                 <div class="theme-icon-content-header" :style="{ 'background-color': header }"></div>
                 <div class="theme-icon-content-main" :style="{ 'background-color': main }">
-                    <div class="active" v-if="active === name">
-                        <i class="el-icon-check" :style="{ color: activeColor }"></i>
+                    <div class="active" v-if="active === name" :style="{ color: activeColor }">
+                        <el-icon><Check /></el-icon>
                     </div>
                 </div>
             </div>
@@ -113,8 +113,5 @@ function handleClick() {
             }
         }
     }
-}
-.theme-icon + .theme-icon {
-    margin-left: 20px;
 }
 </style>

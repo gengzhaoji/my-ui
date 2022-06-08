@@ -41,9 +41,9 @@
                     <el-switch v-model="row.visible" inline-prompt :active-value="0" :inactive-value="1" active-text="显" inactive-text="隐" @change="visibleFn(row)" />
                 </template>
                 <template #default="{ row }">
-                    <my-button type="text" class="caozuo" @click.prevent="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button>
-                    <my-button type="text" class="caozuo" @click.prevent="Add(row)" v-if="row.menuType !== 'F'" v-hasPermi="['system:menu:add']">新增</my-button>
-                    <my-button type="text" class="caozuo" @click.prevent="Delete(row)" v-if="!row.children.length" v-hasPermi="['system:menu:remove']">删除</my-button>
+                    <my-button text link type="primary" class="caozuo" @click.prevent="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button>
+                    <my-button text link type="primary" class="caozuo" @click.prevent="Add(row)" v-if="row.menuType !== 'F'" v-hasPermi="['system:menu:add']">新增</my-button>
+                    <my-button text link type="primary" class="caozuo" @click.prevent="Delete(row)" v-if="!row.children.length" v-hasPermi="['system:menu:remove']">删除</my-button>
                 </template>
             </my-table>
         </div>

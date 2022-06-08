@@ -44,9 +44,11 @@ watch(
 );
 // 选中当前标签
 function clickTab() {
-    const index = menuTabsList.findIndex((item) => item.meta.title === $vm.$store.user.activeMenuTab);
-    const { path, query } = menuTabsList[index];
-    $vm.$router.push({ path, query });
+    nextTick(() => {
+        const index = menuTabsList.findIndex((item) => item.meta.title === $vm.$store.user.activeMenuTab);
+        const { path, query } = menuTabsList[index];
+        $vm.$router.push({ path, query });
+    });
 }
 // 关闭当前标签
 function removeTab(name) {
@@ -102,25 +104,21 @@ $--height: 40px;
 .tabs {
     width: 100%;
     display: flex;
-    height: $--height;
-    border-top: 1px solid var(--system-header-border-color);
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
     .el-dropdown-link {
-        border-left: 1px solid var(--system-header-border-color);
         height: $--height;
         line-height: $--height;
         text-align: center;
         width: 40px;
-        i {
-            color: var(--system-header-text-color);
-        }
     }
 
     :deep() {
+        .el-tabs {
+            --el-tabs-header-height: var($--height - 1px);
+        }
         .el-tabs__nav-next,
         .el-tabs__nav-prev {
             line-height: $--height !important;
-            color: var(--system-header-text-color) !important;
         }
     }
 }
@@ -131,13 +129,12 @@ $--height: 40px;
     :deep() {
         .el-tabs__header {
             margin: 0px;
+            border-bottom: none;
         }
         .el-tabs--card > .el-tabs__header .el-tabs__nav {
             border-top: none;
             border-radius: 0;
-            .el-tabs__item {
-                height: 39px;
-            }
+            border-left: none;
         }
     }
     :deep(.el-scrollbar__bar.is-vertical) {

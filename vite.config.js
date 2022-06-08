@@ -39,7 +39,7 @@ export default ({ command, mode }) => {
         createHtmlPlugin({
             inject: {
                 data: {
-                    TITLE: '安全巡检系统',
+                    TITLE: 'MY-UI',
                     injectConfigScript: `<script src="/config.js?v=${new Date().getTime()}"></script>`,
                     ...env,
                 },
@@ -50,7 +50,7 @@ export default ({ command, mode }) => {
          * ui按需加载(自动导入)自动导入Vite的按需组件
          */
         Components({
-            resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
+            resolvers: [ElementPlusResolver({ importStyle: 'css' })],
             include: [/\.vue$/, /\.vue\?vue/],
             exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
         }),

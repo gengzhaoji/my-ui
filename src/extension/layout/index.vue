@@ -4,17 +4,14 @@
             <!-- header -->
             <el-header>
                 <el-aside class="title pointer" :width="`${aside_width}px`" @click="$router.push('/index')">
-                    <transition name="sidebarLogoFade" mode="out-in">
-                        <div v-if="collapse" key="collapse" class="flex-center">
-                            <img class="m-t-10" src="@/assets/img/logo.png" alt />
-                        </div>
-                        <div v-else key="expand" class="flex-center">
-                            <img src="@/assets/img/logo.png" class="m-t-10" v-show="theme.logo" alt />
-                            <span class="m-l-10" style="margin-top: -6px">{{ TITLE }}</span>
-                        </div>
-                    </transition>
+                    <div class="flex-center">
+                        <img src="@/assets/img/logo.png" class="m-t-10" v-show="theme.logo" alt />
+                        <span :class="['m-l-10', { titleHidden: collapse }]">
+                            {{ TITLE }}
+                        </span>
+                    </div>
                 </el-aside>
-                <el-main class="f1 w0 flex p-0 top-r">
+                <el-main class="f1 w0 flex p-0 top-r overflow-hidden">
                     <i
                         v-if="theme.collapsible && ['sidebar', 'both'].includes(theme.layout)"
                         @click.prevent="collapse = !collapse"
@@ -24,7 +21,7 @@
                         <div class="li f1 w0">
                             <my-menu
                                 v-if="['navbar'].includes(theme.layout)"
-                                :data="menus"
+                                :data="$store.guarder.Menus"
                                 :default-active="$store.user.activeMenu"
                                 :props="{ id: 'path', route: 'path' }"
                                 @select="menuTopSelect"
@@ -45,16 +42,17 @@
                         <div class="li navbar-icon-action">
                             <Screen />
                         </div>
-                        <!-- <div class="flex-center navbar-icon-action" @mouseenter="mouseEnterFn()">
-                            <el-popover :width="360" trigger="hover" :show-after="300" popper-class="proppper-class">
-                                <template #reference>
-                                    <el-badge :max="99" :value="messageNum">
-                                        <img src="@/assets/img/bell.png" :class="messageNum !== 0 ? 'animation' : ''" />
-                                    </el-badge>
-                                </template>
-                                <Messagelist :data="list" :loadFn="mouseEnterFn" />
-                            </el-popover>
-                        </div> -->
+                        <div class="li navbar-icon-action">
+                            <el-switch
+                                v-model="$store.user.theme.type"
+                                @change="$store.user.stateChange($store.user.theme)"
+                                inline-prompt
+                                active-value="light"
+                                inactive-value="dark"
+                                active-icon="Sunny"
+                                inactive-icon="Moon"
+                            />
+                        </div>
                         <div class="li flex-center navbar-icon-action">
                             <el-dropdown style="margin-top: -6px">
                                 <span style="font-size: 18px">{{ userInfo.nickName }}</span>
@@ -67,19 +65,19 @@
                                 </template>
                             </el-dropdown>
                         </div>
-                        <!-- <div class="li navbar-icon-action" @click="settingVisible = true">
+                        <div class="li navbar-icon-action" @click="settingVisible = true">
                             <el-tooltip class="item" effect="dark" content="系统设置">
                                 <el-icon><tools /></el-icon>
                             </el-tooltip>
-                        </div> -->
+                        </div>
                     </div>
                 </el-main>
             </el-header>
             <el-container class="p-0 h0">
-                <el-aside :width="`${aside_width}px`" v-if="['sidebar'].includes(theme.layout) || (['both'].includes(theme.layout) && bothRightMenus.length)">
+                <el-aside class="menu" :width="`${aside_width}px`" v-if="['sidebar'].includes(theme.layout) || (['both'].includes(theme.layout) && bothRightMenus.length)">
                     <!-- 菜单 -->
                     <my-menu
-                        :data="theme.layout === 'sidebar' ? menus : bothRightMenus"
+                        :data="theme.layout === 'sidebar' ? $store.guarder.Menus : bothRightMenus"
                         :collapse="collapse"
                         :default-active="$store.user.activeMenu"
                         @select="menuRightSelect"
@@ -105,7 +103,7 @@
         </el-container>
 
         <el-drawer title="设置" size="320px" append-to-body direction="rtl" v-model="settingVisible">
-            <div class="h100" style="background: #fff">
+            <div class="h100">
                 <Setting />
             </div>
         </el-drawer>
@@ -118,9 +116,7 @@ import myMenu from '@c/my-menu';
 import Tabs from './Tabs.vue';
 import Screen from './Screen.vue';
 import Setting from './Setting.vue';
-// import Messagelist from './Messagelist.vue';
 import { TITLE } from '@/config';
-import { pageMessage, unReadCount } from '@/api/system';
 
 const $vm = inject('$vm'),
     $route = useRoute(),
@@ -131,9 +127,7 @@ let collapse = $ref(false),
     moduleName = $ref(''),
     screenOne = $ref(true),
     settingVisible = $ref(false),
-    bothRightData = reactive({}),
-    list = $ref([]),
-    messageNum = $ref('');
+    bothRightData = reactive({});
 // 监听属性
 watch(
     () => theme.layout,
@@ -146,8 +140,7 @@ watch(
     { immediate: true }
 );
 // 计算属性
-const menus = computed(() => $vm.$store.guarder.Menus),
-    width = computed(() => {
+const width = computed(() => {
         let data = screenWidth() * 0.17;
         if (data < 250) {
             data = 250;
@@ -156,28 +149,26 @@ const menus = computed(() => $vm.$store.guarder.Menus),
         }
         return data;
     }),
-    aside_width = computed({
-        get: () => {
-            if (screenWidth() < 1300) {
-                if (screenOne) {
-                    screenOne = false;
-                    collapse = true;
-                    return '65px';
-                }
-            } else {
-                screenOne = true;
+    aside_width = computed(() => {
+        if (screenWidth() < 1300) {
+            if (screenOne) {
+                screenOne = false;
+                collapse = true;
+                return 64;
             }
-            return collapse ? '65px' : width.value;
-        },
-        set: (val) => {},
+        } else {
+            screenOne = true;
+        }
+        return collapse ? 64 : width.value;
     }),
     // 上下+左右布局 时的上面的菜单数据
     bothTopMenus = computed(() => {
-        return $vm.clone(menus).map((item) => {
+        const data = $vm.clone($vm.$store.guarder.Menus).map((item) => {
             bothRightData[item.path] = item.children;
             delete item.children;
             return item;
         });
+        return data;
     }),
     // 上下+左右布局 时的左边的菜单数据
     bothRightMenus = computed(() => bothRightData[moduleName] || []);
@@ -192,30 +183,19 @@ watch(
     },
     { immediate: true }
 );
-
-// 初始化逻辑
-// unReadCountFn();
-// let timer = setInterval(() => {
-//     unReadCountFn();
-// }, 5 * 60 * 1000);
-// 组件销毁逻辑
-// onBeforeUnmount(() => {
-//     clearInterval(timer);
-//     timer = null;
-// });
-
+// 退出登录
 function logout() {
     $vm.$$confirm('确定注销并退出系统吗？').then(() => {
         $vm.$store.user.LogOut().then(() => {
-            $vm.$router.push({
-                path: '/login',
-            });
+            $vm.$router.push('/login');
         });
     });
 }
+// 左边菜单选中事件
 function menuRightSelect(id, path) {
     $vm.$router.push(id);
 }
+// 头部菜单选中事件
 function menuTopSelect(id) {
     if (moduleName !== id) {
         moduleName = id;
@@ -238,37 +218,6 @@ function menuTopSelect(id) {
         $vm.$router.push(id);
     }
 }
-// function mouseEnterFn() {
-//     pageMessage({ isRead: 0, needCount: 0 }).then((res) => {
-//         let data = res.data.rows;
-//         messageNum = res.data.unReadTotal;
-//         data.forEach((item) => {
-//             if (item.businessCode === 1000) {
-//                 item.path = '/personnel/information';
-//                 item.link = '补全 >';
-//             } else if (item.businessCode === 1001) {
-//                 item.path = '/equipment/return';
-//                 item.link = '归还 >';
-//             } else if (item.businessCode === 1002) {
-//                 item.path = '/carrier/Creturn';
-//                 item.link = '归还 >';
-//             } else if (item.businessCode === 1003) {
-//                 item.path = '/personnel/information';
-//                 item.link = '复审 >';
-//             } else {
-//                 item.path = '';
-//                 item.link = '';
-//             }
-//         });
-//         list = data;
-//     });
-// }
-// 未读消息数量
-// function unReadCountFn() {
-//     unReadCount().then((res) => {
-//         messageNum = res.data;
-//     });
-// }
 </script>
 
 <style lang="scss" scoped>
@@ -284,14 +233,14 @@ $--line-height: var(--el-header-height);
 
     :deep(.el-header) {
         display: flex;
+        border-bottom: 1px solid var(--el-border-color);
 
         .title {
             transition: all 0.3s;
             text-align: center;
             height: $--line-height;
             line-height: $--line-height;
-            background: var(--system-logo-background);
-            color: var(--system-logo-color);
+            border-right: 1px solid var(--el-border-color);
             > div {
                 position: relative;
                 height: 100%;
@@ -302,7 +251,6 @@ $--line-height: var(--el-header-height);
                     height: 58px;
                     vertical-align: middle;
                 }
-
                 .m-l-10 {
                     font-family: 'five';
                     margin: 0;
@@ -310,13 +258,17 @@ $--line-height: var(--el-header-height);
                     font-weight: bold;
                     display: inline-block;
                     letter-spacing: 5px;
+                    margin-top: -6px;
+                    transition: all 0.3s;
+                }
+                .titleHidden {
+                    opacity: 0;
+                    width: 0;
                 }
             }
         }
 
         .top-r {
-            background: var(--system-header-background);
-            color: var(--system-header-text-color);
             .btn {
                 font-size: 20px;
                 line-height: $--line-height;
@@ -342,10 +294,6 @@ $--line-height: var(--el-header-height);
                 .navbar-icon-action {
                     font-size: 18px;
                     padding: 0 10px;
-                    color: var(--system-header-breadcrumb-text-color);
-                    &:hover {
-                        background-color: var(--system-header-item-hover-color);
-                    }
                     .animation {
                         animation: zy 2.5s 0.15s linear infinite;
                         -moz-animation: zy 2.5s 0.15s linear infinite;
@@ -364,19 +312,20 @@ $--line-height: var(--el-header-height);
         }
     }
     :deep(.el-dropdown) {
-        color: var(--system-header-breadcrumb-text-color, var(--el-text-color-regular));
+        color: var(--el-text-color-regular);
     }
 
     :deep(.el-aside) {
-        background-color: var(--system-menu-background);
         overflow-x: hidden;
         z-index: 1;
+    }
+    .menu {
+        border-right: 1px solid var(--el-border-color);
     }
 
     .main {
         padding: 0px;
         position: relative;
-        background-color: var(--system-container-background);
         overflow: hidden;
     }
 
@@ -403,8 +352,5 @@ $--line-height: var(--el-header-height);
             transform: rotate(0deg);
         }
     }
-}
-:deep(.el-drawer__body) {
-    background-color: transparent !important;
 }
 </style>
