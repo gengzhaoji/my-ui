@@ -3,7 +3,7 @@
         <el-container>
             <!-- header -->
             <el-header>
-                <el-aside class="title pointer" :width="`${aside_width}px`" @click="$router.push('/index')">
+                <el-aside class="title pointer" :width="`${aside_width}px`" @click="$router.push('/')">
                     <div class="flex-center">
                         <img src="@/assets/img/logo.png" v-show="theme.logo" alt="logo" />
                         <span :class="['m-l-10', { titleHidden: collapse }]">

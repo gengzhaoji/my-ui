@@ -148,10 +148,8 @@ service.interceptors.response.use(
         if ([401, 418].includes(code)) {
             if (code === 418) {
                 user().LogOutSET();
-                ElMessage.error('用户不存在');
-                router.replace({
-                    path: '/login',
-                });
+                router.replace('/login');
+                return Promise.resolve(msg);
             }
             if (code === 401) {
                 user()
@@ -165,10 +163,10 @@ service.interceptors.response.use(
                         });
                     });
                 cancelFn();
+                return Promise.resolve(msg);
             }
         } else if (code !== 200) {
             ElMessage.error(msg);
-            return Promise.reject('error');
         } else {
             return Promise.resolve(res.data);
         }
