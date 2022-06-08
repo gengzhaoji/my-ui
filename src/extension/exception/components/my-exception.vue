@@ -46,7 +46,7 @@ defineProps({
 });
 let time = $ref(3);
 function backHome() {
-    location.href = location.pathname;
+    location.href = location.origin;
 }
 function setTimeout_backHome() {
     setTimeout(() => {
