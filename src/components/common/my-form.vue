@@ -275,7 +275,7 @@ let formItemLen = computed(() => props.formItem.length);
 
 const attrs = useAttrs();
 const row = computed(() => {
-    if (!!attrs.row || props.formItem.some((item) => !!item.col) || colFlag) return true;
+    if (!!attrs.row || props.formItem.some((item) => !!item.col) || props.colFlag) return true;
     return false;
 });
 

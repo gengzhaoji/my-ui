@@ -51,15 +51,7 @@
                             <Screen />
                         </div>
                         <div class="li navbar-icon-action">
-                            <el-switch
-                                v-model="$store.user.theme.type"
-                                @change="nextTick($store.user.stateChange($store.user.theme))"
-                                inline-prompt
-                                active-value="light"
-                                inactive-value="dark"
-                                active-icon="Sunny"
-                                inactive-icon="Moon"
-                            />
+                            <el-switch v-model="$store.user.theme.type" inline-prompt active-value="light" inactive-value="dark" active-icon="Sunny" inactive-icon="Moon" />
                         </div>
                         <div class="li navbar-icon-action" @click="settingVisible = true">
                             <el-tooltip class="item" effect="dark" content="系统设置">
@@ -79,7 +71,7 @@
                         @select="menuRightSelect"
                         unique-opened
                     />
-                    <div v-if="theme.collapsible && ['both'].includes(theme.layout)" class="sidebar__trigger" @click="collapse = !collapse" :style="sidebarStyle">
+                    <div v-if="theme.collapsible && ['both'].includes(theme.layout)" class="sidebar__trigger" @click="collapse = !collapse">
                         <i :class="[collapse ? 'icon-menu2' : 'icon-menu', 'btn']" />
                     </div>
                 </el-aside>
@@ -182,6 +174,15 @@ watch(
     },
     { immediate: true }
 );
+// 主题切换
+watch(
+    () => $vm.$store.user.theme.type,
+    () => {
+        $vm.$store.user.stateChange($vm.$store.user.theme);
+    },
+    { immediate: true }
+);
+
 // 退出登录
 function logout() {
     $vm.$$confirm('确定注销并退出系统吗？').then(() => {

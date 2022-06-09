@@ -37,7 +37,7 @@
                         <el-button-group>
                             <my-button-export :load="Export" v-hasPermi="['system:dict:export']" />
                         </el-button-group>
-                        <my-button type="danger" :disabled="!tableSelection.length" @click.prevent="Delete" icon="Delete" v-hasPermi="['system:dict:remove']"> 删 除 </my-button>
+                        <my-button type="danger" v-show="tableSelection.length" @click.prevent="Delete" icon="Delete" v-hasPermi="['system:dict:remove']"> 删 除 </my-button>
                     </div>
                     <my-list-panel ref="table" :loadFn="loadData" :total="state.total">
                         <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">

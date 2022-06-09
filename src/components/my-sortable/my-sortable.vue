@@ -109,7 +109,7 @@ function remove(element, oldIndex) {
     list.splice(oldIndex, 1);
     const children = $el.children;
     if (children.length > 0) {
-        oldIndex > 0 ? insertAfter(element, children[oldIndex - 1]) : $el.insertBefore(element, children[0]);
+        oldIndex > 0 ? insertAfter(element, children[oldIndex - 1]) : $el?.insertBefore(element, children[0]);
     } else {
         $el.appendChild(element);
     }

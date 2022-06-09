@@ -55,9 +55,7 @@
                     <el-button-group>
                         <my-button-export :load="Export" v-hasPermi="['system:user:export']" />
                     </el-button-group>
-                    <my-button type="danger" :disabled="!tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['system:user:remove']">
-                        删 除
-                    </my-button>
+                    <my-button type="danger" v-show="tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['system:user:remove']"> 删 除 </my-button>
                 </div>
             </div>
 

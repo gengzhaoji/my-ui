@@ -198,7 +198,7 @@ function sort(type, container, data, e) {
     container.removeChild(e.item);
     const children = container.children;
     if (children.length) {
-        oldIndex > 0 ? insertAfter(e.item, children[oldIndex - 1]) : container.insertBefore(e.item, children[0]);
+        oldIndex > 0 ? insertAfter(e.item, children[oldIndex - 1]) : container?.insertBefore(e.item, children[0]);
     } else {
         container.appendChild(e.item);
     }

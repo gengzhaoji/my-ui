@@ -24,7 +24,7 @@
             <div class="p-10" v-hasPermi="['system:post:add', 'system:post:remove', 'system:post:export']">
                 <my-button type="primary" icon="Plus" @click.prevent="Add" v-hasPermi="['system:post:add']"> 新 增 </my-button>
                 <el-button-group> <my-button-export :load="Export" v-hasPermi="['system:post:export']" /> </el-button-group>
-                <my-button type="danger" :disabled="!tableSelection.length" @click.prevent="Delete" icon="Delete" v-hasPermi="['system:post:remove']"> 删 除 </my-button>
+                <my-button type="danger" v-show="tableSelection.length" @click.prevent="Delete" icon="Delete" v-hasPermi="['system:post:remove']"> 删 除 </my-button>
             </div>
             <my-list-panel ref="table" :loadFn="loadData" :total="state.total">
                 <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">

@@ -113,9 +113,7 @@ onMounted(() => {
     setupElResponsiveProxy = throttle(() => {
         screenWidth = document.getElementById('refApp').clientWidth; //窗口宽度
         screenHeight = document.getElementById('refApp').clientHeight; //窗口宽度
-        if (screenWidth > 1920) {
-            $store.user.size = 'large';
-        } else if (screenWidth > 1024 && screenWidth <= 1920) {
+        if (screenWidth > 1024) {
             $store.user.size = 'default';
         } else {
             $store.user.size = 'small';
