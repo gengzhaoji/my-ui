@@ -2,8 +2,13 @@
     <div id="layout">
         <el-container>
             <!-- header -->
-            <el-header>
-                <el-aside class="title pointer" :width="`${aside_width}px`" @click="$router.push('/')">
+            <el-header :class="[{ 'header-sidebar': !['sidebar'].includes(theme.layout) }, 'header']">
+                <el-aside
+                    class="title pointer header-sidebar"
+                    :class="{ 'title-sidebar': ['sidebar'].includes(theme.layout) }"
+                    :width="`${aside_width}px`"
+                    @click="$router.push('/')"
+                >
                     <div class="flex-center">
                         <img src="@/assets/img/logo.png" v-show="theme.logo" alt="logo" />
                         <span :class="['m-l-10', { titleHidden: collapse }]">
@@ -76,7 +81,7 @@
                     </div>
                 </el-aside>
                 <el-container>
-                    <el-header height="40px" v-if="theme.showTabs">
+                    <el-header height="40px" v-if="theme.showTabs" class="header">
                         <Tabs />
                     </el-header>
                     <el-main class="main">
@@ -132,7 +137,7 @@ watch(
 );
 // 计算属性
 const width = computed(() => {
-        let data = screenWidth() * 0.17;
+        let data = screenWidth() * 0.15;
         if (data < 200) {
             data = 200;
         } else if (data > 250) {
@@ -221,8 +226,6 @@ function menuTopSelect(id) {
 </script>
 
 <style lang="scss" scoped>
-$--line-height: var(--el-header-height);
-
 :deep(.el-aside) {
     transition: all 0.3s;
 }
@@ -231,16 +234,14 @@ $--line-height: var(--el-header-height);
     width: 100%;
     display: flex;
 
-    :deep(.el-header) {
+    .header {
         display: flex;
-        border-bottom: 1px solid var(--el-border-color);
-
+        border-bottom: 1px solid var(--el-menu-border-color);
         .title {
             transition: all 0.3s;
             text-align: center;
-            height: $--line-height;
-            line-height: $--line-height;
-            border-right: 1px solid var(--el-border-color);
+            height: calc(var(--el-header-height) - 1px);
+            line-height: calc(var(--el-header-height) - 1px);
             > div {
                 position: relative;
                 height: 100%;
@@ -264,11 +265,13 @@ $--line-height: var(--el-header-height);
                 }
             }
         }
-
+        .title-sidebar {
+            border-right: 1px solid var(--el-menu-border-color);
+        }
         .top-r {
             .btn {
                 font-size: 20px;
-                line-height: $--line-height;
+                line-height: calc(var(--el-header-height) - 1px);
                 cursor: pointer;
                 margin: 0 20px;
             }
@@ -276,7 +279,7 @@ $--line-height: var(--el-header-height);
             .message {
                 flex: 1 0 auto;
                 width: 0;
-                height: $--line-height;
+                height: calc(var(--el-header-height) - 1px);
                 text-align: right;
                 overflow-x: auto;
                 overflow-y: hidden;
@@ -284,8 +287,8 @@ $--line-height: var(--el-header-height);
 
                 .li {
                     cursor: pointer;
-                    height: $--line-height;
-                    line-height: $--line-height;
+                    height: calc(var(--el-header-height) - 1px);
+                    line-height: calc(var(--el-header-height) - 1px);
                 }
 
                 .navbar-icon-action {
@@ -308,6 +311,10 @@ $--line-height: var(--el-header-height);
             color: #b4b4b4;
         }
     }
+    .header-sidebar {
+        color: var(--el-menu-text-color);
+        background-color: var(--el-menu-bg-color);
+    }
 
     :deep(.el-dropdown) {
         color: var(--el-text-color-regular);
@@ -319,7 +326,8 @@ $--line-height: var(--el-header-height);
     }
 
     .menu {
-        border-right: 1px solid var(--el-border-color);
+        background-color: var(--el-menu-bg-color);
+        border-right: 1px solid var(--el-menu-border-color);
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -332,12 +340,12 @@ $--line-height: var(--el-header-height);
             text-align: center;
             height: 40px;
             line-height: 40px;
-            background: rgba(0, 0, 0, 0.1);
+            background: var(--el-menu-hover-bg-color);
+            color: var(--el-menu-text-color);
             cursor: pointer;
             font-size: 18px;
             &:hover {
-                background: rgba(0, 0, 0, 0.08);
-                color: #1890ff;
+                color: var(--el-menu-active-color);
             }
         }
     }

@@ -24,6 +24,7 @@ export default defineStore({
             showTabs: true, // 是否显示导航历史
             layout: 'sidebar', // 布局
             logo: true, // 显示logo
+            menuType: 'science',
         },
         // 表格自定义头部缓存数据
         columns: {},
@@ -41,6 +42,7 @@ export default defineStore({
             const body = document.documentElement;
             // 设置全局顶部body上的class名称，即为主题名称，便于自定义配置符合当前主题的样式统一入口
             body.setAttribute('class', this.theme.type);
+            body.setAttribute('id', this.theme.menuType);
             body.style.setProperty('--el-color-primary', this.theme.primaryColor);
         },
         // 页面表格头部缓存

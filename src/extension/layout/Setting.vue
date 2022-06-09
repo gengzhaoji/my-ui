@@ -10,6 +10,13 @@
             <el-radio-button label="navbar">上下</el-radio-button>
             <el-radio-button label="both">上下 + 左右</el-radio-button>
         </el-radio-group>
+        <el-divider content-position="left">配色</el-divider>
+        <el-radio-group class="three-columns" v-model="state.menuType" :size="$store.user.size">
+            <el-radio-button label="simplicity">简约</el-radio-button>
+            <el-radio-button label="science">科技</el-radio-button>
+            <el-radio-button label="major">专业</el-radio-button>
+        </el-radio-group>
+
         <el-divider content-position="left">其他设置</el-divider>
         <el-form label-width="240px" label-position="left" :size="$store.user.size">
             <el-form-item label="开启折叠">

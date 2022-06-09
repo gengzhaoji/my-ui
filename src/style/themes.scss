@@ -1,6 +1,9 @@
+:root {
+    --el-menu-item-font-size: var(--el-font-size-medium);
+}
 html.dark {
     color-scheme: dark;
-    --el-color-primary: #409eff;
+    --el-color-primary: #4458fe;
     --el-color-primary-light-3: #3375b9;
     --el-color-primary-light-5: #2a598a;
     --el-color-primary-light-7: #213d5b;
@@ -70,6 +73,31 @@ html.dark {
     --el-mask-color: rgba(0, 0, 0, 0.8);
     --el-mask-color-extra-light: rgba(0, 0, 0, 0.3);
 }
+
+html#science {
+    --el-menu-text-color: #91d5ff;
+    --el-menu-bg-color: #002766;
+    --el-menu-hover-text-color: #bae7ff;
+    --el-menu-hover-bg-color: #003a8c;
+    --el-menu-active-color: #e6f7ff;
+    --el-menu-active-bg-color: #1890ff;
+}
+html#major {
+    --el-menu-bg-color: #141414;
+    --el-menu-active-color: #409eff;
+    --el-menu-text-color: #e5eaf3;
+    --el-menu-hover-text-color: #409eff;
+    --el-menu-hover-bg-color: #18222c;
+    --el-menu-item-hover-fill: #18222c;
+}
+html.dark#major {
+    --el-menu-border-color: #ffffff26;
+}
+
+.el-menu .el-menu-item.is-active {
+    background-color: var(--el-menu-active-bg-color, var(--el-menu-hover-bg-color)) !important;
+}
+
 // 进度条颜色修改为主题色
 body #nprogress .bar {
     background-color: var(--el-color-primary) !important;
