@@ -99,7 +99,7 @@
                     class="validate--bottom"
                     row
                     :formItem="[
-                        { prop: 'nickName', label: '姓名', col },
+                        { prop: 'nickName', label: '姓名', required: true, col },
                         {
                             prop: 'deptId',
                             label: '归属部门',
@@ -112,13 +112,23 @@
                                 emitPath: false,
                                 checkStrictly: true,
                             },
+                            required: true,
                             col,
                         },
-                        { prop: 'userName', label: '登录名', show: dialog.title === '添加用户', col },
+                        { prop: 'userName', label: '登录名', show: dialog.title === '添加用户', required: true, col },
                         { prop: 'password', label: '用户密码', show: dialog.title === '添加用户', showPassword: true, col },
                         { prop: 'phonenumber', label: '手机号码', maxlength: 11, col },
                         { prop: 'email', label: '邮箱', maxlength: 50, col },
-                        { prop: 'roleIds', label: '角色', itemType: 'select', list: roleOptions, fileType: { label: 'roleName', value: 'id' }, multiple: true, col },
+                        {
+                            prop: 'roleIds',
+                            label: '角色',
+                            itemType: 'select',
+                            list: roleOptions,
+                            fileType: { label: 'roleName', value: 'id' },
+                            multiple: true,
+                            required: true,
+                            col,
+                        },
                         { prop: 'postIds', label: '岗位', itemType: 'select', list: postOptions, fileType: { label: 'postName', value: 'id' }, multiple: true, col },
                         { prop: 'status', label: '状态', col },
                         { prop: 'remark', label: '备注', type: 'textarea', col: { span: 24 } },
@@ -147,7 +157,7 @@
 import { ElMessageBox } from 'element-plus';
 import mixin from '@u/mixin';
 import { MOBILE_PHONE } from '@u/regex';
-import { pageUser, removeUser, addUser, editUser, infoUser, exportUser } from '@/api/system';
+import { pageUser as page, removeUser as remove, addUser, editUser, infoUser, exportUser } from '@/api/system';
 import { getRole, getPost, restPassword, userChangeStatus } from '@/api/public';
 import { downloadBlob } from '@u/download';
 
@@ -237,10 +247,6 @@ let deptName = $ref(''),
     }),
     // 表单校验
     rules = {
-        id: [{ required: true, message: '请选择姓名', trigger: 'change' }],
-        deptId: [{ required: true, message: '请选择归属部门', trigger: 'change' }],
-        userName: [{ required: true, message: '请输入登录名', trigger: 'change' }],
-        nickName: [{ required: true, message: '请输入姓名', trigger: 'change' }],
         password: [
             { required: true, message: '请输入用户密码', trigger: 'change' },
             {
@@ -253,7 +259,7 @@ let deptName = $ref(''),
         email: [
             {
                 type: 'email',
-                message: "'请输入正确的邮箱地址",
+                message: '请输入正确的邮箱地址',
                 trigger: 'change',
             },
         ],
@@ -264,7 +270,6 @@ let deptName = $ref(''),
                 trigger: 'change',
             },
         ],
-        roleIds: [{ required: true, message: '请选择角色', trigger: 'change' }],
     },
     // 岗位选项
     postOptions = $ref([]),
@@ -277,7 +282,7 @@ let deptName = $ref(''),
 const refTable = $ref(null);
 let tableSelection = $ref([]);
 
-const { $vm, getList, loadData, deleteFn } = mixin({ queryParams, state, api: { page: pageUser, remove: removeUser }, refTable: () => refTable });
+const { $vm, getList, loadData, deleteFn } = mixin({ queryParams, state, api: { page, remove }, refTable: () => refTable });
 
 // watch 根据名称筛选部门树
 const refTree = $ref(null);
