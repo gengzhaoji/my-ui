@@ -81,7 +81,7 @@ watch(
 );
 
 watch(
-    () => $vm.$store?.dict[dictType.replace('GET', '')] || props.$store?.com[dictType.replace('GET', '')],
+    () => $vm.$store?.dict[dictType?.replace('GET', '')] || props.$store?.com[dictType?.replace('GET', '')],
     (val) => initialization(val)
 );
 

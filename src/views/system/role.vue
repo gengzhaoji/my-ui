@@ -74,7 +74,7 @@
                     </el-form-item>
                     <el-form-item label="状态" prop="status">
                         <el-radio-group v-model="dialog.form.status">
-                            <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue">{{ dict.dictLabel }}</el-radio>
+                            <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue * 1">{{ dict.dictLabel }}</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="菜单数据">
@@ -323,7 +323,7 @@ function getRoleDeptTreeselect(roleId) {
 function StatusChange(row) {
     if (row.id) {
         let text = row.status === 0 ? '启用' : '停用';
-        $vm.$$confirm({ item: `确认要—${text}（${row.roleName}）角色吗?`, title: '警告' })
+        $vm.$$confirm({ item: `确认要—${text}（${row.roleName}）角色吗?` })
             .then(() => changeRoleStatus({ id: row.id, status: row.status }))
             .then(() => {
                 $vm.msgSuccess(text + '成功');

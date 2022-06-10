@@ -42,7 +42,7 @@
                     <my-list-panel ref="table" :loadFn="loadData" :total="state.total">
                         <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
                             <template #status="{ row }">
-                                {{ selectDictLabel($store.dict.sysNormalDisable, row.status) }}
+                                <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
                             </template>
                             <template #default="scope">
                                 <my-button-text @click.prevent="UpdateFn(scope.row)" v-hasPermi="['system:dict:edit']">修改</my-button-text>
@@ -172,6 +172,23 @@ function loadData(pageNum, pageSize) {
         state.total = res.data.total;
         state.list = res.data.rows;
     });
+}
+/**
+ * 启用、停用
+ */
+function statusFn(row) {
+    if (row.id) {
+        const text = row.status === 0 ? '启用' : '停用';
+        $vm.$$confirm(`确认要—${text}（${row.dictName}）字典吗?`)
+            .then(() => editTypedict(row))
+            .then(() => {
+                $vm.msgSuccess(text + '成功');
+            })
+            .catch(() => {
+                row.status = row.status === 0 ? 1 : 0;
+                $vm.msgInfo('已取消！');
+            });
+    }
 }
 /** 新增按钮操作 */
 function Add() {

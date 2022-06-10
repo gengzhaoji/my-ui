@@ -35,10 +35,43 @@
                     <el-tag>{{ row.menuType == 'M' ? '目录' : row.menuType == 'C' ? '菜单' : '按钮' }}</el-tag>
                 </template>
                 <template #status="{ row }">
-                    <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
+                    <el-switch
+                        v-if="['M', 'C'].includes(row.menuType)"
+                        v-model="row.status"
+                        inline-prompt
+                        :active-value="0"
+                        :inactive-value="1"
+                        active-text="启"
+                        inactive-text="停"
+                        @change="statusFn(row)"
+                    />
+                    <span v-else> </span>
                 </template>
                 <template #visible="{ row }">
-                    <el-switch v-model="row.visible" inline-prompt :active-value="0" :inactive-value="1" active-text="显" inactive-text="隐" @change="visibleFn(row)" />
+                    <el-switch
+                        v-if="['M', 'C'].includes(row.menuType)"
+                        v-model="row.visible"
+                        inline-prompt
+                        :active-value="0"
+                        :inactive-value="1"
+                        active-text="显"
+                        inactive-text="隐"
+                        @change="visibleFn(row)"
+                    />
+                    <span v-else> </span>
+                </template>
+                <template #isCache="{ row }">
+                    <el-switch
+                        v-if="['C'].includes(row.menuType)"
+                        v-model="row.isCache"
+                        inline-prompt
+                        :active-value="1"
+                        :inactive-value="0"
+                        active-text="是"
+                        inactive-text="否"
+                        @change="isCacheFn(row)"
+                    />
+                    <span v-else> </span>
                 </template>
                 <template #default="{ row }">
                     <my-button-text @click.prevent="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button-text>
@@ -266,6 +299,11 @@ let queryParams = $ref({
                 width: 80,
             },
             {
+                label: '是否缓存',
+                prop: 'isCache',
+                width: 80,
+            },
+            {
                 label: '创建时间',
                 prop: 'createTime',
                 width: 160,
@@ -317,6 +355,24 @@ function visibleFn(row) {
             })
             .catch(function () {
                 row.visible = row.visible == 0 ? 1 : 0;
+                $vm.msgInfo('已取消！');
+            });
+    }
+}
+/**
+ * 是否缓存
+ */
+function isCacheFn(row) {
+    if (row.id) {
+        const text = row.isCache == 0 ? '不缓存' : '缓存';
+        $vm.$$confirm(`确认要—${text}（${row.menuName}）该菜单吗?`)
+            .then(() => editMenu(row))
+            .then(() => {
+                $vm.msgSuccess('修改成功');
+                loadData();
+            })
+            .catch(function () {
+                row.isCache = row.isCache == 0 ? 1 : 0;
                 $vm.msgInfo('已取消！');
             });
     }

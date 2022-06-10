@@ -92,7 +92,7 @@
                     <el-col :span="12">
                         <el-form-item label="部门状态" prop="status">
                             <el-radio-group v-model="dialog.form.status">
-                                <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue">
+                                <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue * 1">
                                     {{ dict.dictLabel }}
                                 </el-radio>
                             </el-radio-group>
@@ -214,11 +214,10 @@ function getList() {
 function statusFn(row) {
     if (row.id) {
         const text = row.status === 0 ? '启用' : '停用';
-        $vm.$$confirm(`确认要—${text}（${row.deptName}）菜单吗?`)
+        $vm.$$confirm(`确认要—${text}（${row.deptName}）部门吗?`)
             .then(() => editDept(row))
             .then(() => {
                 $vm.msgSuccess(text + '成功');
-                getList();
             })
             .catch(() => {
                 row.status = row.status === 0 ? 1 : 0;

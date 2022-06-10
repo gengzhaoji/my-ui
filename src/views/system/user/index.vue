@@ -126,7 +126,7 @@
                 >
                     <template #status="{ model, prop }">
                         <el-radio-group v-model="model[prop]">
-                            <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue">
+                            <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue * 1" :label="dict.dictValue * 1">
                                 {{ dict.dictLabel }}
                             </el-radio>
                         </el-radio-group>
