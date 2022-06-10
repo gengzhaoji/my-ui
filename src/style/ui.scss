@@ -88,6 +88,9 @@
 .el-form--label-top .el-form-item__label {
     padding: 0;
 }
+.el-form-item__label {
+    align-items: center !important;
+}
 
 // bialog
 .el-dialog {

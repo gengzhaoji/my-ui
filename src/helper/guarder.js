@@ -69,9 +69,8 @@ export default function (router) {
                                     next({ ...to, replace: false }); // hack方法 确保addRoutes已完成
                                 });
                         })
-                        .catch((err) => {
+                        .catch(() => {
                             store.LogOut().then(() => {
-                                ElMessage.error(err);
                                 next({
                                     path: '/login',
                                 });

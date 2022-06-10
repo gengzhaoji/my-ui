@@ -354,6 +354,7 @@ function menuTopSelect(id) {
         padding: 0px;
         position: relative;
         overflow: hidden;
+        background-color: var(--el-bg-color-page);
     }
 
     @keyframes zy {

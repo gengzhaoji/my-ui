@@ -149,7 +149,7 @@ service.interceptors.response.use(
             if (code === 418) {
                 user().LogOutSET();
                 router.replace('/login');
-                return Promise.resolve(msg);
+                ElMessage.error(msg);
             }
             if (code === 401) {
                 user()
@@ -163,10 +163,11 @@ service.interceptors.response.use(
                         });
                     });
                 cancelFn();
-                return Promise.resolve(msg);
+                ElMessage.error(msg);
             }
         } else if (code !== 200) {
             ElMessage.error(msg);
+            return Promise.reject(res.data);
         } else {
             return Promise.resolve(res.data);
         }
