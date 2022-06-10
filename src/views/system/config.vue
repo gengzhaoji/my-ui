@@ -27,9 +27,9 @@
                         </template>
                         <template #configType="{ row }"> {{ selectDictLabel($store.dict.sysYesNo, row.configType) }} </template>
                         <template #default="{ row }">
-                            <my-button text link class="caozuo" type="primary" @click="detailFn(row)">查看</my-button>
-                            <my-button text link class="caozuo" type="primary" @click="updateFn(row)" v-hasPermi="['secrecy:config:edit']">修改</my-button>
-                            <my-button text link class="caozuo" type="primary" @click="deleteFn(row)" v-hasPermi="['secrecy:config:remove']">删除</my-button>
+                            <my-button-text @click="detailFn(row)">查看</my-button-text>
+                            <my-button-text @click="updateFn(row)" v-hasPermi="['secrecy:config:edit']">修改</my-button-text>
+                            <my-button-text @click="deleteFn(row)" v-hasPermi="['secrecy:config:remove']">删除</my-button-text>
                         </template>
                     </my-table>
                 </my-list-panel>

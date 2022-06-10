@@ -1,6 +1,8 @@
 <template>
     <el-button ref="elButton" :size="$store.user.size" v-bind="$attrs">
-        <slot></slot>
+        <template #default v-if="$slots.default">
+            <slot name="default"></slot>
+        </template>
     </el-button>
 </template>
 

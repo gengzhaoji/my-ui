@@ -80,9 +80,9 @@
                             />
                         </template>
                         <template #default="{ row }">
-                            <my-button text link type="primary" class="caozuo" @click="handleUpdate(row)" v-hasPermi="['system:user:edit']"> 修改 </my-button>
-                            <my-button text link type="primary" class="caozuo" @click="handleResetPwd(row)" v-hasPermi="['system:user:resetPwd']"> 重置 </my-button>
-                            <my-button text link type="primary" class="caozuo" @click="deleteFn(row)" v-hasPermi="['secrecy:user:remove']">删除</my-button>
+                            <my-button-text @click="handleUpdate(row)" v-hasPermi="['system:user:edit']"> 修改 </my-button-text>
+                            <my-button-text @click="handleResetPwd(row)" v-hasPermi="['system:user:resetPwd']"> 重置 </my-button-text>
+                            <my-button-text @click="deleteFn(row)" v-hasPermi="['secrecy:user:remove']">删除</my-button-text>
                         </template>
                     </my-table>
                 </template>

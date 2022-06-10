@@ -52,8 +52,8 @@
                         ></el-switch>
                     </template>
                     <template #default="{ row }">
-                        <my-button text link type="primary" class="caozuo" @click.prevent="Update(row)" v-hasPermi="['system:role:edit']">修改</my-button>
-                        <my-button text link type="primary" class="caozuo" @click.prevent="DataScope(row)" v-hasPermi="['system:role:data']">数据权限</my-button>
+                        <my-button-text @click.prevent="Update(row)" v-hasPermi="['system:role:edit']">修改</my-button-text>
+                        <my-button-text @click.prevent="DataScope(row)" v-hasPermi="['system:role:data']">数据权限</my-button-text>
                     </template>
                 </my-table>
             </my-list-panel>

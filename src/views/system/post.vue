@@ -35,7 +35,7 @@
                         {{ selectDictLabel($store.dict.sysNormalDisable, row.status) }}
                     </template>
                     <template #default="{ row }">
-                        <my-button text link type="primary" class="caozuo" @click.prevent="Update(clone(row))" v-hasPermi="['system:post:edit']"> 修改 </my-button>
+                        <my-button-text @click.prevent="Update(clone(row))" v-hasPermi="['system:post:edit']"> 修改 </my-button-text>
                     </template>
                 </my-table>
             </my-list-panel>

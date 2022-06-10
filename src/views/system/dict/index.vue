@@ -45,8 +45,8 @@
                                 {{ selectDictLabel($store.dict.sysNormalDisable, row.status) }}
                             </template>
                             <template #default="scope">
-                                <my-button text link type="primary" class="caozuo" @click.prevent="UpdateFn(scope.row)" v-hasPermi="['system:dict:edit']">修改</my-button>
-                                <my-button text link type="primary" class="caozuo" @click.prevent="DetailFn(scope.row)">详情</my-button>
+                                <my-button-text @click.prevent="UpdateFn(scope.row)" v-hasPermi="['system:dict:edit']">修改</my-button-text>
+                                <my-button-text @click.prevent="DetailFn(scope.row)">详情</my-button-text>
                             </template>
                         </my-table>
                     </my-list-panel>

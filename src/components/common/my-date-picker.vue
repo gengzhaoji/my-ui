@@ -11,7 +11,6 @@
         unlink-panels
         v-bind="$attrs"
     />
-    <!-- prefix-icon="icon-date" -->
 </template>
 
 <script setup name="my-date-picker">
