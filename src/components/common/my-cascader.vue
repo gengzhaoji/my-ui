@@ -22,18 +22,25 @@
 <script setup name="my-cascader">
 const $vm = inject('$vm');
 const emits = defineEmits(['update:modelValue', 'getLabel']);
+/***
+ * 参数属性
+ * @property {Object[]} modelValue 默认值
+ * @property {list[]} list 下拉列表数据
+ * @property {String} type store.dispatch的方法名
+ */
 const props = defineProps({
-    type: {
-        type: String,
-    },
     modelValue: null,
     list: {
         type: Array,
         default: () => [],
     },
+    type: {
+        type: String,
+    },
 });
 let options = $ref(null);
 const cascader = $ref(null);
+
 let fieldValue = computed({
     get() {
         return props.modelValue;
@@ -51,20 +58,17 @@ watch(
     { deep: true, immediate: true }
 );
 
+watch(
+    () => $vm.$store.com[props.type.replace('GET', '')],
+    (val) => {
+        options = val;
+    }
+);
+
 /**
- * GetnameList 用户树
- * GetdeptList 部门数
- * GeteqptNameTree 设备树 初始化执行逻辑
+ *  初始化执行逻辑 调用$store获取数据方法
  */
-if (props.type) {
-    $vm.$store?.com[props.type]()
-        .then((data) => {
-            options = data;
-        })
-        .catch(() => {
-            options = $vm.$store.com[props.type.replace('GET', '')];
-        });
-}
+if (props.type) $vm.$store?.com[props.type]();
 
 function cascaderChange(item) {
     emits('getLabel', cascader.getCheckedNodes()[0]?.label || '');

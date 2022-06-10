@@ -80,6 +80,11 @@ watch(
     { immediate: true }
 );
 
+watch(
+    () => $vm.$store?.dict[dictType.replace('GET', '')] || props.$store?.com[dictType.replace('GET', '')],
+    (val) => initialization(val)
+);
+
 // 获取label
 function selectChange(val) {
     emits('getLabel', options.filter((item) => item.value === val)[0]?.label);
@@ -104,13 +109,7 @@ function initialization(list = props.list) {
 // 初始化执行逻辑
 function initFn() {
     if (dictType) {
-        ($vm.$store?.dict[dictType] || $vm.$store?.com[dictType])()
-            .then((data) => {
-                initialization(data);
-            })
-            .catch(() => {
-                initialization($vm.$store?.dict[dictType.replace('GET', '')] || props.$store?.com[dictType.replace('GET', '')]);
-            });
+        ($vm.$store?.dict[dictType] || $vm.$store?.com[dictType])();
     } else {
         initialization();
     }
