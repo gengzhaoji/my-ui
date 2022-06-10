@@ -79,26 +79,6 @@ export function throttle(fn, isImmediate = false, context = this) {
 }
 
 /**
- * 回显数据字典
- * @param {*} datas 数组原始数据
- * @param {*} value 需要查找的值
- * @param {*} param2 需要对应的 val和key
- * @returns
- */
-export function selectDictLabel(datas, value, { dictValue = 'dictValue', dictLabel = 'dictLabel' } = {}) {
-    if (!['', undefined].includes(value)) {
-        var actions = [];
-        Object.keys(datas).some((key) => {
-            if (datas[key][dictValue] == value) {
-                actions.push(datas[key][dictLabel]);
-                return true;
-            }
-        });
-        return actions.join('');
-    }
-}
-
-/**
  * 回显数据字典（字符串数组）
  * @param {*} datas 数组原始数据
  * @param {*} value 需要查找的值 多个时按照separator拼接
@@ -106,7 +86,7 @@ export function selectDictLabel(datas, value, { dictValue = 'dictValue', dictLab
  * @param {*} param2 需要对应的 val和key
  * @returns
  */
-export function selectDictLabels(datas, value, separator = ',', { dictValue = 'dictValue', dictLabel = 'dictLabel' } = {}) {
+export function selectDictLabel(datas, value, separator = ',', { dictValue = 'dictValue', dictLabel = 'dictLabel' } = {}) {
     if (!['', undefined].includes(value)) {
         var actions = [];
         var temp = value?.split(separator);
@@ -117,7 +97,7 @@ export function selectDictLabels(datas, value, separator = ',', { dictValue = 'd
                 }
             });
         });
-        return actions.join('').substring(0, actions.join('').length - 1);
+        return actions.join(',');
     }
 }
 

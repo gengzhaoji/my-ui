@@ -24,22 +24,7 @@ let {
     appContext: {
         app: {
             config: {
-                globalProperties: {
-                    $$confirm,
-                    $confirm,
-                    $router,
-                    $store,
-                    addDateRange,
-                    clone,
-                    cloneDeep,
-                    getImgUrl,
-                    msgError,
-                    msgInfo,
-                    msgSuccess,
-                    resetForm,
-                    selectDictLabel,
-                    selectDictLabels,
-                },
+                globalProperties: { $$confirm, $confirm, $router, $store, addDateRange, clone, cloneDeep, getImgUrl, msgError, msgInfo, msgSuccess, resetForm, selectDictLabel },
             },
         },
     },
@@ -59,7 +44,6 @@ provide('$vm', {
     msgSuccess,
     resetForm,
     selectDictLabel,
-    selectDictLabels,
 });
 
 // 监听屏幕宽高逻辑

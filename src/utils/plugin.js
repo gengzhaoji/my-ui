@@ -11,7 +11,7 @@ import waves from './directives/waves';
 import loadmore from './directives/loadmore';
 import clipboard from './directives/clipboard';
 import { clone, cloneDeep } from '@u/convert';
-import { selectDictLabel, selectDictLabels, addDateRange } from '@u/util';
+import { selectDictLabel, addDateRange } from '@u/util';
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification];
 /**模块store数据 */
 import Com from '@s/com';
@@ -75,8 +75,6 @@ export default {
         App.config.globalProperties.cloneDeep = cloneDeep;
 
         App.config.globalProperties.selectDictLabel = selectDictLabel;
-
-        App.config.globalProperties.selectDictLabels = selectDictLabels;
 
         App.config.globalProperties.addDateRange = addDateRange;
         /**

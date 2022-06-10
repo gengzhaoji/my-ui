@@ -22,32 +22,7 @@
                             <template v-if="item.readonly || detail">
                                 <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                                 <template v-else-if="item.itemType === 'select'">
-                                    <my-select v-show="false" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
-                                    <template v-if="item.type">
-                                        <my-select v-show="false" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
-                                        <template v-if="item.multiple">
-                                            {{ selectDictLabels($store.dict[item.type.slice(3)], $attrs.model[item.prop]?.join(',')) }}
-                                        </template>
-                                        <template v-else>
-                                            {{ selectDictLabel($store.dict[item.type.slice(3)], $attrs.model[item.prop]) }}
-                                        </template>
-                                    </template>
-                                    <template v-if="item.code">
-                                        <template v-if="item.multiple">
-                                            {{ selectDictLabels($store.dict[_camelCase(item.code)], $attrs.model[item.prop]?.join(',')) }}
-                                        </template>
-                                        <template v-else>
-                                            {{ selectDictLabel($store.dict[_camelCase(item.code)], $attrs.model[item.prop]) }}
-                                        </template>
-                                    </template>
-                                    <template v-if="item.list">
-                                        <template v-if="item.multiple">
-                                            {{ selectDictLabels(item.list, $attrs.model[item.prop]?.join(',')) }}
-                                        </template>
-                                        <template v-else>
-                                            {{ selectDictLabel(item.list, $attrs.model[item.prop]) }}
-                                        </template>
-                                    </template>
+                                    {{ DictLabelFn(item) }}
                                 </template>
                                 <template v-else>{{ $attrs.model[item.prop] }}</template>
                             </template>
@@ -102,35 +77,10 @@
                         </slot>
                     </template>
                     <slot :name="item.prop" :prop="item.prop" :model="$attrs.model" :item="item">
-                        <template v-if="detail">
+                        <template v-if="item.readonly || detail">
                             <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                             <template v-else-if="item.itemType === 'select'">
-                                <my-select v-show="false" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
-                                <template v-if="item.type">
-                                    <my-select v-show="false" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
-                                    <template v-if="item.multiple">
-                                        {{ selectDictLabels($store.dict[item.type.slice(3)], $attrs.model[item.prop]?.join(',')) }}
-                                    </template>
-                                    <template v-else>
-                                        {{ selectDictLabel($store.dict[item.type.slice(3)], $attrs.model[item.prop]) }}
-                                    </template>
-                                </template>
-                                <template v-if="item.code">
-                                    <template v-if="item.multiple">
-                                        {{ selectDictLabels($store.dict[_camelCase(item.code)], $attrs.model[item.prop]?.join(',')) }}
-                                    </template>
-                                    <template v-else>
-                                        {{ selectDictLabel($store.dict[_camelCase(item.code)], $attrs.model[item.prop]) }}
-                                    </template>
-                                </template>
-                                <template v-if="item.list">
-                                    <template v-if="item.multiple">
-                                        {{ selectDictLabels(item.list, $attrs.model[item.prop]?.join(',')) }}
-                                    </template>
-                                    <template v-else>
-                                        {{ selectDictLabel(item.list, $attrs.model[item.prop]) }}
-                                    </template>
-                                </template>
+                                {{ DictLabelFn(item) }}
                             </template>
                             <template v-else>{{ $attrs.model[item.prop] }}</template>
                         </template>
@@ -158,7 +108,13 @@
                                     "
                                     >重 置</my-button
                                 >
-                                <my-button class="m-l-20" text @click.stop.prevent="toggleCollapsed" v-if="collapsible" v-show="formItem.length > currentColumn">
+                                <my-button
+                                    class="m-l-20"
+                                    text
+                                    @click.stop.prevent="currentCollapsed = !currentCollapsed"
+                                    v-if="collapsible"
+                                    v-show="formItem.length > currentColumn"
+                                >
                                     <span>
                                         {{ currentCollapsed ? '展开' : '收起' }}
                                         <el-icon>
@@ -273,12 +229,14 @@ const defaultRules = computed(() => {
 let itemWidth = computed(() => `calc(${100 / currentColumn}% - ${10 + (queryWidth + 1) / currentColumn}px) !important`);
 let formItemLen = computed(() => props.formItem.length);
 
-const attrs = useAttrs();
+// 是否使用el-row布局进行响应式页面
+const $attrs = useAttrs();
 const row = computed(() => {
-    if (!!attrs.row || props.formItem.some((item) => !!item.col) || props.colFlag) return true;
+    if (!!$attrs.row || props.formItem.some((item) => !!item.col) || props.colFlag) return true;
     return false;
 });
 
+// form-item的参数处理逻辑
 function itemFn(item) {
     const date = $vm.cloneDeep(item);
     delete date.label;
@@ -289,15 +247,21 @@ function itemFn(item) {
     delete date.required;
     return date;
 }
+
+// 下拉选择框详情显示Label函数
+function DictLabelFn(item) {
+    if (item.list) return selectDictLabel(item.list, $attrs.model[item.prop]);
+    const dictType = item.type || (item.code && `GET${_camelCase(props.code)}`);
+    $vm.$store?.dict[dictType]().then((list) => {
+        return selectDictLabel(list, $attrs.model[item.prop]);
+    });
+}
+
+let setupElResponsiveProxy, $el;
 function setupElResponsive() {
     currentColumn = calcBreakPoint($el.offsetWidth);
     queryWidth = document.getElementById(MyFormQueryId)?.offsetWidth || queryWidth;
 }
-function toggleCollapsed() {
-    currentCollapsed = !currentCollapsed;
-}
-
-let setupElResponsiveProxy, $el;
 onMounted(() => {
     $el = document.getElementById(MyFormId);
     if (props.listenEl && props.query) {
