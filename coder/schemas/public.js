@@ -101,6 +101,12 @@ module.exports = {
             path: '/system/dict/data/use/list/:dictType',
         },
         {
+            title: '多个字典key查询多个字典数据',
+            name: 'dictTypes',
+            methods: 'get',
+            path: '/system/dict/data/use/types',
+        },
+        {
             title: '用户信息',
             name: 'user',
             methods: 'get',

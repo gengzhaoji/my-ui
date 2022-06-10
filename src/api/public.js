@@ -160,6 +160,17 @@ export const getDicts = (dictType, data) => axios({
 })
 
 /**
+ * 多个字典key查询多个字典数据
+ * @param {object} [data] 发送键值对数据
+ * @returns {promise}
+ */
+export const getDictTypes = (data) => axios({
+	method: 'get',
+	data: data,
+	url: API_HOST + '/system/dict/data/use/types'
+})
+
+/**
  * 用户信息
  * @param {object} [data] 发送键值对数据
  * @returns {promise}

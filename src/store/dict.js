@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { getDicts } from '@/api/public';
+import { getDicts, getDictTypes } from '@/api/public';
 import _camelCase from 'lodash/camelCase';
 import dict from '@/config/dict';
 
@@ -18,6 +18,15 @@ export default defineStore({
     id: 'dict',
     state: () => state,
     actions: {
+        // 多个字典key查询多个字典数据
+        getDictTypesFn(itemList) {
+            const data = itemList.filter((item) => !this[_camelCase(item)].length);
+            getDictTypes({ dictTypes: data.join(',') }).then((res) => {
+                for (let key in res.data) {
+                    this[_camelCase(key)] = res.data[key];
+                }
+            });
+        },
         // 字典接口
         getDictsFn({ data, key }) {
             return new Promise((resolve, reject) => {

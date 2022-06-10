@@ -666,14 +666,3 @@ export const useDataConfig = (data) => axios({
 	data: data,
 	url: API_HOST + '/system/config/use/data'
 })
-
-/**
- * 获取消息-分页分页列表
- * @param {object} [data] 发送键值对数据
- * @returns {promise}
- */
-export const pageMessage = (data) => axios({
-	method: 'get',
-	data: data,
-	url: API_HOST + '/message/info/page'
-})
