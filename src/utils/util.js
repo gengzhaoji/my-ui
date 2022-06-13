@@ -89,8 +89,8 @@ export function throttle(fn, isImmediate = false, context = this) {
 export function selectDictLabel(datas, value, separator = ',', { dictValue = 'dictValue', dictLabel = 'dictLabel' } = {}) {
     if (!['', undefined].includes(value)) {
         var actions = [];
-        var temp = value?.split(separator);
-        Object.keys(value?.split(separator)).some((val) => {
+        var temp = String(value)?.split(separator);
+        Object.keys(String(value)?.split(separator)).some((val) => {
             Object.keys(datas).some((key) => {
                 if (datas[key][dictValue] == temp[val]) {
                     actions.push(datas[key][dictLabel]);
