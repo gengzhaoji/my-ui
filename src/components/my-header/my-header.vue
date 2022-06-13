@@ -322,7 +322,7 @@ $border-radius: 0.4rem;
     }
 
     @include when(background) {
-        background: var(--color-table-header);
+        background: var(--el-fill-color-lighter, var(--el-border-color-lighter));
     }
 
     @include when(large) {

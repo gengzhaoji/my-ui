@@ -174,7 +174,7 @@ module.exports = {
         },
         {
             title: '根据部门id查询人员列表',
-            name: 'workerList',
+            name: 'List',
             methods: 'worker',
             path: '/system/worker/workerList',
         },

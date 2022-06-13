@@ -1,5 +1,5 @@
 <template>
-    <div class="my-pager" v-show="visible" :id="myPagerId">
+    <div class="my-pager f0" v-show="visible" :id="myPagerId">
         <el-pagination
             :small="small"
             ref="pager"

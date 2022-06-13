@@ -285,7 +285,7 @@ export const uploadAvatar = (data) => axios({
  * @param {object} [data] 发送键值对数据
  * @returns {promise}
  */
-export const workerWorkerList = (data) => axios({
+export const workerList = (data) => axios({
 	method: 'get',
 	data: data,
 	url: API_HOST + '/system/worker/workerList'
