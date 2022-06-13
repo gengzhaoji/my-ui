@@ -61,7 +61,7 @@ watch(
 watch(
     () => $vm.$store.com[props.type?.replace('GET', '')],
     (val) => {
-        options = val;
+       if(props.type) options = val;
     },
     { deep: true, immediate: true }
 );

@@ -82,7 +82,9 @@ watch(
 
 watch(
     () => $vm.$store?.dict[dictType?.replace('GET', '')] || props.$store?.com[dictType?.replace('GET', '')],
-    (val) => initialization(val),
+    (val) => {
+        if (dictType) initialization(val);
+    },
     { deep: true, immediate: true }
 );
 
