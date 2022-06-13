@@ -23,6 +23,7 @@
                                 <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                                 <template v-else-if="item.itemType === 'select'">
                                     {{ DictLabelFn(item) }}
+                                    {{ selectDictLabel(item.list || $store?.dict[item.type || _camelCase(item.code)], $attrs.model[item.prop]) }}
                                 </template>
                                 <template v-else>{{ $attrs.model[item.prop] }}</template>
                             </template>
@@ -81,6 +82,7 @@
                             <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                             <template v-else-if="item.itemType === 'select'">
                                 {{ DictLabelFn(item) }}
+                                {{ selectDictLabel(item.list || $store?.dict[item.type || _camelCase(item.code)], $attrs.model[item.prop]) }}
                             </template>
                             <template v-else>{{ $attrs.model[item.prop] }}</template>
                         </template>
@@ -250,11 +252,8 @@ function itemFn(item) {
 
 // 下拉选择框详情显示Label函数
 function DictLabelFn(item) {
-    if (item.list) return selectDictLabel(item.list, $attrs.model[item.prop]);
-    const dictType = item.type || (item.code && `GET${_camelCase(props.code)}`);
-    $vm.$store?.dict[dictType]().then((list) => {
-        return selectDictLabel(list, $attrs.model[item.prop]);
-    });
+    const dictType = item.type || (item.code && `GET${_camelCase(item.code)}`);
+    if (dictType) $vm.$store?.dict[dictType]();
 }
 
 let setupElResponsiveProxy, $el;

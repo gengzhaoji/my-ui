@@ -92,8 +92,8 @@ export function selectDictLabel(datas, value, separator = ',', { dictValue = 'di
         var temp = value?.split(separator);
         Object.keys(value?.split(separator)).some((val) => {
             Object.keys(datas).some((key) => {
-                if (datas[key][dictValue] == '' + temp[val]) {
-                    actions.push(datas[key][dictLabel] + separator);
+                if (datas[key][dictValue] == temp[val]) {
+                    actions.push(datas[key][dictLabel]);
                 }
             });
         });
