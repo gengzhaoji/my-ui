@@ -405,10 +405,7 @@ let dialog = $ref({
         orderNum: [{ required: true, message: '菜单顺序不能为空', trigger: 'change' }],
         path: [{ required: true, message: '路由地址不能为空', trigger: 'change' }],
     },
-    menuOptions = computed(() => {
-        if (state.list.length) return [{ id: '0', menuName: '主类目', children: state.list }];
-        return [{ id: '0', menuName: '主类目' }];
-    });
+    menuOptions = computed(() => (state.list.length ? [{ id: '0', menuName: '主类目', children: state.list }] : [{ id: '0', menuName: '主类目' }]));
 
 watch(
     () => dialog.form.parentId,
