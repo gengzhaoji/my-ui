@@ -111,14 +111,16 @@ function handleChange(data) {
             rdfileDataUpload(formdata)
                 .then((res) => {
                     if (props.limit === 1) fileList = [];
-                    fileList.push({
-                        id: res.data.id,
-                        downloadUrl: res.data.downloadUrl,
-                        fileName: res.data.fileName.split('.')[0],
-                        fileSizeFormat: res.data.fileSizeFormat,
-                        fileSize: res.data.fileSize,
+                    nextTick(() => {
+                        fileList.push({
+                            id: res.data.id,
+                            downloadUrl: res.data.downloadUrl,
+                            fileName: res.data.fileName.split('.')[0],
+                            fileSizeFormat: res.data.fileSizeFormat,
+                            fileSize: res.data.fileSize,
+                        });
+                        updateFn();
                     });
-                    updateFn();
                 })
                 .finally(() => {
                     loading = false;

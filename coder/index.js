@@ -200,8 +200,8 @@ function parseModel(model, name) {
                     options: options,
                     methodType: method,
                     httpMethod: httpMethod,
-                    upperSnakeCaseName: toUpperSnakeCaseName(method + '_' + model.name),
-                    camelCaseName: toCamelCase(method + '_' + model.name),
+                    upperSnakeCaseName: toUpperSnakeCaseName(method + '_' + (model.name ?? '')),
+                    camelCaseName: toCamelCase(method + '_' + (model.name ?? '')),
                     title: model.title,
                 });
             });

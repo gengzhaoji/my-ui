@@ -1,13 +1,14 @@
 <template>
-    <div class="upload-file" v-loading="loading">
+    <div class="upload-file w100" v-loading="loading">
         <el-upload
             v-if="!exportShow"
             ref="upload"
             action
             class="avatar-uploader"
             auto-upload
+            :limit="limit"
+            :file-list="fileList"
             :on-change="handleChange"
-            :http-request="fileUpload"
             :show-file-list="false"
             :on-exceed="exceedFn"
             v-bind="$attrs"
@@ -30,7 +31,7 @@
         </el-upload>
         <!-- 上传的文件列表 -->
         <div v-if="fileList.length" class="fileList">
-            <transition-group appear name="fade-transform">
+            <transition-group name="fade-transform" mode="out-in" appear>
                 <div class="fileList_item" v-for="(file, index) in fileList" :key="file.id + index" @click.prevent="previewFn(file, index)">
                     <Files style="height: 1em; margin-right: 8px; margin-top: 3px" />
                     <el-tooltip :content="`${file.fileName}${file.fileSuffix}`" placement="top" :disabled="isDisabled">
@@ -96,11 +97,10 @@ const emits = defineEmits(['update:modelValue']),
      * @property {Boolean} isShowTip 是否显示上传框的提示（默认为true）
      * @property {Boolean} download 是否允许下载文件（默认为true）
      * @property {Boolean} disabled 是否允许操作（上传文件等操作，如果不传默认按照form表单的disabled值）
-     * @property {Boolean} astrict 是否上传多个附件（上传文件等操作，如果为true就替换上一次上传的附件）
-     *
+     * @property {Number} limit 上传附件数量
      */
     props = defineProps({
-        modelValue: [Array],
+        modelValue: [Array, String],
         fileSize: {
             type: Number,
             default: 100,
@@ -118,9 +118,9 @@ const emits = defineEmits(['update:modelValue']),
             default: true,
         },
         disabled: Boolean,
-        astrict: {
-            type: Boolean,
-            default: false,
+        limit: {
+            type: Number,
+            default: 1,
         },
     });
 // 文件上传弹窗数据
@@ -150,55 +150,34 @@ function exceedFn(files, fileList) {
     const file = files[0];
     file.uid = genFileId();
     upload.handleStart(file);
-    // $vm.msgInfo(`最多只能上传${attrs.limit}条数据！`);
 }
-
+// 文件上传
 function handleChange(data) {
-    if (data.raw && props.astrict) {
+    if (data.raw) {
         if (handleBeforeUpload(data.raw)) {
             loading = true;
             let formdata = new FormData();
             formdata.append('file', data.raw);
             rdfileDataUpload(formdata)
                 .then((res) => {
-                    fileList = [];
-                    fileList.push({
-                        id: res.data.id,
-                        downloadUrl: res.data.downloadUrl,
-                        fileName: res.data.fileName.split('.')[0],
-                        fileSizeFormat: res.data.fileSizeFormat,
-                        fileSize: res.data.fileSize,
+                    if (props.limit === 1) fileList = [];
+                    nextTick(() => {
+                        fileList.push({
+                            id: res.data.id,
+                            downloadUrl: res.data.downloadUrl,
+                            fileName: res.data.fileName.split('.')[0],
+                            fileSizeFormat: res.data.fileSizeFormat,
+                            fileSize: res.data.fileSize,
+                        });
+                        updateFn();
                     });
-                    updateFn();
                 })
                 .finally(() => {
                     loading = false;
                 });
-        }
-    }
-}
-// 文件上传
-function fileUpload(data) {
-    if (data.file && !props.astrict) {
-        if (handleBeforeUpload(data.file)) {
-            loading = true;
-            let formdata = new FormData();
-            formdata.append('file', data.file);
-            rdfileDataUpload(formdata)
-                .then((res) => {
-                    fileList.push({
-                        id: `${res.data.id}`,
-                        fileSuffix: res.data.fileSuffix,
-                        downloadUrl: res.data.downloadUrl,
-                        fileName: res.data.fileName.split('.')[0],
-                        fileSizeFormat: res.data.fileSizeFormat,
-                        fileSize: res.data.fileSize,
-                    });
-                    updateFn();
-                })
-                .finally(() => {
-                    loading = false;
-                });
+        } else {
+            if (props.limit === 1) fileList = [];
+            updateFn();
         }
     }
 }
@@ -261,7 +240,13 @@ function downloadFn(data) {
 function closeFn(index) {
     $vm.$$confirm('此操作将删除该数据, 是否继续?')
         .then(() => {
-            fileList.splice(index, 1);
+            upload.clearFiles();
+            if (props.limit === 1) {
+                fileList = [];
+            } else {
+                const index = fileList.findIndex((item) => item.id === file.id);
+                fileList.splice(index, 1);
+            }
             updateFn();
             $vm.msgSuccess('删除成功');
         })

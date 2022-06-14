@@ -15,7 +15,7 @@ function typeFn(data) {
  * @param {String} id 表格数据的唯一标识，用于数据删除使用
  * @param {Object} dialog 页面数据新增时的弹窗数据，用于弹窗显示、隐藏和弹窗的title计算
  * @param {html} refTable 表格分页组件的dom数据，用户操作查询和重置分页查询等工能
- * @param {html} refDialogForm 新增弹窗的form表单的dom数据，用户新增，修改等表单校验，因为响应式问题，所以需要传递function(){return}return该值
+ * @param {html} refDialogFrom 新增弹窗的form表单的dom数据，用户新增，修改等表单校验，因为响应式问题，所以需要传递function(){return}return该值
  * @returns
  */
 export default function ({
@@ -32,7 +32,7 @@ export default function ({
         title: '窗口',
     },
     refTable,
-    refDialogForm,
+    refDialogFrom,
 } = {}) {
     const $vm = inject('$vm');
     let dialogTitle = computed(() => {
@@ -85,7 +85,7 @@ export default function ({
     }
     // 新增信息
     function insertFn() {
-        $vm.resetForm(typeFn(refDialogForm));
+        $vm.resetForm(typeFn(refDialogFrom));
         dialog.name = 'insert';
         dialog.open = true;
         dialog.form.id = undefined;
@@ -160,7 +160,7 @@ export default function ({
     }
     // 弹窗提交函数
     function dialogSubmitFn() {
-        const DialogForm = typeFn(refDialogForm),
+        const DialogForm = typeFn(refDialogFrom),
             Form = DialogForm?.$refs?.refMyForm || DialogForm;
         Form.validate((valid) => {
             if (valid) {
