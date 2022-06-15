@@ -69,7 +69,6 @@
 <script setup name="config">
 import { addConfig, removeConfig, editConfig, pageConfig } from '@/api/system';
 import mixin from '@/utils/mixin';
-const vm = inject('$vm');
 
 let queryParams = $ref({
         likeConfigName: '',
@@ -114,7 +113,6 @@ let queryParams = $ref({
             },
         ],
     }),
-    loading = $ref(false),
     // 弹出层
     dialog = $ref({
         title: '参数配置',
@@ -129,7 +127,7 @@ const refTable = $ref(null),
     refDialogFrom = $ref(null);
 
 let tableSelection = $ref([]);
-const { $vm, dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dialogSubmitFn } = mixin({
+const { dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dialogSubmitFn } = mixin({
     queryParams,
     state,
     api: { page: pageConfig, remove: removeConfig, add: addConfig, edit: editConfig },
