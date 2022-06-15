@@ -36,8 +36,8 @@
             <my-list-panel ref="refTable" :loadFn="loadData" :total="state.total">
                 <template #default="{ page, size }">
                     <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
-                        <template #index="scope">
-                            {{ scope.$index + 1 + (page - 1) * size }}
+                        <template #index="{ $index }">
+                            {{ $index + 1 + (page - 1) * size }}
                         </template>
                         <template #status="{ row }">
                             {{ selectDictLabel($store.dict.sysCommonStatus, row.status) }}

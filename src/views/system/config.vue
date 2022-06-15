@@ -22,9 +22,6 @@
             <div class="f1 h0 flex-col">
                 <my-list-panel ref="refTable" :total="state.total" :loadFn="loadData">
                     <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
-                        <template #index="{ $index }">
-                            {{ $index + 1 + (refTable.currentPage - 1) * refTable.pageSize }}
-                        </template>
                         <template #configType="{ row }"> {{ selectDictLabel($store.dict.sysYesNo, row.configType) }} </template>
                         <template #default="{ row }">
                             <my-button-text @click="detailFn(row)">查看</my-button-text>
@@ -36,9 +33,9 @@
             </div>
         </div>
         <!-- 添加或修改部门对话框 -->
-        <el-dialog :title="dialogTitle" v-model="dialog.open" width="500px" append-to-body @close="resetForm(refDialogForm)">
+        <el-dialog :title="dialogTitle" v-model="dialog.open" width="500px" append-to-body @close="resetForm(refDialogFrom)">
             <my-form
-                ref="refDialogForm"
+                ref="refDialogFrom"
                 :model="dialog.form"
                 label-width="80px"
                 :disabled="['detail'].includes(dialog.name)"
@@ -129,7 +126,7 @@ let queryParams = $ref({
     });
 
 const refTable = $ref(null),
-    refDialogForm = $ref(null);
+    refDialogFrom = $ref(null);
 
 let tableSelection = $ref([]);
 const { $vm, dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dialogSubmitFn } = mixin({
@@ -138,7 +135,7 @@ const { $vm, dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dial
     api: { page: pageConfig, remove: removeConfig, add: addConfig, edit: editConfig },
     dialog,
     refTable: () => refTable,
-    refDialogForm: () => refDialogForm,
+    refDialogFrom: () => refDialogFrom,
 });
 // 初始化执行逻辑
 $vm.$store.dict.GETsysYesNo();

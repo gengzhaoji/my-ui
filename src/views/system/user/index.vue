@@ -62,8 +62,8 @@
             <my-list-panel ref="refTable" :loadFn="loadData" :total="state.total">
                 <template #default="{ page, size }">
                     <my-table :data="state.list" :columns="state.columns" :initColumns="state.columns" @selection-change="(val) => (tableSelection = val)">
-                        <template #index="scope">
-                            {{ scope.$index + 1 + (page - 1) * size }}
+                        <template #index="{ $index }">
+                            {{ $index + 1 + (page - 1) * size }}
                         </template>
                         <template #sex="{ row }">
                             {{ selectDictLabel($store.dict.sysUserSex, row.sex) }}
@@ -89,10 +89,10 @@
             </my-list-panel>
         </div>
         <!-- 添加或修改参数配置对话框 -->
-        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(refDialogForm)">
+        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(refDialogFrom)">
             <div v-loading="loading">
                 <my-form
-                    ref="refDialogForm"
+                    ref="refDialogFrom"
                     :model="dialogForm"
                     :rules="rules"
                     label-width="80px"
@@ -337,7 +337,7 @@ function insertFn() {
         }),
     ]);
 }
-const refDialogForm = $ref(null);
+const refDialogFrom = $ref(null);
 /** 修改按钮操作 */
 function handleUpdate(row) {
     loading = true;
@@ -369,7 +369,7 @@ function handleResetPwd(row) {
 }
 /** 提交按钮 */
 function submitForm() {
-    refDialogForm.$refs.refMyForm.validate((valid) => {
+    refDialogFrom.$refs.refMyForm.validate((valid) => {
         if (valid) {
             const data = dialog.title === '修改用户';
             (data ? editUser : addUser)(dialogForm).then((res) => {

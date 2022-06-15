@@ -28,16 +28,6 @@ export default defineStore({
                 // 向后端请求路由数据
                 homeRouters().then((res) => {
                     if (res?.data?.length) {
-                        // 默认添加首页-个人信息-消息
-                        res.data.unshift({
-                            component: 'system/user/profile/index',
-                            isCache: 0,
-                            menuName: '个人信息',
-                            menuType: 'C',
-                            parentId: '0',
-                            path: 'profile',
-                            visible: 1,
-                        });
                         const { Menus, Routes } = filterAsyncRouter(clone(res.data));
                         this.Menus = Menus;
                         // 添加首页路由、404路由

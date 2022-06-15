@@ -8,6 +8,38 @@ import guarder from '@/helper/guarder.js';
 // 公共路由
 export const constantRoutes = [
     {
+        path: '/',
+        name: 'profile',
+        component: Layout,
+        children: [
+            {
+                path: 'profile',
+                name: 'profile',
+                component: () => import('../views/system/user/profile/index.vue'),
+                meta: {
+                    title: '个人信息',
+                    hideTabs: true,
+                },
+            },
+        ],
+    },
+    {
+        path: '/',
+        name: 'msgcenter',
+        component: Layout,
+        children: [
+            {
+                path: 'msgcenter',
+                name: 'msgcenter',
+                component: () => import('../views/system/msgcenter.vue'),
+                meta: {
+                    title: '消息中心',
+                    hideTabs: true,
+                },
+            },
+        ],
+    },
+    {
         path: '/login',
         name: '/login',
         component: () => import('../extension/login/login.vue'),

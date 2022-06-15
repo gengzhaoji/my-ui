@@ -46,11 +46,16 @@
                                 <el-icon class="m-l-4"><arrow-down /></el-icon>
                                 <template #dropdown>
                                     <el-dropdown-menu>
-                                        <el-dropdown-item @click="$router.push('/system/profile')"> 个人中心 </el-dropdown-item>
+                                        <el-dropdown-item @click="$router.push('/profile')"> 个人中心 </el-dropdown-item>
                                         <el-dropdown-item @click="logout" divided> 退出登录 </el-dropdown-item>
                                     </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
+                        </div>
+                        <div class="flex-center navbar-icon-action pointer" @click="$router.push('/msgcenter')">
+                            <el-badge :max="99" :value="messageNum">
+                                <img src="@/assets/img/bell.png" :class="messageNum !== 0 ? 'animation' : ''" />
+                            </el-badge>
                         </div>
                         <div class="li navbar-icon-action">
                             <Screen />

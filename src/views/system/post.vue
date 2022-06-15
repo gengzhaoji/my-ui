@@ -28,9 +28,6 @@
             </div>
             <my-list-panel ref="table" :loadFn="loadData" :total="state.total">
                 <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
-                    <template #index="{ $index }">
-                        {{ $index + 1 + ($refs.table.currentPage - 1) * $refs.table.pageSize }}
-                    </template>
                     <template #status="{ row }">
                         <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
                     </template>
