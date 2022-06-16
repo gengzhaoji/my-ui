@@ -138,7 +138,7 @@ let showTip = $computed(() => props.isShowTip && (props.fileType ?? props.fileSi
 watch(
     () => props.modelValue,
     (val) => {
-        fileList = val ?? [];
+        if (val) fileList = $vm.clone(val);
     },
     { deep: true, immediate: true }
 );

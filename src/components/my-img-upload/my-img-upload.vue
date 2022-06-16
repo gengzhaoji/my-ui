@@ -89,7 +89,7 @@ let myImgUploadDisabled = $computed(() => props.disabled || elForm?.disabled),
 watch(
     () => props.modelValue,
     (val) => {
-        fileList = val ?? [];
+        if (val) fileList = $vm.clone(val);
     },
     { deep: true, immediate: true }
 );
