@@ -108,7 +108,7 @@ function filterAsyncRouter(data) {
             let layout = !layoutPath ? shallowRef(Layout) : layoutPath == 'ParentView' ? shallowRef(ParentView) : modules[`../views/${layoutPath}.vue`];
             let Path = !/^(\/)/.test(path) ? `/${path}` : path;
             RoutesData[id] = {
-                path: '/',
+                path: Path,
                 name: Path,
                 component: layout,
                 parentId: '0',
@@ -117,8 +117,8 @@ function filterAsyncRouter(data) {
                         component: component,
                         hidden: visible == 1,
                         meta: { title: menuName, icon, keepAlive: isCache == 1 },
-                        name: Path,
-                        path: Path,
+                        name: '',
+                        path: '',
                         orderNum,
                         id,
                     },
