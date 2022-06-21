@@ -89,7 +89,7 @@
                     <el-header height="40px" v-if="theme.showTabs" class="header">
                         <Tabs />
                     </el-header>
-                    <el-main class="main">
+                    <el-main class="main" id="ContentArea">
                         <!--内容区-->
                         <router-view v-slot="{ Component }">
                             <transition name="fade-transform" mode="out-in" appear>

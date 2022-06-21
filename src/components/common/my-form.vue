@@ -22,8 +22,13 @@
                             <template v-if="item.readonly || detail">
                                 <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                                 <template v-else-if="item.itemType === 'select'">
-                                    {{ DictLabelFn(item) }}
-                                    {{ selectDictLabel(item.list || $store?.dict[item.type || _camelCase(item.code)], $attrs.model[item.prop]) }}
+                                    {{
+                                        DictLabelFn(item) &&
+                                        selectDictLabel(
+                                            item.list || $store?.dict[item.type?.slice(3) || _camelCase(item.code)] || $store?.com[item.type?.slice(3) || _camelCase(item.code)],
+                                            $attrs.model[item.prop]
+                                        )
+                                    }}
                                 </template>
                                 <template v-else>{{ $attrs.model[item.prop] }}</template>
                             </template>
@@ -50,6 +55,7 @@
                                 />
                                 <my-date-picker v-else-if="item.itemType === 'date'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
                                 <my-file-upload v-else-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" />
+                                <my-img-upload v-else-if="item.itemType === 'img'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" />
                                 <my-input v-else v-model="$attrs.model[item.prop]" :placeholder="`请输入${item.label}`" v-bind="itemFn(item)" />
                             </template>
                         </slot>
@@ -81,8 +87,13 @@
                         <template v-if="item.readonly || detail">
                             <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                             <template v-else-if="item.itemType === 'select'">
-                                {{ DictLabelFn(item) }}
-                                {{ selectDictLabel(item.list || $store?.dict[item.type || _camelCase(item.code)], $attrs.model[item.prop]) }}
+                                {{
+                                    DictLabelFn(item) &&
+                                    selectDictLabel(
+                                        item.list || $store?.dict[item.type?.slice(3) || _camelCase(item.code)] || $store?.com[item.type?.slice(3) || _camelCase(item.code)],
+                                        $attrs.model[item.prop]
+                                    )
+                                }}
                             </template>
                             <template v-else>{{ $attrs.model[item.prop] }}</template>
                         </template>
@@ -92,6 +103,7 @@
                             <my-input-number v-else-if="item.itemType === 'number'" v-model="$attrs.model[item.prop]" :placeholder="`请输入${item.label}`" v-bind="itemFn(item)" />
                             <my-date-picker v-else-if="item.itemType === 'date'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
                             <my-file-upload v-else-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" />
+                            <my-img-upload v-else-if="item.itemType === 'img'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" />
                             <my-input v-else v-model="$attrs.model[item.prop]" :placeholder="`请输入${item.label}`" v-bind="itemFn(item)" />
                         </template>
                     </slot>
@@ -219,7 +231,7 @@ const defaultRules = computed(() => {
                 rules[item.prop] = {
                     required: true,
                     message: `${item.label}不能为空`,
-                    trigger: item.trigger ? item.trigger : ['cascader', 'select', 'date', 'file'].includes(item.itemType) ? 'change' : 'blur',
+                    trigger: item.trigger ? item.trigger : ['cascader', 'select', 'date', 'file', 'img'].includes(item.itemType) ? 'change' : 'blur',
                 };
             }
         });
@@ -253,7 +265,10 @@ function itemFn(item) {
 // 下拉选择框详情显示Label函数
 function DictLabelFn(item) {
     const dictType = item.type || (item.code && `GET${_camelCase(item.code)}`);
-    if (dictType) $vm.$store?.dict[dictType]();
+    if (dictType) {
+        ($vm.$store?.dict[dictType] || $vm.$store?.com[dictType])();
+        return true;
+    }
 }
 
 let setupElResponsiveProxy, $el;

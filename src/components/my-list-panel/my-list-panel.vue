@@ -1,5 +1,5 @@
 <template>
-    <div class="f1 h0 flex-col system-page-background" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="Loading">
+    <div class="f1 h0 flex-col system-page-background">
         <slot :size="pageSize" :page="currentPage"></slot>
         <div class="p-10" v-if="pager">
             <my-pager :layout="layout" :total="total" :size="pageSize" :page="currentPage" @current-change="handlePageChange" @size-change="handleSizeChange" v-bind="$attrs">
@@ -64,8 +64,7 @@ const props = defineProps({
 });
 
 let currentPage = $ref(1),
-    pageSize = $ref(props.size),
-    loading = $ref(false);
+    pageSize = $ref(props.size);
 
 // 是否为最后一页
 const lastcurrentPage = computed(() => currentPage === Math.ceil(props.total / pageSize));
@@ -75,11 +74,8 @@ const lastcurrentPage = computed(() => currentPage === Math.ceil(props.total / p
  * @Function loadData
  */
 function loadData() {
-    if (!props.loadFn || loading) return;
-    loading = true;
-    props.loadFn(currentPage, pageSize).finally(() => {
-        loading = false;
-    });
+    if (!props.loadFn) return;
+    props.loadFn(currentPage, pageSize);
 }
 /**
  * 分页器页码变动是触发的函数

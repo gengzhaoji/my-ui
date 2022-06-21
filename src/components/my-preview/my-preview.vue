@@ -2,7 +2,7 @@
     <el-dialog v-model="dialogVisible" title="文件预览" :fullscreen="type !== 'image'" v-bind="$attrs">
         <template v-if="type === 'image'">
             <!-- 图片预览 -->
-            <img style="max-height: 500px; max-width: 500px; display: block; margin: 0 auto" :src="url" alt />
+            <el-image :src="url" fit="contain" preview-teleported />
         </template>
         <template v-if="type === 'pdf'">
             <!-- PDF图片预览 -->

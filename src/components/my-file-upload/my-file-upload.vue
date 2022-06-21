@@ -1,5 +1,5 @@
 <template>
-    <div class="upload-file w100" v-loading="loading">
+    <div class="upload-file w100">
         <el-upload
             v-if="!exportShow"
             ref="upload"
@@ -128,7 +128,6 @@ let dialogImageUrl = $ref(''),
     dialogVisible = $ref(false),
     dialogVisiblePdf = $ref(false),
     fileList = $ref([]),
-    loading = $ref(false),
     editIndex = $ref(null),
     isDisabled = $ref(true);
 // 是否显示提示
@@ -155,26 +154,21 @@ function exceedFn(files, fileList) {
 function handleChange(data) {
     if (data.raw) {
         if (handleBeforeUpload(data.raw)) {
-            loading = true;
             let formdata = new FormData();
             formdata.append('file', data.raw);
-            rdfileDataUpload(formdata)
-                .then((res) => {
-                    if (props.limit === 1) fileList = [];
-                    nextTick(() => {
-                        fileList.push({
-                            id: res.data.id,
-                            downloadUrl: res.data.downloadUrl,
-                            fileName: res.data.fileName.split('.')[0],
-                            fileSizeFormat: res.data.fileSizeFormat,
-                            fileSize: res.data.fileSize,
-                        });
-                        updateFn();
+            rdfileDataUpload(formdata).then((res) => {
+                if (props.limit === 1) fileList = [];
+                nextTick(() => {
+                    fileList.push({
+                        id: res.data.id,
+                        downloadUrl: res.data.downloadUrl,
+                        fileName: res.data.fileName.split('.')[0],
+                        fileSizeFormat: res.data.fileSizeFormat,
+                        fileSize: res.data.fileSize,
                     });
-                })
-                .finally(() => {
-                    loading = false;
+                    updateFn();
                 });
+            });
         } else {
             if (props.limit === 1) fileList = [];
             updateFn();
@@ -231,10 +225,7 @@ function previewFn(file, index) {
 }
 // 文件下载
 function downloadFn(data) {
-    loading = true;
-    downloadGet({ url: data.downloadUrl, fileName: data.fileName + data.fileSuffix }).finally(() => {
-        loading = false;
-    });
+    downloadGet({ url: data.downloadUrl, fileName: data.fileName + data.fileSuffix });
 }
 // 删除文件
 function closeFn(index) {

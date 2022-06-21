@@ -90,59 +90,57 @@
         </div>
         <!-- 添加或修改参数配置对话框 -->
         <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(refDialogFrom)">
-            <div v-loading="loading">
-                <my-form
-                    ref="refDialogFrom"
-                    :model="dialogForm"
-                    :rules="rules"
-                    label-width="80px"
-                    class="validate--bottom"
-                    row
-                    :formItem="[
-                        { prop: 'nickName', label: '姓名', required: true, col },
-                        {
-                            prop: 'deptId',
-                            label: '归属部门',
-                            itemType: 'cascader',
-                            type: 'GETdeptTree',
-                            props: {
-                                expandTrigger: 'hover',
-                                value: 'id',
-                                label: 'deptName',
-                                emitPath: false,
-                                checkStrictly: true,
-                            },
-                            required: true,
-                            col,
+            <my-form
+                ref="refDialogFrom"
+                :model="dialogForm"
+                :rules="rules"
+                label-width="80px"
+                class="validate--bottom"
+                row
+                :formItem="[
+                    { prop: 'nickName', label: '姓名', required: true, col },
+                    {
+                        prop: 'deptId',
+                        label: '归属部门',
+                        itemType: 'cascader',
+                        type: 'GETdeptTree',
+                        props: {
+                            expandTrigger: 'hover',
+                            value: 'id',
+                            label: 'deptName',
+                            emitPath: false,
+                            checkStrictly: true,
                         },
-                        { prop: 'userName', label: '登录名', show: dialog.title === '添加用户', required: true, col },
-                        { prop: 'password', label: '用户密码', show: dialog.title === '添加用户', showPassword: true, col },
-                        { prop: 'phonenumber', label: '手机号码', maxlength: 11, col },
-                        { prop: 'email', label: '邮箱', maxlength: 50, col },
-                        {
-                            prop: 'roleIds',
-                            label: '角色',
-                            itemType: 'select',
-                            list: roleOptions,
-                            fileType: { label: 'roleName', value: 'id' },
-                            multiple: true,
-                            required: true,
-                            col,
-                        },
-                        { prop: 'postIds', label: '岗位', itemType: 'select', list: postOptions, fileType: { label: 'postName', value: 'id' }, multiple: true, col },
-                        { prop: 'status', label: '状态', col },
-                        { prop: 'remark', label: '备注', type: 'textarea', col: { span: 24 } },
-                    ]"
-                >
-                    <template #status="{ model, prop }">
-                        <el-radio-group v-model="model[prop]">
-                            <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue * 1" :label="dict.dictValue * 1">
-                                {{ dict.dictLabel }}
-                            </el-radio>
-                        </el-radio-group>
-                    </template>
-                </my-form>
-            </div>
+                        required: true,
+                        col,
+                    },
+                    { prop: 'userName', label: '登录名', show: dialog.title === '添加用户', required: true, col },
+                    { prop: 'password', label: '用户密码', show: dialog.title === '添加用户', showPassword: true, col },
+                    { prop: 'phonenumber', label: '手机号码', maxlength: 11, col },
+                    { prop: 'email', label: '邮箱', maxlength: 50, col },
+                    {
+                        prop: 'roleIds',
+                        label: '角色',
+                        itemType: 'select',
+                        list: roleOptions,
+                        fileType: { label: 'roleName', value: 'id' },
+                        multiple: true,
+                        required: true,
+                        col,
+                    },
+                    { prop: 'postIds', label: '岗位', itemType: 'select', list: postOptions, fileType: { label: 'postName', value: 'id' }, multiple: true, col },
+                    { prop: 'status', label: '状态', col },
+                    { prop: 'remark', label: '备注', type: 'textarea', col: { span: 24 } },
+                ]"
+            >
+                <template #status="{ model, prop }">
+                    <el-radio-group v-model="model[prop]">
+                        <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue * 1" :label="dict.dictValue * 1">
+                            {{ dict.dictLabel }}
+                        </el-radio>
+                    </el-radio-group>
+                </template>
+            </my-form>
             <template #footer>
                 <div class="dialog-footer">
                     <my-button type="primary" @click.prevent="submitForm"> 确 定 </my-button>
@@ -276,8 +274,7 @@ let deptName = $ref(''),
     // 角色选项
     roleOptions = $ref([]),
     // 关联人员信息
-    workerList = $ref([]),
-    loading = $ref(false);
+    workerList = $ref([]);
 
 const refTable = $ref(null);
 let tableSelection = $ref([]);
@@ -340,21 +337,16 @@ function insertFn() {
 const refDialogFrom = $ref(null);
 /** 修改按钮操作 */
 function handleUpdate(row) {
-    loading = true;
-    Promise.all([getPost(), getRole(), infoUser({ id: row.id })])
-        .then((res) => {
-            dialog.open = true;
-            dialog.title = '修改用户';
-            nextTick(() => {
-                postOptions = res[0].data;
-                roleOptions = res[1].data.filter((item) => item.id !== 100 && item.roleName !== '超级管理员');
-                dialogForm = res[2].data;
-                dialogForm.oldUserId = row.id;
-            });
-        })
-        .finally(() => {
-            loading = false;
+    Promise.all([getPost(), getRole(), infoUser({ id: row.id })]).then((res) => {
+        dialog.open = true;
+        dialog.title = '修改用户';
+        nextTick(() => {
+            postOptions = res[0].data;
+            roleOptions = res[1].data.filter((item) => item.id !== 100 && item.roleName !== '超级管理员');
+            dialogForm = res[2].data;
+            dialogForm.oldUserId = row.id;
         });
+    });
 }
 /** 重置密码按钮操作 */
 function handleResetPwd(row) {

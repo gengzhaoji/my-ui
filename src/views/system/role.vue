@@ -61,7 +61,7 @@
 
         <!-- 添加或修改角色配置对话框 -->
         <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(form)">
-            <div v-loading="loading">
+            <div>
                 <el-form ref="form" :model="dialog.form" :rules="rules" label-width="80px" class="validate--bottom dialog-form">
                     <el-form-item label="角色名称" prop="roleName">
                         <my-input v-model="dialog.form.roleName" placeholder="请输入角色名称" />
@@ -252,8 +252,7 @@ let menuOptions = $ref([]),
         menuNodeAll: false,
         deptExpand: true,
         deptNodeAll: false,
-    }),
-    loading = $ref(false);
+    });
 
 const refTable = $ref(null),
     refMenu = $ref(null),
@@ -398,7 +397,6 @@ function Add() {
 }
 /** 修改按钮操作 */
 function Update(row, type) {
-    loading = true;
     const roleId = row.id;
     const roleTreeInfo = getRoleMenuTreeselect(roleId);
     Promise.all([
@@ -414,9 +412,7 @@ function Update(row, type) {
                 refMenu.setCheckedKeys(res.data.ruleMenuIds);
             });
         }),
-    ]).finally(() => {
-        loading = false;
-    });
+    ]);
 }
 /** 分配数据权限操作 */
 function DataScope(row) {

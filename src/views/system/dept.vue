@@ -25,7 +25,6 @@
             </div>
             <div class="f1 h0 flex-col">
                 <my-table
-                    v-loading="loading"
                     :data="state.list"
                     :columns="state.columns"
                     row-key="id"
@@ -143,7 +142,6 @@ let deptOptions = $ref([]),
             },
         ],
     }),
-    loading = $ref(false),
     // 弹出层
     dialog = $ref({
         title: '',
@@ -201,11 +199,9 @@ const $vm = inject('$vm');
 
 /** 查询部门列表 */
 function getList() {
-    loading = true;
     pageDept(queryParams).then((res) => {
         state.list = res.data.rows;
         $vm.$store.com.deptTree = [];
-        loading = false;
     });
 }
 /**
