@@ -108,13 +108,13 @@ service.interceptors.request.use(
             config.headers['Authorization'] = 'Bearer ' + token; // 让每个请求携带自定义token
         }
 
-        // 创建全局loading
-        if (axiosPromiseArr.size === 0)
+        // 创建全局loading，排除不需要loading的接口
+        if (axiosPromiseArr.size === 0 && !['/auth/login', '/auth/logout', '/captcha/image', '/system/user/profile/info', '/home/routers'].includes(config.url)) {
             loadingInstance = ElLoading.service({
                 text: '拼命加载中',
-                spinner: 'Loading',
                 target: '#ContentArea',
             });
+        }
 
         // 联合登陆携带une
         if (une) config.headers['une'] = une;

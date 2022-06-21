@@ -16,7 +16,13 @@
             <el-icon><Plus /></el-icon>
             <!-- 缩略图模板的内容 -->
             <template #file="{ file }">
-                <el-image :src="file.downloadUrl" :preview-src-list="fileList.map((item) => item.downloadUrl)" fit="cover" preview-teleported />
+                <el-image
+                    :src="file.downloadUrl"
+                    :preview-src-list="fileList.map((item) => item.downloadUrl)"
+                    :initial-index="fileList.findIndex((item) => item.downloadUrl === file.downloadUrl)"
+                    fit="cover"
+                    preview-teleported
+                />
                 <span class="el-upload-list__item-actions" v-if="!myImgUploadDisabled">
                     <span class="el-upload-list__item-delete" @click="handleDownload(file)">
                         <el-icon><Download /></el-icon>
