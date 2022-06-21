@@ -313,7 +313,7 @@ onMounted(() => {
     props.columnSortable && initColumnSortable();
     props.rowSortable && initRowSortable();
     proxyHandleScroll = debounce(handleScroll, 20, false);
-    bodyWrapper = myTable.$refs.bodyWrapper;
+    bodyWrapper = myTable.$refs.bodyWrapper.querySelector('.el-scrollbar .el-scrollbar__wrap');
     bodyWrapper.addEventListener('scroll', proxyHandleScroll);
 });
 onBeforeUnmount(() => {

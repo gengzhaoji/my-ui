@@ -77,13 +77,17 @@ export default {
         App.config.globalProperties.selectDictLabel = selectDictLabel;
 
         App.config.globalProperties.addDateRange = addDateRange;
+
         /**
          * vite动态加载图片静态文件
-         * @param {*} path
+         * @param {string} path 文件路径
+         * @param {string} suffix 文件类型（后缀）只能为svg、png、jpg，默认为svg
          * @returns
          */
-        App.config.globalProperties.getImgUrl = function (path) {
-            return import.meta.globEager('../assets/img/**/*.svg')[path].default;
+        App.config.globalProperties.getImgUrl = (path, suffix = 'svg') => {
+            if (suffix === 'svg') return import.meta.globEager('../assets/img/**/*.svg')[path].default;
+            if (suffix === 'png') return import.meta.globEager('../assets/img/**/*.png')[path].default;
+            if (suffix === 'jpg') return import.meta.globEager('../assets/img/**/*.jpg')[path].default;
         };
 
         App.config.globalProperties.$$confirm = function (data) {
