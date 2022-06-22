@@ -137,7 +137,14 @@ let showTip = $computed(() => props.isShowTip && (props.fileType ?? props.fileSi
 watch(
     () => props.modelValue,
     (val) => {
-        if (val) fileList = $vm.clone(val);
+        if (val)
+            fileList = val.map((item) => ({
+                id: item.id,
+                downloadUrl: item.downloadUrl,
+                fileName: item.fileName,
+                fileSizeFormat: item.fileSizeFormat,
+                fileSize: item.fileSize,
+            }));
     },
     { deep: true, immediate: true }
 );

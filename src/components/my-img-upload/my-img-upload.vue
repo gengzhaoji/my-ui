@@ -71,7 +71,6 @@ const emits = defineEmits(['update:modelValue']),
         },
         limit: {
             type: Number,
-            default: 1,
         },
         disabled: Boolean,
     });
@@ -88,7 +87,14 @@ let myImgUploadDisabled = $computed(() => props.disabled || elForm?.disabled),
 watch(
     () => props.modelValue,
     (val) => {
-        if (val) fileList = $vm.clone(val);
+        if (val)
+            fileList = val.map((item) => ({
+                id: item.id,
+                downloadUrl: item.downloadUrl,
+                fileName: item.fileName,
+                fileSizeFormat: item.fileSizeFormat,
+                fileSize: item.fileSize,
+            }));
     },
     { deep: true, immediate: true }
 );
@@ -178,12 +184,32 @@ function updateFn() {
 </script>
 
 <style lang="scss" scoped>
-:deep() {
-    .is-disabled .el-upload--picture-card {
-        display: none;
+.upload-file {
+    width: 100%;
+    overflow-x: auto;
+    > div {
+        width: 100%;
     }
-    .el-upload-list--picture-card .el-upload-list__item {
-        display: inline-flex !important;
+    :deep() {
+        .is-disabled .el-upload--picture-card {
+            display: none !important;
+        }
+        .el-upload-list--picture-card {
+            flex-wrap: nowrap;
+            width: 100%;
+            overflow: auto;
+            .el-upload-list__item,
+            .el-upload--picture-card {
+                flex-grow: 0;
+                -webkit-box-flex: 0;
+                -webkit-flex-grow: 0;
+                -ms-flex-positive: 0;
+                flex-grow: 0;
+                -webkit-flex-shrink: 0;
+                -ms-flex-negative: 0;
+                flex-shrink: 0;
+            }
+        }
     }
 }
 </style>
