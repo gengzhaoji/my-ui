@@ -90,7 +90,7 @@ watch(
 
 // 获取label
 function selectChange(val) {
-    emits('getLabel', options.filter((item) => item.value === val)[0]?.label);
+    emits('getLabel', options.find((item) => item.value === val)?.label);
 }
 function fileTypeFn(data, fileType = props.fileType) {
     return data.map((val, i) => ({
