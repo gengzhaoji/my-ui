@@ -26,7 +26,8 @@
                 lazy
                 :load="(tree, treeNode, resolve) => resolve(tree.children)"
                 row-key="id"
-                :tree-props="{ children: 'lazyChildren', hasChildren: 'hasChildren' }"
+                :expand-row-keys="expandRowkeys"
+                @expand-change="expandChangeFn"
             >
                 <template #icon="{ row }">
                     <i :class="row.icon" />
@@ -74,9 +75,9 @@
                     <span v-else> </span>
                 </template>
                 <template #default="{ row }">
-                    <my-button-text @click.prevent="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button-text>
-                    <my-button-text @click.prevent="Add(row)" v-if="row.menuType !== 'F'" v-hasPermi="['system:menu:add']">新增</my-button-text>
-                    <my-button-text @click.prevent="Delete(row)" v-if="!row.children.length" v-hasPermi="['system:menu:remove']">删除</my-button-text>
+                    <my-button type="text" class="caozuo" @click.prevent="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button>
+                    <my-button type="text" class="caozuo" @click.prevent="Add(row)" v-if="row.menuType !== 'F'" v-hasPermi="['system:menu:add']">新增</my-button>
+                    <my-button type="text" class="caozuo" @click.prevent="Delete(row)" v-if="!row.children.length" v-hasPermi="['system:menu:remove']">删除</my-button>
                 </template>
             </my-table>
         </div>
@@ -314,7 +315,15 @@ let queryParams = $ref({
             },
         ],
     }),
-    loading = $ref(false);
+    loading = $ref(false),
+    expandRowkeys = $ref([]);
+function expandChangeFn(row, expanded) {
+    if (expanded) {
+        expandRowkeys.push(row.id);
+    } else {
+        expandRowkeys.replace(expandRowkeys.indexOf(row.id), 1);
+    }
+}
 function loadData() {
     loading = true;
     pageMenu(queryParams).then((res) => {
@@ -405,7 +414,7 @@ let dialog = $ref({
         orderNum: [{ required: true, message: '菜单顺序不能为空', trigger: 'change' }],
         path: [{ required: true, message: '路由地址不能为空', trigger: 'change' }],
     },
-    menuOptions = computed(() => (state.list.length ? [{ id: '0', menuName: '主类目', children: state.list }] : [{ id: '0', menuName: '主类目' }]));
+    menuOptions = $computed(() => (state.list.length ? [{ id: '0', menuName: '主类目', children: state.list }] : [{ id: '0', menuName: '主类目' }]));
 
 watch(
     () => dialog.form.parentId,
