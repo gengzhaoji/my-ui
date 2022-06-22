@@ -5,6 +5,7 @@
         @keyup.enter="query ? $emit('searchFn') : ''"
         :rules="defaultRules"
         :validate-on-rule-change="false"
+        :disabled="detail"
         v-bind="$attrs"
         :class="[query ? 'query' : 'validate--bottom']"
     >
@@ -19,8 +20,9 @@
                 >
                     <el-form-item :prop="item.prop" :label="detail ? `${item.label}：` : item.label">
                         <slot :name="item.prop" :model="$attrs.model" :prop="item.prop" :item="item">
-                            <template v-if="item.readonly || detail">
+                            <template v-if="item.disabled || detail">
                                 <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
+                                <my-img-upload v-else-if="item.itemType === 'img'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                                 <template v-else-if="item.itemType === 'select'">
                                     {{
                                         DictLabelFn(item) &&
@@ -84,8 +86,9 @@
                         </slot>
                     </template>
                     <slot :name="item.prop" :prop="item.prop" :model="$attrs.model" :item="item">
-                        <template v-if="item.readonly || detail">
+                        <template v-if="item.disabled || detail">
                             <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
+                            <my-img-upload v-else-if="item.itemType === 'img'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                             <template v-else-if="item.itemType === 'select'">
                                 {{
                                     DictLabelFn(item) &&
