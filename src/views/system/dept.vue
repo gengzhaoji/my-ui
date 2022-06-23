@@ -30,7 +30,8 @@
                     row-key="id"
                     lazy
                     :load="(tree, treeNode, resolve) => resolve(tree.children)"
-                    :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+                    :expand-row-keys="expandRowkeys"
+                    @expand-change="expandChangeFn"
                 >
                     <template #status="{ row }">
                         <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
@@ -196,6 +197,16 @@ let deptOptions = $ref([]),
         ],
     };
 const $vm = inject('$vm');
+
+// 树形表格展开问题
+let expandRowkeys = $ref([]);
+function expandChangeFn(row, expanded) {
+    if (expanded) {
+        expandRowkeys.push(row.id);
+    } else {
+        expandRowkeys.replace(expandRowkeys.indexOf(row.id), 1);
+    }
+}
 
 /** 查询部门列表 */
 function getList() {

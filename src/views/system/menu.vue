@@ -315,8 +315,10 @@ let queryParams = $ref({
             },
         ],
     }),
-    loading = $ref(false),
-    expandRowkeys = $ref([]);
+    loading = $ref(false);
+
+// 树形表格展开问题
+let expandRowkeys = $ref([]);
 function expandChangeFn(row, expanded) {
     if (expanded) {
         expandRowkeys.push(row.id);
@@ -324,6 +326,7 @@ function expandChangeFn(row, expanded) {
         expandRowkeys.replace(expandRowkeys.indexOf(row.id), 1);
     }
 }
+
 function loadData() {
     loading = true;
     pageMenu(queryParams).then((res) => {
