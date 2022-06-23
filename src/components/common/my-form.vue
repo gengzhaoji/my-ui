@@ -101,8 +101,20 @@
                             <template v-else>{{ $attrs.model[item.prop] }}</template>
                         </template>
                         <template v-else>
-                            <my-cascader v-if="item.itemType === 'cascader'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
-                            <my-select v-else-if="item.itemType === 'select'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
+                            <my-cascader
+                                v-if="item.itemType === 'cascader'"
+                                v-model="$attrs.model[item.prop]"
+                                :placeholder="`请选择${item.label}`"
+                                @getLabel="item?.getLabel"
+                                v-bind="itemFn(item)"
+                            />
+                            <my-select
+                                v-else-if="item.itemType === 'select'"
+                                v-model="$attrs.model[item.prop]"
+                                :placeholder="`请选择${item.label}`"
+                                @getLabel="item?.getLabel"
+                                v-bind="itemFn(item)"
+                            />
                             <my-input-number v-else-if="item.itemType === 'number'" v-model="$attrs.model[item.prop]" :placeholder="`请输入${item.label}`" v-bind="itemFn(item)" />
                             <my-date-picker v-else-if="item.itemType === 'date'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
                             <my-file-upload v-else-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" />
