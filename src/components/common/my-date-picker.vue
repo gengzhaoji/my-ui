@@ -5,6 +5,7 @@
         v-model="fieldValue"
         :shortcuts="shortcuts"
         :value-format="valueFormat"
+        :format="valueFormat"
         :size="$store.user.size"
         clearable
         :editable="false"
@@ -58,8 +59,8 @@ let fieldValue = computed({
         if (isArray === '') {
             isArray = Array.isArray(props.modelValue) || new RegExp('range', 'gi').test(attrs.type);
         }
-        if (isArray && typeof props.modelValue === 'string') {
-            return [props.modelValue];
+        if (isArray && ['string', 'undefined'].includes(typeof props.modelValue)) {
+            return props.modelValue ? [props.modelValue] : [];
         } else {
             return props.modelValue;
         }

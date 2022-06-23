@@ -88,13 +88,14 @@ watch(
     () => props.modelValue,
     (val) => {
         if (val)
-            fileList = val.map((item) => ({
-                id: item.id,
-                downloadUrl: item.downloadUrl,
-                fileName: item.fileName,
-                fileSizeFormat: item.fileSizeFormat,
-                fileSize: item.fileSize,
-            }));
+            fileList =
+                val?.map((item) => ({
+                    id: item.id,
+                    downloadUrl: item.downloadUrl,
+                    fileName: item.fileName,
+                    fileSizeFormat: item.fileSizeFormat,
+                    fileSize: item.fileSize,
+                })) || [];
     },
     { deep: true, immediate: true }
 );

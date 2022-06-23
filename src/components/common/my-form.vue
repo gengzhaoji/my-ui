@@ -24,8 +24,8 @@
                                 <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                                 <my-img-upload v-else-if="item.itemType === 'img'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                                 <template v-else-if="item.itemType === 'select'">
+                                    {{ DictLabelFn(item) }}
                                     {{
-                                        DictLabelFn(item) &&
                                         selectDictLabel(
                                             item.list || $store?.dict[item.type?.slice(3) || _camelCase(item.code)] || $store?.com[item.type?.slice(3) || _camelCase(item.code)],
                                             $attrs.model[item.prop]
@@ -90,8 +90,8 @@
                             <my-file-upload v-if="item.itemType === 'file'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                             <my-img-upload v-else-if="item.itemType === 'img'" v-model="$attrs.model[item.prop]" v-bind="itemFn(item)" disabled />
                             <template v-else-if="item.itemType === 'select'">
+                                {{ DictLabelFn(item) }}
                                 {{
-                                    DictLabelFn(item) &&
                                     selectDictLabel(
                                         item.list || $store?.dict[item.type?.slice(3) || _camelCase(item.code)] || $store?.com[item.type?.slice(3) || _camelCase(item.code)],
                                         $attrs.model[item.prop]
@@ -280,10 +280,7 @@ function itemFn(item) {
 // 下拉选择框详情显示Label函数
 function DictLabelFn(item) {
     const dictType = item.type || (item.code && `GET${_camelCase(item.code)}`);
-    if (dictType) {
-        ($vm.$store?.dict[dictType] || $vm.$store?.com[dictType])();
-        return true;
-    }
+    if (dictType) ($vm.$store?.dict[dictType] || $vm.$store?.com[dictType])();
 }
 
 let setupElResponsiveProxy, $el;
