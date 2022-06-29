@@ -2,7 +2,7 @@
     <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" :size="$store.user.size" v-bind="tableOptions" :key="i">
         <template v-for="col in displayColumns" :key="`${col.prop}-${col.type}`">
             <!-- col 没有children 属性 -->
-            <el-table-column v-if="!col.children" show-overflow-tooltip resizable v-bind="col">
+            <el-table-column v-if="!col.children" resizable v-bind="col">
                 <template #header="scope" v-if="!col.type">
                     <slot :name="`${col.prop || 'default'}_header`" v-bind="scope">
                         {{ col.label }}

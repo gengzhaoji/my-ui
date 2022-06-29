@@ -323,7 +323,7 @@ function expandChangeFn(row, expanded) {
     if (expanded) {
         expandRowkeys.push(row.id);
     } else {
-        expandRowkeys.replace(expandRowkeys.indexOf(row.id), 1);
+        expandRowkeys.splice(expandRowkeys.indexOf(row.id), 1);
     }
 }
 
