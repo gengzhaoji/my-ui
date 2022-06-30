@@ -11,9 +11,9 @@
                 >
                     <div class="flex-center">
                         <img src="@/assets/img/logo.png" v-show="theme.logo" alt="logo" />
-                        <span :class="['m-l-10', { titleHidden: collapse }]">
-                            {{ TITLE }}
-                        </span>
+                        <transition name="el-zoom-in-center">
+                            <span class="m-l-10" v-show="!collapse">{{ TITLE }}</span>
+                        </transition>
                     </div>
                 </el-aside>
                 <el-main class="f1 w0 flex p-0 top-r overflow-hidden">
@@ -73,14 +73,15 @@
             </el-header>
             <el-container class="p-0 h0">
                 <el-aside class="menu" :width="`${aside_width}px`" v-if="['sidebar'].includes(theme.layout) || (['both'].includes(theme.layout) && bothRightMenus.length)">
-                    <!-- 菜单 -->
-                    <my-menu
-                        :data="theme.layout === 'sidebar' ? $store.guarder.Menus : bothRightMenus"
-                        :collapse="collapse"
-                        :default-active="$store.user.activeMenu"
-                        @select="menuRightSelect"
-                        unique-opened
-                    />
+                    <transition name="el-zoom-in-center">
+                        <my-menu
+                            :data="theme.layout === 'sidebar' ? $store.guarder.Menus : bothRightMenus"
+                            :collapse="collapse"
+                            :default-active="$store.user.activeMenu"
+                            @select="menuRightSelect"
+                            unique-opened
+                        />
+                    </transition>
                     <div v-if="theme.collapsible && ['both'].includes(theme.layout)" class="sidebar__trigger" @click="collapse = !collapse">
                         <i :class="[collapse ? 'icon-menu2' : 'icon-menu', 'btn']" />
                     </div>
@@ -228,6 +229,9 @@ function menuTopSelect(id) {
         $vm.$router.push(id);
     }
 }
+
+// 消息提醒
+let messageNum = $ref(0);
 </script>
 
 <style lang="scss" scoped>
@@ -263,10 +267,6 @@ function menuTopSelect(id) {
                     font-weight: bold;
                     display: inline-block;
                     transition: all 0.3s;
-                }
-                .titleHidden {
-                    opacity: 0;
-                    width: 0;
                 }
             }
         }

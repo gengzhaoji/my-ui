@@ -24,22 +24,6 @@ export const constantRoutes = [
         ],
     },
     {
-        path: '/msgcenter',
-        name: '/msgcenter',
-        component: Layout,
-        children: [
-            {
-                path: '',
-                name: '',
-                component: () => import('../views/system/msgcenter.vue'),
-                meta: {
-                    title: '消息中心',
-                    hideTabs: true,
-                },
-            },
-        ],
-    },
-    {
         path: '/login',
         name: '/login',
         component: () => import('../extension/login/login.vue'),

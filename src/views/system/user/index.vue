@@ -325,6 +325,7 @@ function insertFn() {
     dialog.open = true;
     dialog.title = '添加用户';
     dialogForm.id = undefined;
+    dialogForm.deptId = queryParams.deptId;
     Promise.all([
         getPost().then((res) => {
             postOptions = res.data;

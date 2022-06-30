@@ -41,6 +41,9 @@
 .el-menu--horizontal {
     height: var(--el-header-height);
     border-bottom: 0;
+    & > .el-sub-menu .el-sub-menu__title:hover {
+        background-color: var(--el-menu-hover-bg-color);
+    }
 }
 .el-menu--horizontal > .el-menu-item.is-active,
 .el-menu--horizontal > .el-sub-menu.is-active .el-sub-menu__title {

@@ -239,7 +239,7 @@
 </template>
 
 <script setup name="Menu">
-import { pageMenu, infoMenu, removeMenu, addMenu, editMenu } from '@/api/system';
+import { listMenu, infoMenu, removeMenu, addMenu, editMenu } from '@/api/system';
 import icons from '@/config/icons';
 const $vm = inject('$vm');
 
@@ -258,7 +258,8 @@ let queryParams = $ref({
             {
                 label: '菜单名称',
                 prop: 'menuName',
-                width: 150,
+                showOverflowTooltip: true,
+                width: 180,
             },
             {
                 label: '图标',
@@ -314,8 +315,7 @@ let queryParams = $ref({
                 width: 180,
             },
         ],
-    }),
-    loading = $ref(false);
+    });
 
 // 树形表格展开问题
 let expandRowkeys = $ref([]);
@@ -328,11 +328,9 @@ function expandChangeFn(row, expanded) {
 }
 
 function loadData() {
-    loading = true;
-    pageMenu(queryParams).then((res) => {
-        state.list = res.data.rows;
+    listMenu(queryParams).then((res) => {
+        state.list = res.data;
         $vm.$store.guarder.GenerateRoutes();
-        loading = false;
     });
 }
 /**

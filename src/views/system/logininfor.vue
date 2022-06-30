@@ -56,7 +56,6 @@ import { downloadBlob } from '@u/download';
 
 // 查询参数
 let queryParams = $ref({
-        needCount: 1,
         likeIpaddr: '',
         likeUserName: '',
         likeBrowser: '',

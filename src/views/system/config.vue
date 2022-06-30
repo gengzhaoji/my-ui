@@ -127,7 +127,7 @@ const refTable = $ref(null),
     refDialogFrom = $ref(null);
 
 let tableSelection = $ref([]);
-const { dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dialogSubmitFn } = mixin({
+const { $vm, dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dialogSubmitFn } = mixin({
     queryParams,
     state,
     api: { page: pageConfig, remove: removeConfig, add: addConfig, edit: editConfig },

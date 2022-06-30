@@ -78,7 +78,7 @@
 </template>
 
 <script setup name="Data">
-import { pageDatadict, removeDatadict, addDatadict, editDatadict, infoDatadict, infoTypedict, pageTypedict } from '@/api/system';
+import { pageDatadict, removeDatadict, addDatadict, editDatadict, infoTypedict, pageTypedict } from '@/api/system';
 
 const props = defineProps({
     routerMage: {
