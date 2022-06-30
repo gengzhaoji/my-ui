@@ -137,21 +137,15 @@
                                     "
                                     >重 置</my-button
                                 >
-                                <my-button
-                                    class="m-l-20"
-                                    text
-                                    @click.stop.prevent="currentCollapsed = !currentCollapsed"
-                                    v-if="collapsible"
-                                    v-show="formItem.length > currentColumn"
-                                >
-                                    <span>
+                                <template v-if="collapsible && formItem.length > currentColumn">
+                                    <my-button class="m-l-20" link type="primary" @click.stop.prevent="currentCollapsed = !currentCollapsed">
                                         {{ currentCollapsed ? '展开' : '收起' }}
                                         <el-icon>
                                             <arrow-down v-show="currentCollapsed" />
                                             <arrow-up v-show="!currentCollapsed" />
                                         </el-icon>
-                                    </span>
-                                </my-button>
+                                    </my-button>
+                                </template>
                             </div>
                         </el-form-item>
                     </slot>

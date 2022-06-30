@@ -1,5 +1,5 @@
 <template>
-    <el-button ref="elButton" text link class="caozuo" type="primary" :size="$store.user.size" v-bind="$attrs">
+    <el-button ref="elButton" link class="caozuo" type="primary" :size="$store.user.size" v-bind="$attrs">
         <template #default v-if="$slots.default">
             <slot name="default"></slot>
         </template>
