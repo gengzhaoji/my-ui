@@ -1,26 +1,19 @@
 <template>
-    <el-cascader
-        ref="cascader"
+    <el-tree-select
+        ref="TreeSelect"
         v-model="fieldValue"
-        :options="options"
-        :props="{
-            expandTrigger: 'hover',
-            value: 'id',
-            emitPath: false,
-            checkStrictly: true,
-        }"
-        :show-all-levels="false"
-        filterable
+        :data="options"
         clearable
+        filterable
+        check-strictly
         collapse-tags
         collapse-tags-tooltip
         :size="$store.user.size"
-        @change="cascaderChange"
         v-bind="$attrs"
     />
 </template>
 
-<script setup name="my-cascader">
+<script setup name="my-tree-select">
 const $vm = inject('$vm');
 const emits = defineEmits(['update:modelValue', 'getLabel']);
 /***
@@ -30,31 +23,26 @@ const emits = defineEmits(['update:modelValue', 'getLabel']);
  * @property {String} type store.dispatch的方法名
  */
 const props = defineProps({
-        modelValue: null,
-        list: {
-            type: Array,
-            default: () => [],
-        },
-        type: {
-            type: String,
-        },
-    }),
-    cascader = $ref(null),
-    attrs = useAttrs();
+    modelValue: null,
+    list: {
+        type: Array,
+        default: () => [],
+    },
+    type: {
+        type: String,
+    },
+});
+let options = $ref(null);
+const TreeSelect = $ref(null);
 
 let fieldValue = computed({
     get() {
         return props.modelValue;
     },
     set(val) {
-        // 单选时选中关闭cascader
-        if (!attrs?.props?.multiple) cascader.popperVisible = false;
         emits('update:modelValue', val);
     },
 });
-
-// 数据源
-let options = $ref(null);
 watch(
     () => props.list,
     (val) => {
@@ -75,12 +63,4 @@ watch(
  *  初始化执行逻辑 调用$store获取数据方法
  */
 if (props.type) $vm.$store?.com[props.type]();
-
-function cascaderChange() {
-    if (!attrs.props?.multiple) {
-        emits('getLabel', cascader.getCheckedNodes()[0]?.[attrs.props?.label || 'label'] || '');
-    } else {
-        emits('getLabel', cascader.getCheckedNodes() || []);
-    }
-}
 </script>

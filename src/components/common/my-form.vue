@@ -35,6 +35,7 @@
                                 <template v-else>{{ $attrs.model[item.prop] }}</template>
                             </template>
                             <template v-else>
+                                <my-tree-select v-if="item.itemType === 'tree'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
                                 <my-cascader
                                     v-if="item.itemType === 'cascader'"
                                     v-model="$attrs.model[item.prop]"
@@ -101,6 +102,7 @@
                             <template v-else>{{ $attrs.model[item.prop] }}</template>
                         </template>
                         <template v-else>
+                            <my-tree-select v-if="item.itemType === 'tree'" v-model="$attrs.model[item.prop]" :placeholder="`请选择${item.label}`" v-bind="itemFn(item)" />
                             <my-cascader
                                 v-if="item.itemType === 'cascader'"
                                 v-model="$attrs.model[item.prop]"
