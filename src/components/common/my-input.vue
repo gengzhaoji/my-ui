@@ -16,13 +16,13 @@
 </template>
 
 <script setup name="my-input">
-const emits = defineEmits(['update:modelValue']);
-const attrs = useAttrs();
-const props = defineProps({
-    modelValue: {
-        type: String,
-    },
-});
+const emits = defineEmits(['update:modelValue']),
+    attrs = useAttrs(),
+    props = defineProps({
+        modelValue: {
+            type: String,
+        },
+    });
 let fieldValue = computed({
     get() {
         return props.modelValue;

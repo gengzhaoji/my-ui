@@ -1,48 +1,28 @@
 <template>
-    <el-tree-select
-        ref="TreeSelect"
-        v-model="fieldValue"
-        :data="options"
-        clearable
-        filterable
-        check-strictly
-        collapse-tags
-        collapse-tags-tooltip
-        :size="$store.user.size"
-        v-bind="$attrs"
-    />
+    <el-tree-select ref="TreeSelect" :data="options" clearable filterable check-strictly collapse-tags collapse-tags-tooltip :size="$store.user.size" v-bind="$attrs" />
 </template>
 
 <script setup name="my-tree-select">
-const $vm = inject('$vm');
-const emits = defineEmits(['update:modelValue', 'getLabel']);
-/***
- * 参数属性
- * @property {Object[]} modelValue 默认值
- * @property {list[]} list 下拉列表数据
- * @property {String} type store.dispatch的方法名
- */
-const props = defineProps({
-    modelValue: null,
-    list: {
-        type: Array,
-        default: () => [],
-    },
-    type: {
-        type: String,
-    },
-});
-let options = $ref(null);
-const TreeSelect = $ref(null);
+const $vm = inject('$vm'),
+    emits = defineEmits(['update:modelValue', 'getLabel']),
+    TreeSelect = $ref(null),
+    /***
+     * 参数属性
+     * @property {Object[]} modelValue 默认值
+     * @property {list[]} list 下拉列表数据
+     * @property {String} type store.dispatch的方法名
+     */
+    props = defineProps({
+        list: {
+            type: Array,
+            default: () => [],
+        },
+        type: {
+            type: String,
+        },
+    });
 
-let fieldValue = computed({
-    get() {
-        return props.modelValue;
-    },
-    set(val) {
-        emits('update:modelValue', val);
-    },
-});
+let options = $ref();
 watch(
     () => props.list,
     (val) => {

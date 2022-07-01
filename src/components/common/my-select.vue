@@ -58,8 +58,7 @@ const props = defineProps({
 let options = $ref([]);
 let fieldValue = computed({
         get() {
-            if (typeof props.modelValue === 'number') return `${props.modelValue}`;
-            return props.modelValue;
+            return `${props.modelValue}`;
         },
         set(val) {
             emits('update:modelValue', val);

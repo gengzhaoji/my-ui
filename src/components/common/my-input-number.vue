@@ -16,30 +16,31 @@
 </template>
 
 <script setup name="my-input-number">
-const emits = defineEmits(['update:modelValue']);
-/***
- * 参数属性
- * @property {} modelValue 默认值
- * @property {String} numberType 数据类型（整型，浮点型）默认为整型，float-n，n为保留小数点后几位
- */
-const props = defineProps({
-    modelValue: null,
-    numberType: {
-        type: [String],
-        default: 'init',
-        validator: function (val) {
-            const data = val.split('-');
-            return ['init', 'float'].includes(data[0]);
+const emits = defineEmits(['update:modelValue']),
+    /***
+     * 参数属性
+     * @property {} modelValue 默认值
+     * @property {String} numberType 数据类型（整型，浮点型）默认为整型，float-n，n为保留小数点后几位
+     */
+    props = defineProps({
+        modelValue: null,
+        numberType: {
+            type: [String],
+            default: 'init',
+            validator: function (val) {
+                const data = val.split('-');
+                return ['init', 'float'].includes(data[0]);
+            },
         },
-    },
-    numberLength: Number,
-    clearable: {
-        type: Boolean,
-        default: true,
-    },
-});
-const type = computed(() => props.numberType.split('-')[0]);
-const digit = computed(() => props.numberType.split('-')[1]);
+        numberLength: Number,
+        clearable: {
+            type: Boolean,
+            default: true,
+        },
+    }),
+    type = computed(() => props.numberType.split('-')[0]),
+    digit = computed(() => props.numberType.split('-')[1]);
+
 let fieldValue = computed({
     get() {
         return props.modelValue;
@@ -48,6 +49,7 @@ let fieldValue = computed({
         emits('update:modelValue', setNum(val));
     },
 });
+
 // 数字最终结果逻辑
 const attrs = useAttrs();
 function setNum(val) {
