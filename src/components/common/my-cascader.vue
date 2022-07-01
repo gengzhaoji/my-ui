@@ -78,7 +78,7 @@ if (props.type) $vm.$store?.com[props.type]();
 
 function cascaderChange() {
     if (!attrs.props?.multiple) {
-        emits('getLabel', cascader.getCheckedNodes()[0]?.[attrs.props?.label || 'label'] || '');
+        emits('getLabel', cascader.getCheckedNodes()[0].label || '');
     } else {
         emits('getLabel', cascader.getCheckedNodes() || []);
     }
