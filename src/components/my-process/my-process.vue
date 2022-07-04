@@ -3,31 +3,31 @@
         <div class="h100 flex-col">
             <div style="border-bottom: 1px solid rgb(218 218 218)" class="p-10">
                 <el-tooltip effect="dark" content="新建" placement="bottom">
-                    <my-button icon="el-icon-circle-plus" @click="newDiagram" />
+                    <my-button icon="circle-plus" @click="newDiagram" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="自适应屏幕" placement="bottom">
-                    <my-button icon="el-icon-rank" @click="fitViewport" />
+                    <my-button icon="Rank" @click="fitViewport" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="放大" placement="bottom">
-                    <my-button icon="el-icon-zoom-in" @click="zoomViewport(true)" />
+                    <my-button icon="zoom-in" @click="zoomViewport(true)" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="缩小" placement="bottom">
-                    <my-button icon="el-icon-zoom-out" @click="zoomViewport(false)" />
+                    <my-button icon="zoom-out" @click="zoomViewport(false)" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="后退" placement="bottom">
-                    <my-button icon="el-icon-back" @click="modeler.get('commandStack').undo()" />
+                    <my-button icon="Back" @click="modeler.get('commandStack').undo()" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="前进" placement="bottom">
-                    <my-button icon="el-icon-right" @click="modeler.get('commandStack').redo()" />
+                    <my-button icon="Right" @click="modeler.get('commandStack').redo()" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="查看xml" placement="bottom">
-                    <my-button icon="el-icon-view" @click="showXML" />
+                    <my-button icon="View" @click="showXML" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="下载xml" placement="bottom">
-                    <my-button icon="el-icon-download" @click="saveXML(true)" />
+                    <my-button icon="Download" @click="saveXML(true)" />
                 </el-tooltip>
                 <el-tooltip effect="dark" content="下载svg" placement="bottom">
-                    <my-button icon="el-icon-picture" @click="saveImg('svg', true)" />
+                    <my-button icon="Picture" @click="saveImg('svg', true)" />
                 </el-tooltip>
                 <my-button type="primary" @click="save">保存模型</my-button>
             </div>
@@ -36,7 +36,7 @@
                     <div ref="canvas" class="canvas" />
                 </el-main>
                 <el-aside style="width: 500px; background-color: #f0f2f5; border-left: 1px solid var(--el-border-color)" class="h100">
-                    <my-panel fit shadow="always" :title="nodeName" size="large" theme="bg-right" icon="el-icon-menu">
+                    <my-panel fit shadow="always" :title="nodeName" size="large" theme="bg-right" icon="Menu">
                         <!-- bpmn:UserTask(用户任务) -->
                         <my-form
                             label-width="90px"

@@ -15,7 +15,7 @@
                     </template>
                 </my-input>
                 <div class="f1 h0 overflow-auto m-t-10">
-                    <my-panel shadow="always" fit :title="treeTitle" size="medium" theme="bg-right" icon="el-icon-menu">
+                    <my-panel shadow="always" fit :title="treeTitle" size="medium" theme="bg-right" icon="Menu">
                         <el-tree
                             ref="refTree"
                             :expand-on-click-node="false"

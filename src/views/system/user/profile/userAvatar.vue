@@ -28,9 +28,9 @@
             <el-row>
                 <el-col :lg="2" :md="2">
                     <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
-                        <my-button size="small">
+                        <my-button>
                             选择图片
-                            <i class="el-icon-upload el-icon--right"></i>
+                            <el-icon><upload /></el-icon>
                         </my-button>
                     </el-upload>
                 </el-col>
@@ -38,13 +38,13 @@
                     <my-button icon="Plus" @click.prevent="changeScale(1)"></my-button>
                 </el-col>
                 <el-col :lg="{ span: 1, offset: 1 }" :md="2">
-                    <my-button icon="el-icon-minus" @click.prevent="changeScale(-1)"></my-button>
+                    <my-button icon="Minus" @click.prevent="changeScale(-1)"></my-button>
                 </el-col>
                 <el-col :lg="{ span: 1, offset: 1 }" :md="2">
-                    <my-button icon="el-icon-refresh-left" @click.prevent="rotateLeft()"></my-button>
+                    <my-button icon="refresh-left" @click.prevent="rotateLeft()"></my-button>
                 </el-col>
                 <el-col :lg="{ span: 1, offset: 1 }" :md="2">
-                    <my-button icon="el-icon-refresh-right" @click.prevent="rotateRight()"></my-button>
+                    <my-button icon="refresh-right" @click.prevent="rotateRight()"></my-button>
                 </el-col>
                 <el-col :lg="{ span: 2, offset: 6 }" :md="2">
                     <my-button type="primary" @click.prevent="uploadImg()">上 传 头 像</my-button>

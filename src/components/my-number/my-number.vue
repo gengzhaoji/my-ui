@@ -13,7 +13,9 @@
         </span>
         <span v-if="trend || $slots.trend" class="my-number__trend" :class="trendClasses">
             <slot name="trend" :trend="trend">
-                <i :class="trendIcon"></i>
+                <el-cion>
+                    <component :is="trendIcon" />
+                </el-cion>
             </slot>
         </span>
     </div>
@@ -120,9 +122,9 @@ const displayValue = computed(() => {
 const trendIcon = computed(() => {
     if (!props.trend) return null;
     const classes = {
-        up: 'el-icon-top',
-        down: 'el-icon-bottom',
-        '-': 'el-icon-minus',
+        up: 'Top',
+        down: 'Bottom',
+        '-': 'Minus',
     };
     return classes[props.trend];
 });

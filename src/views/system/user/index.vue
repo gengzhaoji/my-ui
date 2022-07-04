@@ -4,7 +4,7 @@
             <div class="p-10" style="border-bottom: 1px solid var(--el-border-color)">
                 <my-input placeholder="请输入部门名称" v-model="deptName">
                     <template #append>
-                        <my-button icon="el-icon-search" @click.prevent="(deptName = queryParams.deptId = ''), refTree.setCurrentKey(null), refTable.reload()" />
+                        <my-button icon="Search" @click.prevent="(deptName = queryParams.deptId = ''), refTree.setCurrentKey(null), refTable.reload()" />
                     </template>
                 </my-input>
             </div>
@@ -219,7 +219,7 @@ let deptName = $ref(''),
             },
             {
                 label: '操作',
-                width: 160,
+                width: 180,
             },
         ],
     }),

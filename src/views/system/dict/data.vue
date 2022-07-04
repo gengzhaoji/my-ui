@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <el-page-header class="m-b-10" icon="el-icon-arrow-left" content="字典管理详情" @back="$emit('cancel')" />
+        <el-page-header class="m-b-10" icon="arrow-left" content="字典管理详情" @back="$emit('cancel')" />
         <div class="p-10 system-page-background b-r-4">
             <my-form
                 inline
@@ -138,7 +138,7 @@ let typeOptions = $ref([]),
             },
             {
                 label: '操作',
-                width: '200',
+                width: 120,
             },
         ],
     }),

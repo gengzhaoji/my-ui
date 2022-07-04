@@ -20,7 +20,7 @@ import { addClass, removeClass, hasClass, setStyle } from 'element-plus/lib/util
  *
  * // ----------或使用slot-------
  *  <my-print print-range=".pring-range1">
- *    <el-button type="primary" icon="el-icon-tickets" #button></el-button>
+ *    <el-button type="primary" icon="Tickets" #button></el-button>
  *  </my-print>
  */
 /**

@@ -42,8 +42,10 @@
                         </div>
                         <div class="li flex-center navbar-icon-action">
                             <el-dropdown style="margin-top: -6px">
-                                <span style="font-size: 18px">{{ userInfo.nickName }}</span>
-                                <el-icon class="m-l-4"><arrow-down /></el-icon>
+                                <span style="font-size: 18px">
+                                    {{ userInfo.nickName }}
+                                    <el-icon><arrow-down /></el-icon>
+                                </span>
                                 <template #dropdown>
                                     <el-dropdown-menu>
                                         <el-dropdown-item @click="$router.push('/profile')"> 个人中心 </el-dropdown-item>

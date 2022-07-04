@@ -1,7 +1,9 @@
 <template>
     <el-popover placement="bottom" trigger="hover" popper-class="my-table-column-filter__popper">
         <template #reference>
-            <i class="el-icon-setting" />
+            <el-icon>
+                <Setting />
+            </el-icon>
         </template>
         <template v-if="checkboxList.length">
             <el-checkbox-group v-model="fieldValue" class="flex-col">

@@ -29,7 +29,7 @@ export default {
              * 以elIcon为前缀的命名规则，是为了适配已经使用属性名添加图标的内置组件，
              * 例如：<el-button icon="el-icon-refresh"></el-button>
              */
-            App.component('elIcon' + name, ElIcons[name]);
+            // App.component('elIcon' + name, ElIcons[name]);
             App.component(name, ElIcons[name]);
         }
         /**

@@ -11,10 +11,10 @@
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item icon="el-icon-back" @click="close('Left')"> 关闭左侧 </el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-right" @click="close('Right')"> 关闭右侧 </el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-close" @click="close('Other')"> 关闭其他 </el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-circle-close" @click="close('All')" divided> 关闭全部 </el-dropdown-item>
+                    <el-dropdown-item icon="Back" @click="close('Left')"> 关闭左侧 </el-dropdown-item>
+                    <el-dropdown-item icon="Right" @click="close('Right')"> 关闭右侧 </el-dropdown-item>
+                    <el-dropdown-item icon="Close" @click="close('Other')"> 关闭其他 </el-dropdown-item>
+                    <el-dropdown-item icon="CircleClose" @click="close('All')" divided> 关闭全部 </el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
