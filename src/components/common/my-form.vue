@@ -313,10 +313,7 @@ onBeforeUnmount(() => {
 :deep(.el-input),
 :deep(.el-input__wrapper),
 :deep(.el-textarea) {
-    width: 100%;
+    width: 100% !important;
     box-sizing: border-box;
-}
-:deep(.el-form-item__content) {
-    max-width: 500px;
 }
 </style>

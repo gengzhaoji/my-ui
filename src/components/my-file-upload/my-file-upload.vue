@@ -145,6 +145,7 @@ watch(
                     fileName: item.fileName,
                     fileSizeFormat: item.fileSizeFormat,
                     fileSize: item.fileSize,
+                    fileSuffix: item.fileSuffix,
                 })) || [];
     },
     { deep: true, immediate: true }
@@ -173,6 +174,7 @@ function handleChange(data) {
                         fileName: res.data.fileName.split('.')[0],
                         fileSizeFormat: res.data.fileSizeFormat,
                         fileSize: res.data.fileSize,
+                        fileSuffix: res.data.fileSuffix,
                     });
                     updateFn();
                 });
