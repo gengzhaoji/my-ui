@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" title="文件预览" :fullscreen="type !== 'image'" v-bind="$attrs">
+    <el-dialog custom-class="MyPreview" v-model="dialogVisible" title="文件预览" :fullscreen="type !== 'image'" v-bind="$attrs">
         <template v-if="type === 'image'">
             <!-- 图片预览 -->
             <el-image :src="url" fit="contain" preview-teleported />
@@ -108,6 +108,17 @@ watch(
     :deep(td) {
         border-left: 1px solid black;
         border-top: 1px solid black;
+    }
+}
+</style>
+
+<style lang="scss">
+.MyPreview {
+    display: flex;
+    flex-direction: column;
+    .el-dialog__body {
+        flex: 1;
+        height: 0;
     }
 }
 </style>
