@@ -685,4 +685,8 @@ $vm.$store.com.GETdeptUserList();
         top: -20px !important;
     }
 }
+
+#helper-svg  {
+    display: none;
+}
 </style>
