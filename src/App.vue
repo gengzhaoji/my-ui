@@ -46,11 +46,11 @@ provide('$vm', {
     selectDictLabel,
 });
 
-// 监听屏幕宽高逻辑
-let screenWidth = $ref(0),
-    screenHeight = $ref(0);
-provide('screenWidth', () => screenWidth);
-provide('screenHeight', () => screenHeight);
+// 监听屏幕宽高逻辑 vue3 provide inject 添加响应性 不能使用$ref;
+let screenWidth = ref(0),
+    screenHeight = ref(0);
+provide('screenWidth', screenWidth);
+provide('screenHeight', screenHeight);
 
 // 页面无操作30分钟自动退出功能
 const timeOut = 30 * 60 * 1000; // 设置超时时间:30分钟
@@ -95,9 +95,9 @@ let setupElResponsiveProxy;
 onMounted(() => {
     // 定义窗口大小变更通知事件;
     setupElResponsiveProxy = throttle(() => {
-        screenWidth = document.getElementById('refApp').clientWidth; //窗口宽度
-        screenHeight = document.getElementById('refApp').clientHeight; //窗口宽度
-        if (screenWidth > 1024) {
+        screenWidth.value = document.getElementById('refApp').clientWidth; //窗口宽度
+        screenHeight.value = document.getElementById('refApp').clientHeight; //窗口宽度
+        if (screenWidth.value > 1024) {
             $store.user.size = 'default';
         } else {
             $store.user.size = 'small';

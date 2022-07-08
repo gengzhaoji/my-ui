@@ -145,7 +145,7 @@ watch(
 );
 // 计算属性
 const width = computed(() => {
-        let data = screenWidth() * 0.15;
+        let data = screenWidth.value * 0.15;
         if (data < 200) {
             data = 200;
         } else if (data > 250) {
@@ -154,12 +154,9 @@ const width = computed(() => {
         return data;
     }),
     aside_width = computed(() => {
-        if (screenWidth() < 1300) {
-            if (screenOne) {
-                screenOne = false;
-                collapse = true;
-                return 64;
-            }
+        if (screenWidth.value < 1300 && screenOne) {
+            screenOne = false;
+            collapse = true;
         } else {
             screenOne = true;
         }
