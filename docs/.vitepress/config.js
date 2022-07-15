@@ -39,6 +39,10 @@ module.exports = {
                         text: '自动化API',
                         link: '/coder/',
                     },
+                    {
+                        text: '自定义代码片段',
+                        link: '/page/',
+                    },
                 ],
             },
             {
