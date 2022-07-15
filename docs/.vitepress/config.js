@@ -1,7 +1,9 @@
-module.exports = {
+import demoblock from 'vitepress-theme-demoblock';
+
+export default {
     title: 'my-ui',
     description: 'vue3+element-plus二次封装',
-    lang: 'en-US',
+    lang: 'en-cn',
     themeConfig: {
         head: [
             // 改变title的图标
@@ -50,7 +52,7 @@ module.exports = {
                 items: [
                     {
                         text: 'Button 按钮',
-                        link: '/guide/button/',
+                        link: '/guide/button',
                     },
                 ],
             },
@@ -60,7 +62,8 @@ module.exports = {
     },
     markdown: {
         config: (md) => {
-            const { demoBlockPlugin } = require('vitepress-theme-demoblock');
+            // 这里可以使用 markdown-it 插件，vitepress-theme-demoblock就是基于此开发的
+            const { demoBlockPlugin } = demoblock;
             md.use(demoBlockPlugin);
         },
     },

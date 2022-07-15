@@ -8,7 +8,8 @@
     "coder": "node coder/index.js",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "docs:serve": "vitepress serve docs",
+    "register:components": "vitepress-rc"
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
