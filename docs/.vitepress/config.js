@@ -5,6 +5,14 @@ export default {
     description: 'vue3+element-plus二次封装',
     lang: 'en-cn',
     themeConfig: {
+        // 展示搜索框
+        algolia: {
+            appKey: '',
+            indexName: '',
+            searchParameters: {
+                faeFilters: ['tags:guide,api'],
+            },
+        },
         head: [
             // 改变title的图标
             [
@@ -15,14 +23,6 @@ export default {
                 },
             ],
         ],
-        // 展示搜索框
-        algolia: {
-            appKey: '',
-            indexName: '',
-            searchParameters: {
-                faeFilters: ['tags:guide,api'],
-            },
-        },
         nav: [{ text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' }],
         // 侧边栏
         sidebar: [
@@ -57,8 +57,7 @@ export default {
                 ],
             },
         ],
-        //丝滑滚动
-        smoothScroll: true,
+        lineNumbers: true,
     },
     markdown: {
         config: (md) => {

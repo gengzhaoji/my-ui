@@ -35,12 +35,6 @@
     </el-row>
 </template>
 <style>
-.vp-doc div[class*='language-'] {
-    background-color: transparent;
-}
-.vp-doc [class*='language-'] code {
-    color: var(--vp-c-text-1);
-}
 .mb-4 {
     margin-bottom: 4px;
 }
