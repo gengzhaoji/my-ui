@@ -32,7 +32,7 @@
         <!-- 上传的文件列表 -->
         <div v-if="fileList.length" class="fileList">
             <transition-group name="fade-transform" mode="out-in" appear>
-                <div class="fileList_item" v-for="(file, index) in fileList" :key="file.id + index" @click.prevent="previewFn(file, index)">
+                <div class="fileList_item" v-for="(file, index) in fileList" :key="file.id" @click.prevent="previewFn(file, index)">
                     <Files style="height: 1em; margin-right: 8px; margin-top: 3px" />
                     <el-tooltip :content="`${file.fileName}${file.fileSuffix}`" placement="top" :disabled="isDisabled">
                         <span class="name flex" v-if="editIndex === index">
@@ -127,32 +127,33 @@ const emits = defineEmits(['update:modelValue']),
 let dialogImageUrl = $ref(''),
     dialogVisible = $ref(false),
     dialogVisiblePdf = $ref(false),
-    fileList = $ref([]),
     editIndex = $ref(null),
     isDisabled = $ref(true);
+
 // 是否显示提示
-let showTip = $computed(() => props.isShowTip && (props.fileType ?? props.fileSize)),
+const showTip = $computed(() => props.isShowTip && (props.fileType ?? props.fileSize)),
     // 是否禁用上传功能
-    exportShow = $computed(() => props.disabled || elForm?.disabled);
-watch(
-    () => props.modelValue,
-    (val) => {
-        if (val)
-            fileList =
-                val?.map((item) => ({
-                    id: item.id,
-                    downloadUrl: item.downloadUrl,
-                    fileName: item.fileName,
-                    fileSizeFormat: item.fileSizeFormat,
-                    fileSize: item.fileSize,
-                    fileSuffix: item.fileSuffix,
-                })) || [];
-    },
-    { deep: true, immediate: true }
-);
+    exportShow = $computed(() => props.disabled || elForm?.disabled),
+    fileList = $computed({
+        get: () =>
+            props.modelValue.map((item) => ({
+                id: item.id,
+                downloadUrl: item.downloadUrl,
+                fileName: item.fileName,
+                fileSizeFormat: item.fileSizeFormat,
+                fileSize: item.fileSize,
+                fileSuffix: item.fileSuffix,
+            })) || [],
+        set: (val) => {
+            emits('update:modelValue', val);
+            elForm.validateField(elFormItem.prop);
+        },
+    });
+
 // 文件超出个数限制时的钩子
 const attrs = useAttrs();
 let upload = $ref();
+
 function exceedFn(files, fileList) {
     upload.clearFiles();
     const file = files[0];
@@ -176,12 +177,10 @@ function handleChange(data) {
                         fileSize: res.data.fileSize,
                         fileSuffix: res.data.fileSuffix,
                     });
-                    updateFn();
                 });
             });
         } else {
             if (props.limit === 1) fileList = [];
-            updateFn();
         }
     }
 }
@@ -217,7 +216,6 @@ function handleBeforeUpload(file) {
 function editFn(file) {
     rdfileRename({ id: file.id, fileName: file.fileName }).then((res) => {
         $vm.msgSuccess('修改成功！');
-        emits('update:modelValue', fileList);
         editIndex = null;
     });
 }
@@ -248,16 +246,11 @@ function closeFn(index) {
                 const index = fileList.findIndex((item) => item.id === file.id);
                 fileList.splice(index, 1);
             }
-            updateFn();
             $vm.msgSuccess('删除成功');
         })
         .catch(() => {
             $vm.msgInfo('已取消删除！');
         });
-}
-function updateFn() {
-    emits('update:modelValue', fileList);
-    elForm.validateField(elFormItem.prop);
 }
 // 文本超出出tip e.target.clientWidth; 文本可视宽度 e.target.scrollWidth; 文本实际宽度
 function isShowTootip(e) {

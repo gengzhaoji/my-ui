@@ -56,7 +56,7 @@ const props = defineProps({
     },
 });
 let options = $ref([]);
-let fieldValue = computed({
+let fieldValue = $computed({
         get() {
             return typeof props.modelValue === 'number' ? `${props.modelValue}` : props.modelValue;
         },

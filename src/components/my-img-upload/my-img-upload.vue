@@ -81,24 +81,24 @@ let myImgUploadDisabled = $computed(() => props.disabled || elForm?.disabled),
     dialogImageUrl = $ref(''),
     dialogVisible = $ref(false),
     upload = $ref(null),
-    fileList = $ref([]),
     fileType = ['png', 'jpg', 'jpeg'];
-// 是否显示提示
-watch(
-    () => props.modelValue,
-    (val) => {
-        if (val)
-            fileList =
-                val?.map((item) => ({
-                    id: item.id,
-                    downloadUrl: item.downloadUrl,
-                    fileName: item.fileName,
-                    fileSizeFormat: item.fileSizeFormat,
-                    fileSize: item.fileSize,
-                })) || [];
+
+const fileList = $computed({
+    get: () =>
+        props.modelValue.map((item) => ({
+            id: item.id,
+            downloadUrl: item.downloadUrl,
+            fileName: item.fileName,
+            fileSizeFormat: item.fileSizeFormat,
+            fileSize: item.fileSize,
+            fileSuffix: item.fileSuffix,
+        })) || [],
+    set: (val) => {
+        emits('update:modelValue', val);
+        elForm.validateField(elFormItem.prop);
     },
-    { deep: true, immediate: true }
-);
+});
+
 // 文件超出个数限制时的钩子
 function exceedFn(files) {
     upload.clearFiles();
@@ -122,12 +122,10 @@ function handleChange(data) {
                         fileSizeFormat: res.data.fileSizeFormat,
                         fileSize: res.data.fileSize,
                     });
-                    updateFn();
                 });
             });
         } else {
             if (props.limit === 1) fileList = [];
-            updateFn();
         }
     }
 }
@@ -172,15 +170,11 @@ function handleRemove(file) {
                 const index = fileList.findIndex((item) => item.id === file.id);
                 fileList.splice(index, 1);
             }
-            updateFn();
             $vm.msgSuccess('删除成功');
         })
         .catch(() => {
             $vm.msgInfo('已取消删除！');
         });
-}
-function updateFn() {
-    emits('update:modelValue', fileList);
 }
 </script>
 
