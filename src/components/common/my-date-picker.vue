@@ -56,14 +56,8 @@ let valueFormat = $computed(() => {
     }),
     fieldValue = $computed({
         get() {
-            if (isArray === '') {
-                isArray = Array.isArray(props.modelValue) || new RegExp('range', 'gi').test(attrs.type);
-            }
-            if (isArray && ['string', 'undefined'].includes(typeof props.modelValue)) {
-                return props.modelValue ? [props.modelValue] : [];
-            } else {
-                return props.modelValue;
-            }
+            if (isArray == null) isArray = Array.isArray(props.modelValue) || new RegExp('range', 'gi').test(attrs.type);
+            return props.modelValue;
         },
         set(val) {
             if (val == null) {
