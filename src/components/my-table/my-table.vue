@@ -1,5 +1,5 @@
 <template>
-    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" :size="$store.user.size" v-bind="tableOptions" :key="i">
+    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" :size="$store.user.size" v-bind="tableOptions">
         <template v-for="col in displayColumns" :key="`${col.prop}-${col.type}`">
             <!-- col 没有children 属性 -->
             <el-table-column v-if="!col.children" resizable v-bind="col">
@@ -112,14 +112,11 @@ let displayColumnProps = $ref([]),
     // 行拖拽Sortable实例
     rowSortableInstance = $ref(null),
     // 上次滚动的位置
-    lastScrollTop = $ref(0),
-    // 处理树形表格数据不响应问题
-    i = $ref(1);
+    lastScrollTop = $ref(0);
 
 watch(
     () => props.data,
     (val) => {
-        if (!!$attrs['row-key']) i++;
         tableData = val;
     },
     { immediate: true }

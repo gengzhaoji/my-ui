@@ -120,7 +120,7 @@
 </template>
 
 <script setup name="dept">
-import { addDept, removeDept, editDept, infoDept, pageDept } from '@/api/system';
+import { addDept, removeDept, editDept, infoDept, listDept } from '@/api/system';
 let deptOptions = $ref([]),
     // 查询参数
     queryParams = $ref({
@@ -212,7 +212,7 @@ let loadFnResolve = new Set(),
     table = $ref(null);
 function getList() {
     listDept(queryParams).then((res) => {
-        if (loadFnResolve.size === 0) state.list = res.data;
+        state.list = res.data;
         deptOptions = res.data;
         $vm.$store.com.deptTree = [];
         for (let key of loadFnResolve.keys()) {
