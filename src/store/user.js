@@ -13,7 +13,7 @@ export default defineStore({
         menuTabsList: [],
         remark: '',
         token: '',
-        une: '',
+        uid: '',
         avatar: '',
         permissions: [],
         roles: [],
@@ -106,6 +106,7 @@ export default defineStore({
             });
             guarder().addRouter = [];
             this.token = '';
+            this.uid = '';
             this.roles = [];
             this.permissions = [];
             this.menuTabsList = [];

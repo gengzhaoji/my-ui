@@ -103,7 +103,7 @@ service.interceptors.request.use(
     (config) => {
         // 是否需要设置 token
         const isToken = (config.headers || {}).isToken === false,
-            { token, une } = user();
+            { token, uid } = user();
         if (token && !isToken) {
             config.headers['Authorization'] = 'Bearer ' + token; // 让每个请求携带自定义token
         }
@@ -117,7 +117,7 @@ service.interceptors.request.use(
         }
 
         // 联合登陆携带une
-        if (une) config.headers['une'] = une;
+        if (uid) config.headers['uid'] = une;
 
         /**
          * 请求未完成时保存取消的cancelToken

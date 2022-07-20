@@ -25,13 +25,22 @@
             </div>
             <div class="f1 h0 flex-col">
                 <my-table
+                    ref="table"
                     :data="state.list"
                     :columns="state.columns"
                     row-key="id"
                     lazy
-                    :load="(tree, treeNode, resolve) => resolve(tree.children)"
-                    :expand-row-keys="expandRowkeys"
-                    @expand-change="expandChangeFn"
+                    :load="
+                        (tree, treeNode, resolve) => {
+                            loadFnResolve.add(tree.id);
+                            resolve(tree.children);
+                        }
+                    "
+                    @row-click="
+                        (row, column, event) => {
+                            event.currentTarget?.querySelector('.el-table__expand-icon')?.click();
+                        }
+                    "
                 >
                     <template #status="{ row }">
                         <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
@@ -198,21 +207,17 @@ let deptOptions = $ref([]),
     };
 const $vm = inject('$vm');
 
-// 树形表格展开问题
-let expandRowkeys = $ref([]);
-function expandChangeFn(row, expanded) {
-    if (expanded) {
-        expandRowkeys.push(row.id);
-    } else {
-        expandRowkeys.splice(expandRowkeys.indexOf(row.id), 1);
-    }
-}
-
 /** 查询部门列表 */
+let loadFnResolve = new Set(),
+    table = $ref(null);
 function getList() {
-    pageDept(queryParams).then((res) => {
-        state.list = res.data.rows;
+    listDept(queryParams).then((res) => {
+        if (loadFnResolve.size === 0) state.list = res.data;
+        deptOptions = res.data;
         $vm.$store.com.deptTree = [];
+        for (let key of loadFnResolve.keys()) {
+            table.$refs.myTable.store.states.lazyTreeNodeMap.value[key] = find(res.data, true, (item) => item.id === key).children;
+        }
     });
 }
 /**
