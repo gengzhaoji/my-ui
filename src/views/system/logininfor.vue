@@ -117,12 +117,12 @@ let queryParams = $ref({
     }),
     tableSelection = $ref([]);
 
-const refTable = $ref(null);
+const refTable = ref(null);
 const { $vm, loadData, deleteFn } = mixin({
     queryParams,
     state,
     api: { page: pageLogininfor, remove: removeLogininfor },
-    refTable: () => refTable,
+    refTable,
 });
 // 初始化执行逻辑
 $vm.$store.dict.GETsysCommonStatus();

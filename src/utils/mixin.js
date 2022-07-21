@@ -1,7 +1,7 @@
 /**
  * 默认页面中的基本增删改查操作（弹窗类页面）
  */
-import { computed, inject, nextTick } from 'vue';
+import { computed, inject, nextTick, unref } from 'vue';
 
 // 响应数据转换（对象/函数）
 function typeFn(data) {
@@ -54,26 +54,26 @@ export default function ({
         });
     // 页面查询函数
     function getList() {
-        typeFn(refTable)?.loadData?.();
+        unref(refTable)?.loadData?.();
     }
     // 表格排序
     function sortChange({ column, prop, order }) {
         orderKeysFn();
-        typeFn(queryParams)[prop] = order === 'ascending'; // true为升序false为降序
-        typeFn(refTable)?.reload?.();
+        queryParams[prop] = order === 'ascending'; // true为升序false为降序
+        unref(refTable)?.reload?.();
     }
     // 重置表格排序条件
     function orderKeysFn() {
         for (const item of orderKeys) {
-            typeFn(queryParams)[item] = '';
+            queryParams[item] = '';
         }
     }
     // 初始化表格查询逻辑
     function loadData(pageNum, pageSize) {
-        let data = $vm.clone(typeFn(queryParams));
-        if (typeFn(queryFormItem)) {
+        let data = $vm.clone(queryParams);
+        if (queryFormItem) {
             // 时间组件
-            const dateList = $vm.clone(typeFn(queryFormItem)).filter((item) => item.itemType === 'date' && item.type.match(/range/gi));
+            const dateList = queryFormItem.filter((item) => item.itemType === 'date' && item.type.match(/range/gi));
             dateList.forEach((item) => {
                 const { prop, prepend } = item;
                 data = $vm.addDateRange(data, prop, prepend);
@@ -88,7 +88,7 @@ export default function ({
     }
     // 新增信息
     function insertFn() {
-        $vm.resetForm(typeFn(refDialogFrom));
+        $vm.resetForm(unref(refDialogFrom));
         dialog.name = 'insert';
         dialog.open = true;
         dialog.form.id = undefined;
@@ -96,7 +96,7 @@ export default function ({
     // 删除信息
     function deleteFn(data) {
         // 删除单条
-        const Table = typeFn(refTable);
+        const Table = unref(refTable);
         if (!Array.isArray(data)) {
             $vm.$$confirm('此操作将删除该条数据, 是否继续?')
                 .then(() => {
@@ -163,7 +163,7 @@ export default function ({
     }
     // 弹窗提交函数
     function dialogSubmitFn() {
-        const DialogForm = typeFn(refDialogFrom),
+        const DialogForm = unref(refDialogFrom),
             Form = DialogForm?.$refs?.refMyForm || DialogForm;
         Form.validate((valid) => {
             if (valid) {
@@ -217,10 +217,10 @@ export function SpreadPage({
 
     // 初始化表格查询逻辑
     function loadData(pageNum, pageSize) {
-        let data = $vm.clone(typeFn(queryParams));
+        let data = $vm.clone(queryParams);
         if (queryFormItem) {
             // 时间组件
-            const dateList = $vm.clone(queryFormItem).filter((item) => item.itemType === 'date' && item.type.match(/range/gi));
+            const dateList = queryFormItem.filter((item) => item.itemType === 'date' && item.type.match(/range/gi));
             dateList.forEach((item) => {
                 const { prop, prepend } = item;
                 data = $vm.addDateRange(data, prop, prepend);
@@ -235,7 +235,7 @@ export function SpreadPage({
                 nextTick(() => {
                     const Ids = state.tableSelection.map((item) => item[id]);
                     state.list.forEach((row, i) => {
-                        if (Ids.includes(row[id])) typeFn(myTable)?.$refs?.myTable?.toggleRowSelection(state.list[i], true);
+                        if (Ids.includes(row[id])) unref(myTable)?.$refs?.myTable?.toggleRowSelection(state.list[i], true);
                     });
                 });
             });

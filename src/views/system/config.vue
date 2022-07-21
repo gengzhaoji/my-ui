@@ -123,17 +123,17 @@ let queryParams = $ref({
         },
     });
 
-const refTable = $ref(null),
-    refDialogFrom = $ref(null);
+const refTable = ref(null),
+    refDialogFrom = ref(null);
 
-let tableSelection = $ref([]);
+let tableSelection = ref([]);
 const { $vm, dialogTitle, loadData, insertFn, deleteFn, updateFn, detailFn, dialogSubmitFn } = mixin({
     queryParams,
     state,
     api: { page: pageConfig, remove: removeConfig, add: addConfig, edit: editConfig },
     dialog,
-    refTable: () => refTable,
-    refDialogFrom: () => refDialogFrom,
+    refTable,
+    refDialogFrom,
 });
 // 初始化执行逻辑
 $vm.$store.dict.GETsysYesNo();
