@@ -84,10 +84,8 @@ export default {
          * @param {string} suffix 文件类型（后缀）只能为svg、png、jpg，默认为svg
          * @returns
          */
-        App.config.globalProperties.getImgUrl = (path, suffix = 'svg') => {
-            if (suffix === 'svg') return import.meta.globEager('../assets/img/**/*.svg')[path].default;
-            if (suffix === 'png') return import.meta.globEager('../assets/img/**/*.png')[path].default;
-            if (suffix === 'jpg') return import.meta.globEager('../assets/img/**/*.jpg')[path].default;
+        App.config.globalProperties.getImgUrl = (path) => {
+            return new URL(path, import.meta.url).href;
         };
 
         App.config.globalProperties.$$confirm = function (data) {

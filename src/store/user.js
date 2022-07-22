@@ -67,18 +67,20 @@ export default defineStore({
             return new Promise((resolve, reject) => {
                 infoUserProfile()
                     .then((res) => {
-                        const { user, roles: Roles, perms } = res?.data;
-                        if (Roles.length) {
-                            // 验证返回的roles是否是一个非空数组
-                            this.roles = Roles;
-                            // 按钮级权限数组
-                            this.permissions = perms;
-                        } else {
-                            this.roles = ['ROLE_DEFAULT'];
+                        if (res?.data) {
+                            const { user, roles: Roles, perms } = res?.data;
+                            if (Roles.length) {
+                                // 验证返回的roles是否是一个非空数组
+                                this.roles = Roles;
+                                // 按钮级权限数组
+                                this.permissions = perms;
+                            } else {
+                                this.roles = ['ROLE_DEFAULT'];
+                            }
+                            this.userInfo = { userId: user.id, userName: user.userName, nickName: user.nickName, deptId: user.deptId };
+                            this.avatar = user.avatar;
+                            this.remark = user.remark;
                         }
-                        this.userInfo = { userId: user.id, userName: user.userName, nickName: user.nickName, deptId: user.deptId };
-                        this.avatar = user.avatar;
-                        this.remark = user.remark;
                         resolve(res);
                     })
                     .catch((error) => {

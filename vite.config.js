@@ -12,9 +12,6 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 // 自动导入composition api
 import AutoImport from 'unplugin-auto-import/vite';
-// vite首次打开界面加载慢问题/解决
-import OptimizationPersist from 'vite-plugin-optimize-persist';
-import PkgConfig from 'vite-plugin-package-config';
 
 // https://vitejs.dev/config/
 export default ({ command, mode }) => {
@@ -58,8 +55,6 @@ export default ({ command, mode }) => {
             imports: ['vue', 'vue-router'], // 自动导入vue和vue-router相关函数
             dts: 'src/auto-import.d.js', // 生成 `auto-import.d.js` 全局声明
         }),
-        PkgConfig(),
-        OptimizationPersist(),
     ];
     if (isEnvProduction) {
         plugins.push(
