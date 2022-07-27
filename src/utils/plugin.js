@@ -81,13 +81,14 @@ export default {
         /**
          * vite动态加载图片静态文件
          * @param {string} path 文件路径
-         * @param {string} suffix 文件类型（后缀）只能为svg、png、jpg，默认为svg
+         * 例子：new URL(path, import.meta.url).href
+         */
+
+        /**
+         * 公用$$confirm提示函数
+         * @param {string/object} data
          * @returns
          */
-        App.config.globalProperties.getImgUrl = (path) => {
-            return new URL(path, import.meta.url).href;
-        };
-
         App.config.globalProperties.$$confirm = function (data) {
             let options = {};
             if (typeof data === 'string') {

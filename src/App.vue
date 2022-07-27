@@ -27,7 +27,7 @@ let {
     appContext: {
         app: {
             config: {
-                globalProperties: { $$confirm, $confirm, $router, $store, addDateRange, clone, cloneDeep, getImgUrl, msgError, msgInfo, msgSuccess, resetForm, selectDictLabel },
+                globalProperties: { $$confirm, $confirm, $router, $store, addDateRange, clone, cloneDeep, msgError, msgInfo, msgSuccess, resetForm, selectDictLabel },
             },
         },
     },
@@ -41,7 +41,6 @@ provide('$vm', {
     addDateRange,
     clone,
     cloneDeep,
-    getImgUrl,
     msgError,
     msgInfo,
     msgSuccess,
