@@ -101,16 +101,6 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="部门标识" prop="code">
-                            <my-input v-model="dialog.form.code" placeholder="请输入部门标识" maxlength="50" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="单位类型" prop="inspectType">
-                            <my-select filterable v-model="dialog.form.inspectType" placeholder="请选择单位类型" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
                         <el-form-item label="部门状态" prop="status">
                             <el-radio-group v-model="dialog.form.status">
                                 <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue * 1" :label="dict.dictValue * 1">
@@ -178,8 +168,6 @@ let deptOptions = $ref([]),
             leader: '',
             phone: '',
             email: '',
-            code: '',
-            inspectType: '',
             status: 0,
         },
     }),
@@ -292,5 +280,4 @@ function Delete(row) {
 }
 getList();
 $vm.$store.dict.GETsysNormalDisable();
-$vm.$store.dict.GETinspectTypeStr();
 </script>
