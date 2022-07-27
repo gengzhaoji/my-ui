@@ -19,18 +19,16 @@
                 <my-button type="primary" @click="insertFn()" icon="Plus" v-hasPermi="['secrecy:config:add']">新 增 </my-button>
                 <my-button type="danger" v-show="tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['secrecy:config:remove']"> 删 除 </my-button>
             </div>
-            <div class="f1 h0 flex-col">
-                <my-list-panel ref="refTable" :total="state.total" :loadFn="loadData">
-                    <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
-                        <template #configType="{ row }"> {{ selectDictLabel($store.dict.sysYesNo, row.configType) }} </template>
-                        <template #default="{ row }">
-                            <my-button-text @click="detailFn(row)">查看</my-button-text>
-                            <my-button-text @click="updateFn(row)" v-hasPermi="['secrecy:config:edit']">修改</my-button-text>
-                            <my-button-text @click="deleteFn(row)" v-hasPermi="['secrecy:config:remove']">删除</my-button-text>
-                        </template>
-                    </my-table>
-                </my-list-panel>
-            </div>
+            <my-list-panel ref="refTable" :total="state.total" :loadFn="loadData">
+                <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
+                    <template #configType="{ row }"> {{ selectDictLabel($store.dict.sysYesNo, row.configType) }} </template>
+                    <template #default="{ row }">
+                        <my-button-text @click="detailFn(row)">查看</my-button-text>
+                        <my-button-text @click="updateFn(row)" v-hasPermi="['secrecy:config:edit']">修改</my-button-text>
+                        <my-button-text @click="deleteFn(row)" v-hasPermi="['secrecy:config:remove']">删除</my-button-text>
+                    </template>
+                </my-table>
+            </my-list-panel>
         </div>
         <!-- 添加或修改部门对话框 -->
         <el-dialog :title="dialogTitle" v-model="dialog.open" width="500px" append-to-body @close="resetForm(refDialogFrom)">

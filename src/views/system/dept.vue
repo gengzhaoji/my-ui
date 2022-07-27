@@ -43,12 +43,14 @@
                     "
                 >
                     <template #status="{ row }">
-                        <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
+                        <div @click.stop="">
+                            <el-switch v-model="row.status" inline-prompt :active-value="0" :inactive-value="1" active-text="启" inactive-text="停" @change="statusFn(row)" />
+                        </div>
                     </template>
                     <template #default="{ row }">
-                        <my-button-text @click="Update(row)" v-hasPermi="['system:dep:edit']"> 修改 </my-button-text>
-                        <my-button-text @click="Add(row)" v-hasPermi="['system:dep:add']"> 新增 </my-button-text>
-                        <my-button-text @click="Delete(row)" v-hasPermi="['system:dep:remove']" v-if="!row.children.length"> 删除 </my-button-text>
+                        <my-button-text @click.stop="Update(row)" v-hasPermi="['system:dep:edit']"> 修改 </my-button-text>
+                        <my-button-text @click.stop="Add(row)" v-hasPermi="['system:dep:add']"> 新增 </my-button-text>
+                        <my-button-text v-if="!row.children.length" @click.stop="Delete(row)" v-hasPermi="['system:dep:remove']"> 删除 </my-button-text>
                     </template>
                 </my-table>
             </div>
@@ -99,9 +101,19 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
+                        <el-form-item label="部门标识" prop="code">
+                            <my-input v-model="dialog.form.code" placeholder="请输入部门标识" maxlength="50" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="单位类型" prop="inspectType">
+                            <my-select filterable v-model="dialog.form.inspectType" placeholder="请选择单位类型" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
                         <el-form-item label="部门状态" prop="status">
                             <el-radio-group v-model="dialog.form.status">
-                                <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue" :label="dict.dictValue * 1">
+                                <el-radio v-for="dict in $store.dict.sysNormalDisable" :key="dict.dictValue * 1" :label="dict.dictValue * 1">
                                     {{ dict.dictLabel }}
                                 </el-radio>
                             </el-radio-group>
@@ -120,7 +132,9 @@
 </template>
 
 <script setup name="dept">
-import { addDept, removeDept, editDept, infoDept, listDept } from '@/api/system';
+import { find } from '@u/tree';
+import { addDept, removeDept, editDept, listDept } from '@/api/system';
+
 let deptOptions = $ref([]),
     // 查询参数
     queryParams = $ref({
@@ -164,6 +178,8 @@ let deptOptions = $ref([]),
             leader: '',
             phone: '',
             email: '',
+            code: '',
+            inspectType: '',
             status: 0,
         },
     }),
@@ -243,21 +259,13 @@ function Add(row) {
     dialog.open = true;
     dialog.form.id = undefined;
     dialog.title = '添加部门';
-    pageDept().then((res) => {
-        deptOptions = res.data.rows;
-    });
 }
 /** 修改按钮操作 */
 function Update(row) {
-    infoDept({ id: row.id }).then((res) => {
-        dialog.open = true;
-        dialog.title = '修改部门';
-        nextTick(() => {
-            dialog.form = res.data;
-        });
-    });
-    pageDept().then((res) => {
-        deptOptions = res.data.rows;
+    dialog.open = true;
+    dialog.title = '修改部门';
+    nextTick(() => {
+        dialog.form = $vm.clone(row);
     });
 }
 const dialogForm = $ref(null);
@@ -284,4 +292,5 @@ function Delete(row) {
 }
 getList();
 $vm.$store.dict.GETsysNormalDisable();
+$vm.$store.dict.GETinspectTypeStr();
 </script>

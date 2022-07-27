@@ -1,5 +1,5 @@
 <template>
-    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" :size="$store.user.size" v-bind="tableOptions">
+    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" :size="$store.user.size" v-bind="$attrs">
         <template v-for="col in displayColumns" :key="`${col.prop}-${col.type}`">
             <!-- col 没有children 属性 -->
             <el-table-column v-if="!col.children" resizable v-bind="col">
@@ -95,10 +95,6 @@ const emits = defineEmits(['column-change-confirm', 'on-column-sort', 'on-row-so
             type: Boolean,
             default: false,
         },
-    }),
-    tableOptions = computed(() => {
-        if (props.fit) return { height: 10, ...$attrs };
-        return { ...$attrs };
     });
 
 // 表格列定义数组

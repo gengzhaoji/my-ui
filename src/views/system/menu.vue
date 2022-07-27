@@ -24,10 +24,18 @@
                 :data="state.list"
                 :columns="state.columns"
                 lazy
-                :load="(tree, treeNode, resolve) => resolve(tree.children)"
                 row-key="id"
-                :expand-row-keys="expandRowkeys"
-                @expand-change="expandChangeFn"
+                :load="
+                    (tree, treeNode, resolve) => {
+                        loadFnResolve.add(tree.id);
+                        resolve(tree.children);
+                    }
+                "
+                @row-click="
+                    (row, column, event) => {
+                        event.currentTarget?.querySelector('.el-table__expand-icon')?.click();
+                    }
+                "
             >
                 <template #icon="{ row }">
                     <i :class="row.icon" />
@@ -75,9 +83,9 @@
                     <span v-else> </span>
                 </template>
                 <template #default="{ row }">
-                    <my-button type="text" class="caozuo" @click.prevent="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button>
-                    <my-button type="text" class="caozuo" @click.prevent="Add(row)" v-if="row.menuType !== 'F'" v-hasPermi="['system:menu:add']">新增</my-button>
-                    <my-button type="text" class="caozuo" @click.prevent="Delete(row)" v-if="!row.children.length" v-hasPermi="['system:menu:remove']">删除</my-button>
+                    <my-button-text @click.stop="Update(row)" v-hasPermi="['system:menu:edit']">修改</my-button-text>
+                    <my-button-text @click.stop="Add(row)" v-if="row.menuType !== 'F'" v-hasPermi="['system:menu:add']">新增</my-button-text>
+                    <my-button-text @click.stop="Delete(row)" v-if="!row.children.length" v-hasPermi="['system:menu:remove']">删除</my-button-text>
                 </template>
             </my-table>
         </div>
@@ -239,13 +247,10 @@
 </template>
 
 <script setup name="Menu">
-import { listMenu, infoMenu, removeMenu, addMenu, editMenu } from '@/api/system';
+import { listMenu, removeMenu, addMenu, editMenu } from '@/api/system';
 import icons from '@/config/icons';
 const $vm = inject('$vm');
 
-/**
- * 查询菜单列表
- */
 // 查询参数
 let queryParams = $ref({
         needCount: 0,
@@ -315,22 +320,20 @@ let queryParams = $ref({
                 width: 180,
             },
         ],
-    });
-
-// 树形表格展开问题
-let expandRowkeys = $ref([]);
-function expandChangeFn(row, expanded) {
-    if (expanded) {
-        expandRowkeys.push(row.id);
-    } else {
-        expandRowkeys.splice(expandRowkeys.indexOf(row.id), 1);
-    }
-}
-
+    }),
+    // 树形表格展开问题
+    loadFnResolve = new Set(),
+    refTable = $ref(null);
+/**
+ * 查询菜单列表
+ */
 function loadData() {
     listMenu(queryParams).then((res) => {
         state.list = res.data;
         $vm.$store.guarder.GenerateRoutes();
+        for (let key of loadFnResolve.keys()) {
+            refTable.$refs.myTable.store.states.lazyTreeNodeMap.value[key] = find(res.data, true, (item) => item.id === key).children;
+        }
     });
 }
 /**
@@ -415,7 +418,7 @@ let dialog = $ref({
         orderNum: [{ required: true, message: '菜单顺序不能为空', trigger: 'change' }],
         path: [{ required: true, message: '路由地址不能为空', trigger: 'change' }],
     },
-    menuOptions = $computed(() => (state.list.length ? [{ id: '0', menuName: '主类目', children: state.list }] : [{ id: '0', menuName: '主类目' }]));
+    menuOptions = $computed(() => (state.list?.length ? [{ id: '0', menuName: '主类目', children: state.list }] : [{ id: '0', menuName: '主类目' }]));
 
 watch(
     () => dialog.form.parentId,
@@ -437,12 +440,10 @@ function Add(row) {
 }
 /** 修改按钮操作 */
 function Update(row) {
-    infoMenu({ id: row.id }).then((res) => {
-        dialog.open = true;
-        dialog.title = '修改菜单';
-        nextTick(() => {
-            dialog.form = res.data;
-        });
+    dialog.open = true;
+    dialog.title = '修改菜单';
+    nextTick(() => {
+        dialog.form = $vm.clone(row);
     });
 }
 /** 删除按钮操作 */
