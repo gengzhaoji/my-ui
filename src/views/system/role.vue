@@ -101,8 +101,8 @@
             </div>
             <template #footer>
                 <div class="dialog-footer">
-                    <my-button type="primary" @click="submitForm">确 定</my-button>
                     <my-button @click="cancel">取 消</my-button>
+                    <my-button type="primary" @click="submitForm()">确 定</my-button>
                 </div>
             </template>
         </el-dialog>
@@ -142,8 +142,8 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <my-button type="primary" @click="submitDataScope">确 定</my-button>
                     <my-button @click="cancelDataScope">取 消</my-button>
+                    <my-button type="primary" @click="submitDataScope()">确 定</my-button>
                 </div>
             </template>
         </el-dialog>

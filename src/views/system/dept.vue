@@ -113,8 +113,8 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <my-button type="primary" @click="submitForm()"> 确 定 </my-button>
                     <my-button @click="dialog.open = false">取 消</my-button>
+                    <my-button type="primary" @click="submitForm()">确 定</my-button>
                 </div>
             </template>
         </el-dialog>

@@ -40,8 +40,8 @@
         </div>
         <slot name="footer">
             <div class="tr m-t-10">
-                <my-button type="primary" @click.prevent="subFn()">确 定 {{ state.tableSelection.length }} 项</my-button>
                 <my-button @click.prevent="$emit('close')">取 消</my-button>
+                <my-button type="primary" @click.prevent="subFn()">确 定 {{ state.tableSelection.length }} 项</my-button>
             </div>
         </slot>
     </div>
