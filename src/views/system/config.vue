@@ -31,7 +31,7 @@
             </my-list-panel>
         </div>
         <!-- 添加或修改部门对话框 -->
-        <el-dialog :title="dialogTitle" v-model="dialog.open" width="500px" append-to-body @close="resetForm(refDialogFrom)">
+        <el-dialog :title="dialogTitle" v-model="dialog.open" width="500px" append-to-body @closed="resetForm(refDialogFrom)">
             <my-form
                 ref="refDialogFrom"
                 :model="dialog.form"
@@ -48,17 +48,29 @@
                         list: $store.dict.sysYesNo,
                     },
                     { prop: 'remark', label: '备注', type: 'textarea' },
+                    { prop: 'qian', label: '签名' },
                 ]"
             >
                 <template #configValue="{ model, prop }">
                     <el-input v-model="model[prop]" placeholder="请输入参数值" clearable :size="$store.user.size" />
                 </template>
+                <template #qian="{ model, prop }">
+                    <my-button v-if="!model[prop]" @click="signatureShow = true">签名</my-button>
+                    <el-image v-else class="w100" style="height: 100px" :src="model[prop]" :preview-src-list="[model[prop]]" fit="cover" />
+                    <my-signature
+                        v-model="signatureShow"
+                        @getImg="
+                            (val) => {
+                                signatureShow = false;
+                                model[prop] = val;
+                            }
+                        "
+                    />
+                </template>
             </my-form>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click.prevent="dialog.open = false">取 消</my-button>
-                    <my-button type="primary" @click.prevent="dialogSubmitFn()">确 定</my-button>
-                </div>
+                <my-button @click.prevent="dialog.open = false">取 消</my-button>
+                <my-button type="primary" @click.prevent="dialogSubmitFn()">确 定</my-button>
             </template>
         </el-dialog>
     </div>
@@ -72,6 +84,7 @@ let queryParams = $ref({
         likeConfigName: '',
         likeConfigKey: '',
     }),
+    signatureShow = $ref(false),
     state = $ref({
         total: 0,
         list: [],

@@ -56,7 +56,7 @@
             </div>
         </div>
         <!-- 添加或修改部门对话框 -->
-        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(dialogForm)">
+        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @closed="resetForm(dialogForm)">
             <el-form ref="dialogForm" :model="dialog.form" :rules="rules" label-width="80px" class="validate--bottom">
                 <el-row>
                     <el-col :span="24" v-if="dialog.form.parentId !== '0'">
@@ -112,10 +112,8 @@
                 </el-row>
             </el-form>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click="dialog.open = false">取 消</my-button>
-                    <my-button type="primary" @click="submitForm()">确 定</my-button>
-                </div>
+                <my-button @click="dialog.open = false">取 消</my-button>
+                <my-button type="primary" @click="submitForm()">确 定</my-button>
             </template>
         </el-dialog>
     </div>

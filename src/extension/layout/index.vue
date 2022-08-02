@@ -147,11 +147,8 @@ watch(
 // 计算属性
 const width = computed(() => {
         let data = screenWidth.value * 0.15;
-        if (data < 200) {
-            data = 200;
-        } else if (data > 250) {
-            data = 250;
-        }
+        if (data < 200) return 200;
+        if (data > 300) return 300;
         return data;
     }),
     aside_width = computed(() => {

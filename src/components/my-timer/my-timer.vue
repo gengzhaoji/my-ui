@@ -48,7 +48,7 @@ const props = defineProps({
             default: 1000,
         },
     }),
-    $emit = defineEmits(['start', 'stop', 'reset', 'finish', 'tick']);
+    $emits = defineEmits(['start', 'stop', 'reset', 'finish', 'tick']);
 // 属性、方法抛出
 defineExpose({ start });
 
@@ -104,7 +104,7 @@ function start() {
      * @event start
      * @param {Dayjs} dayjs 时间对象
      */
-    $emit('start', dayjs);
+    $emits('start', dayjs);
 }
 /**
  * 停止运行
@@ -117,7 +117,7 @@ function stop() {
      * @event stop
      * @param {Dayjs} dayjs 时间对象
      */
-    $emit('stop', dayjs);
+    $emits('stop', dayjs);
 }
 /**
  * 重置
@@ -134,7 +134,7 @@ function reset() {
      * @event reset
      * @param {Dayjs} dayjs 时间对象
      */
-    $emit('reset', dayjs);
+    $emits('reset', dayjs);
 }
 function tick() {
     if (!dayjs) return;
@@ -152,14 +152,14 @@ function tick() {
          * @event finish
          * @param {Dayjs} dayjs 时间对象
          */
-        $emit('finish', dayjs);
+        $emits('finish', dayjs);
     } else {
         /**
          * 时间跳动时触发
          * @event tick
          * @param {Dayjs} dayjs 时间对象
          */
-        $emit('tick', dayjs);
+        $emits('tick', dayjs);
     }
 }
 onMounted(() => {

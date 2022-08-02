@@ -97,7 +97,6 @@
 
 // bialog
 .el-dialog {
-    --el-dialog-padding-primary: 10px !important;
     --el-dialog-padding-primary: 15px !important;
     border-radius: var(--el-border-radius-base) !important;
     .el-dialog__header {
@@ -111,6 +110,9 @@
         width: 50px;
         height: 50px;
         font-size: var(--el-message-close-size, 20px);
+    }
+    .el-dialog__footer {
+        padding-top: 0px;
     }
 }
 

@@ -72,10 +72,8 @@
                         </el-form-item>
                     </el-form>
                     <template #footer>
-                        <div class="dialog-footer">
-                            <my-button @click.prevent="dialog.open = false">取 消</my-button>
-                            <my-button type="primary" @click.prevent="submitForm()">确 定</my-button>
-                        </div>
+                        <my-button @click.prevent="dialog.open = false">取 消</my-button>
+                        <my-button type="primary" @click.prevent="submitForm()">确 定</my-button>
                     </template>
                 </el-dialog>
             </div>

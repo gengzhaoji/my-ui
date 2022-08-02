@@ -91,7 +91,7 @@
         </div>
 
         <!-- 添加或修改菜单对话框 -->
-        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(dialogForm)">
+        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @closed="resetForm(dialogForm)">
             <el-form ref="dialogForm" :model="dialog.form" :rules="rules" label-width="100px" class="validate--bottom">
                 <el-row>
                     <el-col :span="24">
@@ -237,10 +237,8 @@
                 </el-row>
             </el-form>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click.prevent="dialog.open = false">取 消</my-button>
-                    <my-button type="primary" @click.prevent="submitForm()">确 定</my-button>
-                </div>
+                <my-button @click.prevent="dialog.open = false">取 消</my-button>
+                <my-button type="primary" @click.prevent="submitForm()">确 定</my-button>
             </template>
         </el-dialog>
     </div>

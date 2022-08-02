@@ -97,9 +97,7 @@
                 </el-row>
             </el-form>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click.prevent="open = false">关 闭</my-button>
-                </div>
+                <my-button @click.prevent="open = false">关 闭</my-button>
             </template>
         </el-dialog>
     </div>

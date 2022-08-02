@@ -60,7 +60,7 @@
         </div>
 
         <!-- 添加或修改角色配置对话框 -->
-        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(form)">
+        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @closed="resetForm(form)">
             <div>
                 <el-form ref="form" :model="dialog.form" :rules="rules" label-width="80px" class="validate--bottom dialog-form">
                     <el-form-item label="角色名称" prop="roleName">
@@ -100,10 +100,8 @@
                 </el-form>
             </div>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click="cancel">取 消</my-button>
-                    <my-button type="primary" @click="submitForm()">确 定</my-button>
-                </div>
+                <my-button @click="cancel">取 消</my-button>
+                <my-button type="primary" @click="submitForm()">确 定</my-button>
             </template>
         </el-dialog>
 
@@ -141,10 +139,8 @@
                 </el-form-item>
             </el-form>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click="cancelDataScope">取 消</my-button>
-                    <my-button type="primary" @click="submitDataScope()">确 定</my-button>
-                </div>
+                <my-button @click="cancelDataScope">取 消</my-button>
+                <my-button type="primary" @click="submitDataScope()">确 定</my-button>
             </template>
         </el-dialog>
     </div>

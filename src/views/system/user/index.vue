@@ -88,7 +88,7 @@
             </div>
         </div>
         <!-- 添加或修改参数配置对话框 -->
-        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @close="resetForm(refDialogFrom)">
+        <el-dialog :title="dialog.title" v-model="dialog.open" width="600px" append-to-body @closed="resetForm(refDialogFrom)">
             <my-form
                 ref="refDialogFrom"
                 :model="dialogForm"
@@ -141,10 +141,8 @@
                 </template>
             </my-form>
             <template #footer>
-                <div class="dialog-footer">
-                    <my-button @click.prevent="dialog.open = false">取 消</my-button>
-                    <my-button type="primary" @click.prevent="submitForm()">确 定</my-button>
-                </div>
+                <my-button @click.prevent="dialog.open = false">取 消</my-button>
+                <my-button type="primary" @click.prevent="submitForm()">确 定</my-button>
             </template>
         </el-dialog>
     </div>

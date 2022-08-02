@@ -14,7 +14,7 @@ specifiers:
   dayjs: ^1.11.0
   docx-preview: ^0.1.11
   echarts: ^5.2.2
-  element-plus: ^2.2.10
+  element-plus: ^2.2.11
   gatsby-plugin-sass: ^5.18.1
   highlight.js: ^11.5.0
   html2canvas: ^1.4.1
@@ -28,6 +28,7 @@ specifiers:
   pinia-plugin-persist: ^1.0.0
   qs: ^6.10.3
   sass: ^1.49.9
+  signature_pad: ^4.0.7
   snabbdom: ^3.5.0
   sortablejs: ^1.14.0
   unplugin-auto-import: ^0.6.6
@@ -71,6 +72,7 @@ dependencies:
   pinia: 2.0.14_vue@3.2.37
   pinia-plugin-persist: 1.0.0_pinia@2.0.14+vue@3.2.37
   qs: 6.10.5
+  signature_pad: 4.0.7
   snabbdom: 3.5.0
   sortablejs: 1.15.0
   vue: 3.2.37
@@ -3240,6 +3242,10 @@ packages:
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
+
+  /signature_pad/4.0.7:
+    resolution: {integrity: sha512-2edcoEa6hDKeu/cIEda841Zhf8o3AyIscebzTJQdrBszSRRUvhbgqScNGmZuzo4iWn5FWYfFF6zZEl7mqvp8gA==}
+    dev: false
 
   /sirv/1.0.19:
     resolution: {integrity: sha512-JuLThK3TnZG1TAKDwNIqNq6QA2afLOCcm+iE8D1Kj3GA40pSPsxQjjJl0J8X3tsR7T+CP1GavpzLwYkgVLWrZQ==}
