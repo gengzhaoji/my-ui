@@ -14,8 +14,8 @@ function typeFn(data) {
  * @param {Object} api 页面的增、删、改、查接口 默认对应 add、remove、edit、page
  * @param {String} id 表格数据的唯一标识，用于数据删除使用
  * @param {Object} dialog 页面数据新增时的弹窗数据，用于弹窗显示、隐藏和弹窗的title计算
- * @param {html} refTable 表格分页组件的dom数据，用户操作查询和重置分页查询等工能
- * @param {html} refDialogFrom 新增弹窗的form表单的dom数据，用户新增，修改等表单校验，因为响应式问题，所以需要传递function(){return}return该值
+ * @param {html} refTable 表格分页组件的dom数据，用户操作查询和重置分页查询等工能，因为响应式问题，所以需要传ref()属性值，不可以使用$();
+ * @param {html} refDialogFrom 新增弹窗的form表单的dom数据，用户新增，修改等表单校验，因为响应式问题，所以需要传ref()属性值，不可以使用$();
  * @returns
  */
 export default function ({
@@ -198,7 +198,7 @@ export default function ({
  * @param {Object} state 页面表格数据，
  * @param {Object} api 页面的增、删、改、查接口 默认对应 add、remove、edit、page
  * @param {String} id 表格数据的唯一标识，用于数据删除使用
- * @param {html} myTable 表格的dom数据，用户操作表格的选中事件
+ * @param {html} myTable 表格的dom数据，用户操作表格的选中事件，使用ref()传入
  * @returns
  */
 export function SpreadPage({
