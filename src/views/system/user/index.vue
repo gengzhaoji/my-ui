@@ -55,7 +55,7 @@
                 <div class="p-10" v-hasPermi="['system:user:add', 'system:user:remove', 'system:user:export']">
                     <my-button type="primary" @click="insertFn" icon="Plus" v-hasPermi="['system:user:add']">新 增</my-button>
                     <my-button-export :load="Export" v-hasPermi="['system:user:export']" />
-                    <my-button type="danger" v-show="tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['system:user:remove']"> 删 除 </my-button>
+                    <my-button type="danger" :disabled="!tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['system:user:remove']"> 删 除 </my-button>
                 </div>
                 <my-list-panel ref="refTable" :loadFn="loadData" :total="state.total">
                     <template #default="{ page, size }">

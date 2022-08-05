@@ -17,7 +17,7 @@
         <div class="f1 h0 flex-col system-page-background m-t-10 b-r-4">
             <div class="p-10" v-hasPermi="['secrecy:config:add', 'secrecy:config:remove']">
                 <my-button type="primary" @click="insertFn()" icon="Plus" v-hasPermi="['secrecy:config:add']">新 增 </my-button>
-                <my-button type="danger" v-show="tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['secrecy:config:remove']"> 删 除 </my-button>
+                <my-button type="danger" :disabled="!tableSelection.length" @click="deleteFn(tableSelection)" icon="Delete" v-hasPermi="['secrecy:config:remove']"> 删 除 </my-button>
             </div>
             <my-list-panel ref="refTable" :total="state.total" :loadFn="loadData">
                 <my-table :data="state.list" :columns="state.columns" @selection-change="(val) => (tableSelection = val)">
