@@ -13,6 +13,7 @@ export default {
                 faeFilters: ['tags:guide,api'],
             },
         },
+        // 生成html的head配置：站点favicon...
         head: [
             // 改变title的图标
             [
@@ -23,6 +24,7 @@ export default {
                 },
             ],
         ],
+        // 头部导航
         nav: [{ text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' }],
         // 侧边栏
         sidebar: [
@@ -58,6 +60,10 @@ export default {
             },
         ],
         lineNumbers: true,
+        footer: {
+            message: 'Released under the MIT License.',
+            copyright: 'Copyright © 2022-present Evan You',
+        },
     },
     markdown: {
         config: (md) => {
