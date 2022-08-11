@@ -3,8 +3,7 @@ import { authLogin, authLogout, infoUserProfile } from '@a/public';
 import router from '@/router';
 import guarder from './guarder';
 
-export default defineStore({
-    id: 'user', // id必填，且需要唯一
+export default defineStore('user', {
     state: () => ({
         size: 'small',
         userInfo: {},

@@ -13,8 +13,7 @@ import user from './user';
 // 处理解决import动态加载组件 打包部署为空的问题
 const modules = import.meta.glob('../views/**/*.vue');
 
-export default defineStore({
-    id: 'guarder', // id必填，且需要唯一
+export default defineStore('guarder', {
     state: () => ({
         cachedComponents: [],
         Menus: [],
