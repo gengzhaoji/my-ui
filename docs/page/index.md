@@ -237,8 +237,8 @@ export default function ({
                     typeFn(api)
                         .remove({ ids: `${data[id]}` })
                         .then(() => {
-                            if (1 === state.list.length && Table?.lastcurrentPage) {
-                                Table?.reload?.();
+                            if (1 === state.list.length) {
+                                Table?.prevFn?.();
                             } else {
                                 getList();
                             }
@@ -255,8 +255,8 @@ export default function ({
                     typeFn(api)
                         .remove({ ids: data.map((item) => item[id]).join(',') })
                         .then(() => {
-                            if (data.length === state.list.length && Table.lastcurrentPage) {
-                                Table?.reload?.();
+                            if (data.length === state.list.length) {
+                                Table?.prevFn?.();
                             } else {
                                 getList();
                             }

@@ -133,7 +133,7 @@ let queryParams = $ref({
             postName: '',
             postCode: '',
             postSort: 0,
-            status: '',
+            status: 0,
             remark: '',
         },
     });
@@ -206,11 +206,7 @@ function Delete() {
         .then(() => {
             removePost({ ids: tableSelection.map((item) => item.id).join() }).then(() => {
                 if (tableSelection.length === state.list.length) {
-                    if (table.lastcurrentPage) {
-                        table.reload();
-                    } else {
-                        table.loadData();
-                    }
+                    table?.prevFn?.();
                 } else {
                     table.loadData();
                 }

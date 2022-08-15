@@ -67,7 +67,7 @@ let currentPage = $ref(1),
     pageSize = $ref(props.size);
 
 // 是否为最后一页
-const lastcurrentPage = computed(() => currentPage === Math.ceil(props.total / pageSize));
+const lastcurrentPage = $computed(() => currentPage === Math.ceil(props.total / pageSize));
 
 /**
  * 加载数据， 内部调用从组件props传入‘load’函数
@@ -104,8 +104,21 @@ function reload() {
     currentPage = 1;
     loadData();
 }
+/**
+ * 最后一也数据删除完成之后，自动跳转上一页
+ */
+function prevFn() {
+    if (lastcurrentPage) {
+        if (currentPage >= 2) {
+            currentPage -= 1;
+        } else {
+            currentPage = 1;
+        }
+    }
+    loadData();
+}
 // 属性、方法抛出
-defineExpose({ lastcurrentPage, loadData, reload });
+defineExpose({ prevFn, loadData, reload });
 // 初始化逻辑
 props.isAuto && loadData();
 </script>

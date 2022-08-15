@@ -10,6 +10,8 @@ import waterMarker from './directives/waterMarker';
 import waves from './directives/waves';
 import loadmore from './directives/loadmore';
 import clipboard from './directives/clipboard';
+import showTip from './directives/showTip';
+
 import { clone, cloneDeep } from '@u/convert';
 import { selectDictLabel, addDateRange } from '@u/util';
 const plugins = [ElInfiniteScroll, ElLoading, ElMessage, ElMessageBox, ElNotification];
@@ -41,6 +43,7 @@ export default {
         App.directive('waves', waves);
         App.directive('loadmore', loadmore);
         App.directive('clipboard', clipboard);
+        App.directive('showTip', showTip);
         /**
          * 原型链全局挂载方法
          */

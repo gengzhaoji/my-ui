@@ -225,11 +225,7 @@ function Delete() {
         .then(() => {
             removeTypedict({ ids: tableSelection.map((item) => item.id).join() }).then(() => {
                 if (tableSelection.length === state.list.length) {
-                    if (table.lastcurrentPage) {
-                        table.reload();
-                    } else {
-                        table.loadData();
-                    }
+                    table?.prevFn?.();
                 } else {
                     table.loadData();
                 }

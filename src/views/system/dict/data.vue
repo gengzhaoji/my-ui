@@ -237,11 +237,7 @@ function Delete() {
         .then(() => {
             removeDatadict({ ids: tableSelection.map((item) => item.id).join() }).then(() => {
                 if (tableSelection.length === state.list.length) {
-                    if (refTable.lastcurrentPage) {
-                        refTable.reload();
-                    } else {
-                        refTable.loadData();
-                    }
+                    refTable?.prevFn?.();
                 } else {
                     refTable.loadData();
                 }

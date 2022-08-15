@@ -469,13 +469,9 @@ function Delete() {
         .then(() => {
             removeRole({ ids: tableSelection.map((item) => item.id).join() }).then(() => {
                 if (tableSelection.length === state.list.length) {
-                    if (refTable.lastcurrentPage) {
-                        refTable.reload();
-                    } else {
-                        getList();
-                    }
+                    refTable?.prevFn?.();
                 } else {
-                    getList();
+                    refTable.loadData();
                 }
                 $vm.msgSuccess('删除成功');
             });
