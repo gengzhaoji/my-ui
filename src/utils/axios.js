@@ -92,7 +92,7 @@ function isJSON(str) {
  * @return {string}
  */
 function createKey(config) {
-    const { url, method, params = '', data = '' } = config;
+    const { url, method, params = {}, data = {} } = config;
     return encodeURIComponent([url, method, isJSON(params) ? params : JSON.stringify(params), isJSON(data) ? data : JSON.stringify(data)].join(','));
 }
 
@@ -156,10 +156,10 @@ service.interceptors.response.use(
             });
         }
         // 未设置状态码则默认成功状态
-        const code = (res.data && res.data.code) || AJAX_SUCCESS;
+        const code = res.data?.code || AJAX_SUCCESS;
 
         // 获取错误信息
-        const msg = errorCode[code] || (res.data && res.data.msg) || errorCode['default'];
+        const msg = errorCode[code] || res.data?.msg || errorCode['default'];
 
         if ([401, 418].includes(code)) {
             cancelFn();
@@ -206,6 +206,7 @@ service.interceptors.response.use(
             });
             cancelFn();
         }
+        loadingInstance?.close();
         return Promise.reject(error);
     }
 );
