@@ -17,9 +17,9 @@
             <!-- col 有children 属性， 直接返回slot插槽 -->
             <slot v-else :name="col.prop" :column="col"></slot>
         </template>
-        <el-table-column v-if="columnFilter" :resizable="false" width="26px" align="center" class-name="my-table--not-drag" fixed="right">
+        <el-table-column v-if="columnFilter" prop="ColumnFilter" :resizable="false" width="26px" align="center" class-name="my-table--not-drag" fixed="right">
             <template #header>
-                <ColumnFilter :columns="initColumns" v-model="displayColumnProps" @column-change-confirm="colChangeConfirm" />
+                <ColumnFilter :columns="initColumns" v-model="displayColumnProps" @column-change-confirm="colChangeConfirm" @filterResetClick="filterResetClick" />
             </template>
         </el-table-column>
         <!--暴露 el-table append 插槽-->
@@ -51,6 +51,7 @@ const emits = defineEmits(['column-change-confirm', 'on-column-sort', 'on-row-so
      * @property {Boolean} [fit = true] 是否占满父类
      * @property {Array} [data = []] 表格行数据
      * @property {Array} [columns = []]  表格列定义，对象属性参数完全继承 el-table-column
+     * @property {Array} [initColumns = []]  表格列原始定义，对象属性参数完全继承 el-table-column，供table列的自定义功能重置使用
      * @property {Object | Boolean} [columnSortable = false] 是否启用列拖拽排序, 可以配置Sortable个性化参数
      * @property {Object | Boolean} [rowSortable = false] 是否启用行拖拽排序, 可以配置Sortable个性化参数
      * @property {Number} [distanceToButton = 50] 滚动到距离底部多少距离触发 on-reach-bottom 事件， table需要设置高度才有效
@@ -109,7 +110,9 @@ let displayColumnProps = $ref([]),
     rowSortableInstance = $ref(null),
     // 上次滚动的位置
     lastScrollTop = $ref(0);
-
+/**
+ * 监听表格数据
+ */
 watch(
     () => props.data,
     (val) => {
@@ -117,6 +120,9 @@ watch(
     },
     { immediate: true }
 );
+/**
+ * 监听表格column列数据
+ */
 watch(
     () => props.columns,
     (val) => {
@@ -125,6 +131,9 @@ watch(
     },
     { immediate: true }
 );
+/**
+ * 监听表头显示列的数据，从而改变原始props.columns的display值
+ */
 watch(displayColumnProps, (val) => {
     props.columns.forEach((item) => {
         if (!(item.type || !item.prop)) {
@@ -137,7 +146,9 @@ watch(displayColumnProps, (val) => {
         }
     });
 });
-
+/**
+ * 实际表格渲染的列数组
+ */
 const displayColumns = computed(() =>
     columnsProxy.filter((col) => {
         // 有type的字段 或 没设置属性名称的列固定显示
@@ -145,7 +156,40 @@ const displayColumns = computed(() =>
         return displayColumnProps.includes(col.prop);
     })
 );
-
+/**
+ * 计算表头显示的列prop数组值
+ */
+function resetDisplayColumns() {
+    displayColumnProps = columnsProxy
+        .filter((col) => {
+            if (!col.prop || col.type) return false;
+            return col.display !== false;
+        })
+        .map((col) => col.prop);
+}
+/**
+ * 自定义表头重置逻辑
+ */
+function filterResetClick() {
+    props.columns.forEach((item, i) => {
+        const { width, display } = props.initColumns[i].width;
+        if (width) {
+            item.width = width;
+        } else {
+            delete item.width;
+        }
+        if (!!display) {
+            item.display = display;
+        } else {
+            delete item.display;
+        }
+    });
+}
+/**
+ * 表格的多层字段值显示函数
+ * @param {*} row
+ * @param {*} key
+ */
 function valueFn(row, key) {
     let keyArray = key?.split('.') || [],
         data = '';
@@ -158,20 +202,13 @@ function valueFn(row, key) {
     });
     return data;
 }
-function resetDisplayColumns() {
-    displayColumnProps = columnsProxy
-        .filter((col) => {
-            if (!col.prop || col.type) return false;
-            return col.display !== false;
-        })
-        .map((col) => col.prop);
-}
+
+/**
+ * 列表筛选点击确定时触发
+ * @event column-change-confirm
+ * @param {Array[]} columnPropNames
+ */
 function colChangeConfirm() {
-    /**
-     * 列表筛选点击确定时触发
-     * @event column-change-confirm
-     * @param {Array[]} columnPropNames
-     */
     emits('column-change-confirm', displayColumnProps);
 }
 /**

@@ -50,18 +50,12 @@ const emits = defineEmits(['update:modelValue', 'column-change-confirm']),
         set(val) {
             emits('update:modelValue', val);
         },
-    }),
-    modelValueProxy = props.columns
-        .filter((col) => {
-            if (!col.prop || col.type) return false;
-            return col.display !== false;
-        })
-        .map((col) => col.prop);
+    });
 
 function filterConfirmClick() {
     emits('column-change-confirm');
 }
 function filterResetClick() {
-    emits('update:modelValue', modelValueProxy);
+    emits('filterResetClick', modelValueProxy);
 }
 </script>
