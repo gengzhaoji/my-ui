@@ -21,11 +21,7 @@ export default ({ command, mode }) => {
     const isEnvProduction = mode === 'production';
     // vite插件
     const plugins = [
-        vue({
-            script: {
-                refSugar: true,
-            },
-        }),
+        vue({ reactivityTransform: true }),
         VueSetupExtend(),
         /**
          *  注入环境变量到html模板中

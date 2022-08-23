@@ -84,8 +84,9 @@ export default {
         /**
          * vite动态加载图片静态文件
          * @param {string} path 文件路径
-         * 例子：new URL(path, import.meta.url).href
+         * @returns
          */
+        App.config.globalProperties.getImgUrl = (path) => new URL(path, import.meta.url).href;
 
         /**
          * 公用$$confirm提示函数

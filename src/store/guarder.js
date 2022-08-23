@@ -10,7 +10,14 @@ import { clone } from '@u/convert';
 import { find } from '@u/tree';
 import user from './user';
 
-// 处理解决import动态加载组件 打包部署为空的问题
+/*
+ * 处理解决import动态加载组件 打包部署为空的问题
+ * **为通配符,vite不支持require导入方式,故用import.meta.glob(vite动态导入)
+ * import.meta.glob
+ * 该方法匹配到的文件默认是懒加载，通过动态导入实现，构建时会分离独立的 chunk，是异步导入，返回的是 Promise
+ * import.meta.globEager
+ * 该方法是直接导入所有模块，并且是同步导入，返回结果直接通过 for...in循环就可以操作
+ */
 const modules = import.meta.glob('../views/**/*.vue');
 
 export default defineStore('guarder', {
