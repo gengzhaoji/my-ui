@@ -24,15 +24,15 @@ export default ({ command, mode }) => {
         vue({ reactivityTransform: true }),
         VueSetupExtend(),
         /**
-         *  注入环境变量到html模板中
-         *  如在  .env文件中有环境变量  VITE_APP_TITLE=admin
-         *  则在 html模板中  可以这样获取  <%- VITE_APP_TITLE %>
+         *  注入变量到html模板中
+         *  则在 html模板中可以这样获取  <%- TITLE %> <%- injectConfigScript %>
          *  文档：  https://github.com/anncwb/vite-plugin-html
          */
         createHtmlPlugin({
             inject: {
                 data: {
                     TITLE: 'MY-UI',
+                    // 全局动态打包调整数据文件
                     injectConfigScript: `<script src="/config.js?v=${new Date().getTime()}"></script>`,
                     ...env,
                 },
