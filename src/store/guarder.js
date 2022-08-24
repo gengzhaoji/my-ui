@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
 import { shallowRef } from 'vue';
-
+// 默认全局路由
 import { homeRouters } from '@/api/public';
+// 默认布局Layout、ParentView
 import Layout from '@/extension/layout/index.vue';
 import ParentView from '@/extension/ParentView/index.vue';
+// 相关数据处理逻辑
 import router from '@/router';
 import { ElMessageBox } from 'element-plus';
 import { clone } from '@u/convert';
