@@ -86,7 +86,8 @@ export default {
          * @param {string} path 文件路径
          * @returns
          */
-        App.config.globalProperties.getImgUrl = (path) => new URL(`../assets/img/${url}`, import.meta.url).href;
+        const modules = import.meta.glob('../assets/img/**/*', { eager: true });
+        App.config.globalProperties.getImgUrl = (path) => modules[path].default;
 
         /**
          * 公用$$confirm提示函数

@@ -57,7 +57,11 @@ export default defineStore('guarder', {
                             },
                         ];
                         this.addRouter.forEach((item) => {
-                            router.addRoute(item);
+                            if (item.parentName) {
+                                router.addRoute(item.parentName, item);
+                            } else {
+                                router.addRoute(item);
+                            }
                         });
                         this.RoutersList = [...new Set(router.getRoutes().map((item) => item.path))];
                         resolve();
@@ -97,7 +101,7 @@ function filterAsyncRouter(data) {
          * isCache 是否缓存
          * orderNum 排序
          */
-        let { id, parentId, component, layoutPath, icon, menuName, menuType, path, visible, isCache, orderNum } = item;
+        const { id, parentId, component, layoutPath, icon, menuName, menuType, path, visible, isCache, orderNum } = item;
         if (parentId == '0' && menuType == 'M' && !component) {
             // 一层目录页面默认布局
             component = shallowRef(Layout);
@@ -111,27 +115,29 @@ function filterAsyncRouter(data) {
         // 无目录菜单
         if (parentId == '0' && menuType == 'C') {
             // 布局 layoutPath为默认布局，layoutPath == 'ParentView'全屏布局，modules[`../views/${layoutPath}.vue`]自定义页面布局
-            let layout = !layoutPath ? shallowRef(Layout) : layoutPath == 'ParentView' ? shallowRef(ParentView) : modules[`../views/${layoutPath}.vue`];
-            let Path = !/^(\/)/.test(path) ? `/${path}` : path;
+            const layout = !layoutPath ? shallowRef(Layout) : layoutPath == 'ParentView' ? shallowRef(ParentView) : modules[`../views/${layoutPath}.vue`];
+            const parentName = !layoutPath ? 'Layout' : layoutPath == 'ParentView' ? 'ParentView' : 'layoutPath}';
+            if (!router.hasRoute(parentName)) {
+                router.addRoute({
+                    name: parentName,
+                    path: parentName,
+                    component: layout,
+                });
+            }
+            const Path = !/^(\/)/.test(path) ? `/${path}` : path;
             RoutesData[id] = {
+                parentName,
+                parentId,
+                component,
+                hidden: visible == 1,
+                meta: { title: menuName, icon, keepAlive: isCache == 1 },
                 path: Path,
                 name: Path,
-                component: layout,
-                parentId: '0',
-                children: [
-                    {
-                        component: component,
-                        hidden: visible == 1,
-                        meta: { title: menuName, icon, keepAlive: isCache == 1 },
-                        path: Path,
-                        name: Path,
-                        orderNum,
-                        id,
-                    },
-                ],
+                orderNum,
+                id,
             };
         } else {
-            let Path = parentId == '0' ? (!/^(\/)/.test(path) ? `/${path}` : path) : path;
+            const Path = parentId == '0' ? (!/^(\/)/.test(path) ? `/${path}` : path) : path;
             RoutesData[id] = {
                 component: component,
                 hidden: visible == 1,

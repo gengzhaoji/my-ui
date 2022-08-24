@@ -8,8 +8,8 @@ import guarder from '@/helper/guarder.js';
 // 公共路由
 export const constantRoutes = [
     {
-        path: '/profile',
-        name: '/profile',
+        path: '/Layout',
+        name: '/Layout',
         component: Layout,
         children: [
             {

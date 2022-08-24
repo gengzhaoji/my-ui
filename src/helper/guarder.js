@@ -69,7 +69,7 @@ export default function (router) {
                             });
                     });
                 } else {
-                    next(); // hack方法 确保addRoutes已完成
+                    next();
                 }
             } else {
                 // 没有token
