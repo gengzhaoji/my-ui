@@ -101,7 +101,7 @@ function filterAsyncRouter(data) {
          * isCache 是否缓存
          * orderNum 排序
          */
-        const { id, parentId, component, layoutPath, icon, menuName, menuType, path, visible, isCache, orderNum } = item;
+        let { id, parentId, component, layoutPath, icon, menuName, menuType, path, visible, isCache, orderNum } = item;
         if (parentId == '0' && menuType == 'M' && !component) {
             // 一层目录页面默认布局
             component = shallowRef(Layout);
@@ -151,7 +151,7 @@ function filterAsyncRouter(data) {
         }
         // 左边菜单数据
         if (visible !== 1) {
-            let Path = parentId == '0' ? (!/^(\/)/.test(path) ? `/${path}` : path) : path;
+            const Path = parentId == '0' ? (!/^(\/)/.test(path) ? `/${path}` : path) : path;
             MenusData[id] = {
                 component: component,
                 hidden: visible == 1,
