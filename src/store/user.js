@@ -67,7 +67,7 @@ export default defineStore('user', {
                 infoUserProfile()
                     .then((res) => {
                         if (res?.data) {
-                            const { user, roles: Roles, perms } = res?.data;
+                            const { user, roles: Roles, perms } = res?.data || {};
                             if (Roles.length) {
                                 // 验证返回的roles是否是一个非空数组
                                 this.roles = Roles;
@@ -103,7 +103,7 @@ export default defineStore('user', {
         LogOutSET() {
             // 退出登录removeRoute删除动态添加的路由
             guarder().addRouter.forEach((item) => {
-                router.removeRoute(item.name);
+                router.removeRoute(item.name || item.path);
             });
             guarder().addRouter = [];
             this.token = '';

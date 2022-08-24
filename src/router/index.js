@@ -13,8 +13,8 @@ export const constantRoutes = [
         component: Layout,
         children: [
             {
-                path: '',
-                name: '',
+                path: '/profile',
+                name: '/profile',
                 component: () => import('../views/system/user/profile/index.vue'),
                 meta: {
                     title: '个人信息',

@@ -86,7 +86,7 @@ export default {
          * @param {string} path 文件路径
          * @returns
          */
-        App.config.globalProperties.getImgUrl = (path) => new URL(path, import.meta.url).href;
+        App.config.globalProperties.getImgUrl = (path) => new URL(`../assets/img/${url}`, import.meta.url).href;
 
         /**
          * 公用$$confirm提示函数
