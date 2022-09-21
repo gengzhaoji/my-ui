@@ -1,0 +1,118 @@
+:root {
+    --el-text-color-primary: #303133;
+    --prism-builtin: #3182bd;
+    --prism-comment: #848486;
+    --prism-deleted: #3182bd;
+    --prism-function: #6196cc;
+    --prism-boolean: #c25205;
+    --prism-number: #c25205;
+    --prism-property: #717c11;
+    --prism-punctuation: #a8a9cc;
+    --prism-keyword: #c792ea;
+    --prism-variable: #0b8235;
+    --prism-url-decoration: #67cdcc;
+    --prism-symbol: green;
+    --prism-selector: #0b8235;
+    --brand-color: var(--el-color-primary);
+    --link-active-bg-color: rgba(var(--el-color-primary-rgb), 0.1);
+}
+.dark {
+    --prism-scheme: dark;
+    --prism-foreground: #a6accd;
+    --prism-background: #181818;
+    --prism-comment: #758575;
+    --prism-string: #c3e88d;
+    --prism-literal: #429988;
+    --prism-keyword: #89ddff;
+    --prism-boolean: #6394bf;
+    --prism-number: #6394bf;
+    --prism-variable: #c2b36e;
+    --prism-function: #82aaff;
+    --prism-deleted: #bc6066;
+    --prism-class: #54b1bf;
+    --prism-builtin: var(--el-color-primary-light-3);
+    --prism-property: #c792ea;
+    --prism-namespace: #db889a;
+    --prism-punctuation: #89ddff;
+    --prism-decorator: #bd8f8f;
+    --prism-regex: #ab5e3f;
+    --prism-json-property: #6b8b9e;
+    --prism-line-number: #888888;
+    --prism-line-number-gutter: #eeeeee;
+    --prism-line-highlight-background: #444444;
+    --prism-selection-background: #444444;
+    --prism-inline-background: #2d2d2d;
+    --el-text-color-primary: #e5eaf3;
+    --el-fill-color-light: #262727;
+    --code-bg-color: var(--el-fill-color-light);
+    --code-text-color: var(--el-text-color-primary);
+}
+.title {
+    font-size: 40px !important;
+}
+.title-text {
+    font-size: 20px !important;
+}
+.link {
+    padding: 10px 16px !important;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    border-radius: 8px;
+}
+.link.active {
+    background-color: var(--link-active-bg-color);
+}
+
+.link.active .link-text {
+    font-weight: 600;
+    color: var(--brand-color);
+    transition: color 0.25s;
+}
+.token.tag,
+.token.builtin {
+    color: var(--prism-builtin);
+}
+.vp-doc div[class*='language-vue'] {
+    background-color: var(--code-bg-color);
+}
+.vp-doc [class*='language-'] code {
+    color: var(--code-text-color);
+}
+
+.vp-doc th,
+.vp-doc td {
+    border: 1px solid var(--vp-c-divider);
+    padding: 8px 10px;
+    font-size: 14px;
+}
+.vp-doc th {
+    font-size: 16px;
+}
+.description {
+    background-color: transparent !important;
+}
+.demo-block-control {
+    background-color: transparent !important;
+}
+
+[class*='language-'] code {
+    padding: 0;
+    line-height: var(--code-line-height);
+    font-size: var(--code-font-size);
+    color: var(--code-text-color);
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: var(--prism-comment);
+    font-style: var(--prism-comment-style);
+}
+.token.punctuation {
+    color: var(--prism-punctuation);
+}
+@media (min-width: 960px) {
+    .group {
+        padding-top: 26px !important;
+    }
+}
