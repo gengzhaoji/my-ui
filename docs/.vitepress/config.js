@@ -2,8 +2,33 @@ import demoblock from 'vitepress-theme-demoblock';
 
 export default {
     title: 'my-ui',
-    description: 'vue3+element-plus二次封装',
+    description: '此框架使用与二次开发，前端框架使用vue，UI框架使用element-plus，全局数据状态管理使用pinia，ajax使用库为axios。用于快速搭建中后台页面。',
     lang: 'en-cn',
+    lastUpdated: true,
+    hmr: { overlay: false },
+    // 生成html的head配置：站点favicon...
+    head: [
+        ['meta', { name: 'keywords', content: 'vite vue element 后台管理系统' }],
+        [
+            'meta',
+            {
+                name: 'viewport',
+                content: 'width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no',
+            },
+        ],
+        // 改变title的图标
+        [
+            'link',
+            {
+                rel: 'icon',
+                href: '/favicon.ico',
+            },
+        ],
+        // 统计代码
+        ['script', { src: 'https://hm.baidu.com/hm.js?3a995a34b126c8652c75166fa2690df9' }],
+        // 百度推送代码
+        ['script', { src: '/push.js' }],
+    ],
     themeConfig: {
         // 展示搜索框
         algolia: {
@@ -13,19 +38,12 @@ export default {
                 faeFilters: ['tags:guide,api'],
             },
         },
-        // 生成html的head配置：站点favicon...
-        head: [
-            // 改变title的图标
-            [
-                'link',
-                {
-                    rel: 'icon',
-                    href: '/favicon.ico',
-                },
-            ],
-        ],
         // 头部导航
-        nav: [{ text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' }],
+        nav: [
+            { text: '菜单信息配置', link: '/menu/', activeMatch: '/menu/' },
+            { text: '权限信息配置', link: '/power/', activeMatch: '/power/' },
+            { text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' },
+        ],
         // 侧边栏
         sidebar: [
             {
@@ -60,10 +78,10 @@ export default {
             },
         ],
         lineNumbers: true,
-        footer: {
-            message: 'Released under the MIT License.',
-            copyright: 'Copyright © 2022-present Evan You',
-        },
+        // footer: {
+        //     message: 'Released under the MIT License.',
+        //     copyright: 'Copyright © 2022-present Evan You',
+        // },
     },
     markdown: {
         config: (md) => {
