@@ -40,8 +40,8 @@ export default {
         },
         // 头部导航
         nav: [
-            { text: '菜单信息配置', link: '/menu/', activeMatch: '/menu/' },
-            { text: '权限信息配置', link: '/power/', activeMatch: '/power/' },
+            { text: '菜单配置', link: '/menu/', activeMatch: '/menu/' },
+            { text: '权限配置', link: '/power/', activeMatch: '/power/' },
             { text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' },
         ],
         // 侧边栏
@@ -51,19 +51,23 @@ export default {
                 items: [
                     {
                         text: '安装',
-                        link: '/installation/',
+                        link: '/installation',
                     },
                     {
                         text: '快速开始',
-                        link: '/quickstart/',
+                        link: '/quickstart',
                     },
                     {
-                        text: '自动化API',
-                        link: '/coder/',
+                        text: '文件配置',
+                        link: '/configuration',
+                    },
+                    {
+                        text: '代码生成器',
+                        link: '/coder',
                     },
                     {
                         text: '自定义代码片段',
-                        link: '/page/',
+                        link: '/page',
                     },
                 ],
             },

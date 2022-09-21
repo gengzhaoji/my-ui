@@ -5,6 +5,7 @@ import Theme from 'vitepress/client/theme-default';
 
 // 导入主题样式
 import 'vitepress-theme-demoblock/theme/styles/index.css';
+import './style.css';
 // 导入插件的主题
 import { registerComponents } from './register-components.js';
 
