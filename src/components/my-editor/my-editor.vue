@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script setup name="myEditor">
+<script setup name="MyEditor">
 import { formContextKey as elFormKey, formItemContextKey as elFormItemKey } from 'element-plus';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import { h } from 'snabbdom';

@@ -92,13 +92,13 @@ const comTable = {
 };
 </script>
 
-<script setup name="myTreeTable">
+<script setup name="MyTreeTable">
 import { SpreadPage } from '@u/mixin';
 
 const $emit = defineEmits(['determine', 'close']),
     refTree = $ref(null),
     refTable = $ref(null),
-    myTableRef = $ref(null),
+    myTableRef = ref(null),
     /**
      * 该组件所有props都为必填
      * @param {Function} pageApi 右边表格的分页接口
@@ -147,7 +147,7 @@ let queryParams = $ref({}),
         list: [],
     });
 
-const { loadData, handleSelectionChange, handleSelectionAllChange } = SpreadPage({ queryParams, api: { page: props.pageApi }, state, myTable: () => myTableRef.$refs.myTable });
+const { loadData, handleSelectionChange, handleSelectionAllChange } = SpreadPage({ queryParams, api: { page: props.pageApi }, state, myTable: unref(myTableRef).$refs.myTable });
 
 // 左边tree逻辑部分
 let filType = $ref('');

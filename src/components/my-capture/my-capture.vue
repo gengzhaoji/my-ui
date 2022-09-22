@@ -6,7 +6,7 @@
     </span>
 </template>
 
-<script setup name="myCapture">
+<script setup name="MyCapture">
 /**
  * capture 截取屏幕元素组件
  * @module components/my-capture

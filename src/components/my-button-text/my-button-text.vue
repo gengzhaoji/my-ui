@@ -6,7 +6,7 @@
     </el-button>
 </template>
 
-<script setup name="my-button-text"></script>
+<script setup name="MyButtonText"></script>
 
 <style lang="scss" scoped>
 .caozuo + .caozuo {

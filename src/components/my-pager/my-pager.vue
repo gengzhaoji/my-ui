@@ -20,7 +20,7 @@
     </div>
 </template>
 
-<script setup name="myPager">
+<script setup name="MyPager">
 import { useElementSize } from '@vueuse/core';
 /**
  * pager 分页组件

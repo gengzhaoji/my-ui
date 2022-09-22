@@ -7,7 +7,7 @@
     </span>
 </template>
 
-<script setup name="myPrint">
+<script setup name="MyPrint">
 import { addClass, removeClass, hasClass, setStyle } from 'element-plus/lib/utils/dom/style';
 /**
  * MyPrint

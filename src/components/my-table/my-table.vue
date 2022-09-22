@@ -1,5 +1,5 @@
 <template>
-    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" :size="$store.user.size" v-bind="$attrs">
+    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" v-bind="$attrs">
         <template v-for="col in displayColumns" :key="`${col.prop}-${col.type}`">
             <!-- col 没有children 属性 -->
             <el-table-column v-if="!col.children" resizable v-bind="col">
@@ -19,7 +19,7 @@
         </template>
         <el-table-column v-if="columnFilter" prop="ColumnFilter" :resizable="false" width="26px" align="center" class-name="my-table--not-drag" fixed="right">
             <template #header>
-                <ColumnFilter :columns="initColumns" v-model="displayColumnProps" @column-change-confirm="colChangeConfirm" @filterResetClick="filterResetClick" />
+                <column-filter :columns="initColumns" v-model="displayColumnProps" @column-change-confirm="colChangeConfirm" @filterResetClick="filterResetClick" />
             </template>
         </el-table-column>
         <!--暴露 el-table append 插槽-->
@@ -35,21 +35,21 @@
     </el-table>
 </template>
 
-<script setup name="myTable">
+<script setup name="MyTable">
+import ColumnFilter from './ColumnFilter.vue';
 /**
- * myTable 表格组件 报错问题为无法获取使用$props
+ * MyTable 表格组件 报错问题为无法获取使用$props
  * @module components/my-table
  */
 import Sortable from 'sortablejs';
-import { debounce } from '@/utils/util';
-import { insertAfter } from '@/utils/dom';
+import { debounce } from '../../utils/util';
+import { insertAfter } from '../../utils/dom';
 
 const emits = defineEmits(['column-change-confirm', 'on-column-sort', 'on-row-sort', 'on-reach-bottom', 'on-reach-top', 'on-scroll']),
     $attrs = useAttrs(),
     /**
      * 属性参数，完全继承 el-table参数，并有以下扩展参数
      * @property {Boolean} [fit = true] 是否占满父类
-     * @property {Array} [data = []] 表格行数据
      * @property {Array} [columns = []]  表格列定义，对象属性参数完全继承 el-table-column
      * @property {Array} [initColumns = []]  表格列原始定义，对象属性参数完全继承 el-table-column，供table列的自定义功能重置使用
      * @property {Object | Boolean} [columnSortable = false] 是否启用列拖拽排序, 可以配置Sortable个性化参数
@@ -99,24 +99,24 @@ const emits = defineEmits(['column-change-confirm', 'on-column-sort', 'on-row-so
     });
 
 // 表格列定义数组
-let displayColumnProps = $ref([]),
+let displayColumnProps = ref([]),
     // 原始表格数据
-    columnsProxy = $ref([]),
+    columnsProxy = [],
     // 表格行数据
-    tableData = $ref({}),
+    tableData = ref({}),
     // 列拖拽Sortable实例
-    columnSortableInstance = $ref(null),
+    columnSortableInstance = null,
     // 行拖拽Sortable实例
-    rowSortableInstance = $ref(null),
+    rowSortableInstance = null,
     // 上次滚动的位置
-    lastScrollTop = $ref(0);
+    lastScrollTop = 0;
 /**
  * 监听表格数据
  */
 watch(
     () => props.data,
     (val) => {
-        tableData = val;
+        tableData.value = val;
     },
     { immediate: true }
 );
@@ -134,18 +134,21 @@ watch(
 /**
  * 监听表头显示列的数据，从而改变原始props.columns的display值
  */
-watch(displayColumnProps, (val) => {
-    props.columns.forEach((item) => {
-        if (!(item.type || !item.prop)) {
-            // 默认为显示修改
-            if (val.includes(item.prop)) {
-                if (item.display === false) delete item.display;
-            } else {
-                item.display = false;
+watch(
+    () => displayColumnProps.value,
+    (val) => {
+        props.columns.forEach((item) => {
+            if (!(item.type || !item.prop)) {
+                // 默认为显示修改
+                if (val.includes(item.prop)) {
+                    if (item.display === false) delete item.display;
+                } else {
+                    item.display = false;
+                }
             }
-        }
-    });
-});
+        });
+    }
+);
 /**
  * 实际表格渲染的列数组
  */
@@ -153,14 +156,14 @@ const displayColumns = computed(() =>
     columnsProxy.filter((col) => {
         // 有type的字段 或 没设置属性名称的列固定显示
         if (col.type || !col.prop) return true;
-        return displayColumnProps.includes(col.prop);
+        return displayColumnProps.value.includes(col.prop);
     })
 );
 /**
  * 计算表头显示的列prop数组值
  */
 function resetDisplayColumns() {
-    displayColumnProps = columnsProxy
+    displayColumnProps.value = columnsProxy
         .filter((col) => {
             if (!col.prop || col.type) return false;
             return col.display !== false;
@@ -209,7 +212,7 @@ function valueFn(row, key) {
  * @param {Array[]} columnPropNames
  */
 function colChangeConfirm() {
-    emits('column-change-confirm', displayColumnProps);
+    emits('column-change-confirm', displayColumnProps.value);
 }
 /**
  * 内部调用排序方法，还原由Sortable拖拽改变的DOM顺序，然后修改数据，再由数据驱动改变DOM
@@ -243,9 +246,9 @@ function sort(type, container, data, e) {
             columnsProxy = tempData;
         });
     } else {
-        tableData = [];
+        tableData.value = [];
         nextTick(() => {
-            tableData = tempData;
+            tableData.value = tempData;
         });
     }
 }
@@ -292,14 +295,14 @@ function initRowSortable() {
         props.rowSortable,
         {
             onSort: (e) => {
-                sort('row', tbody, tableData, e);
+                sort('row', tbody, tableData.value, e);
                 /**
                  * 行拖拽排序完成时触发
                  * @event on-row-sort
                  * @param {object} e Sortable事件对象
                  * @param {Array} data 行数据
                  */
-                emits('on-row-sort', e, tableData);
+                emits('on-row-sort', e, tableData.value);
             },
         }
     );
@@ -337,13 +340,13 @@ function handleScroll(e) {
     emits('on-scroll', e);
 }
 
-const myTable = $ref(null);
+const myTable = ref(null);
 let proxyHandleScroll, bodyWrapper;
 onMounted(() => {
     props.columnSortable && initColumnSortable();
     props.rowSortable && initRowSortable();
     proxyHandleScroll = debounce(handleScroll, 20, false);
-    bodyWrapper = myTable.$refs.bodyWrapper.querySelector('.el-scrollbar .el-scrollbar__wrap');
+    bodyWrapper = unref(myTable).$refs.bodyWrapper.querySelector('.el-scrollbar .el-scrollbar__wrap');
     bodyWrapper.addEventListener('scroll', proxyHandleScroll);
 });
 onBeforeUnmount(() => {

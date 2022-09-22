@@ -20,8 +20,8 @@
             />
         </div>
         <div class="f1 h0 flex-col system-page-background m-t-10 b-r-4">
-            <div class="p-10" v-hasPermi="['system:dep:add']">
-                <my-button type="primary" icon="Plus" @click.prevent="Add" v-hasPermi="['system:dep:add']"> 新 增 </my-button>
+            <div class="p-10" v-hasPermi="['system:dept:add']">
+                <my-button type="primary" icon="Plus" @click.prevent="Add" v-hasPermi="['system:dept:add']"> 新 增 </my-button>
             </div>
             <div class="f1 h0 flex-col">
                 <my-table
@@ -48,9 +48,9 @@
                         </div>
                     </template>
                     <template #default="{ row }">
-                        <my-button-text @click.stop="Update(row)" v-hasPermi="['system:dep:edit']"> 修改 </my-button-text>
-                        <my-button-text @click.stop="Add(row)" v-hasPermi="['system:dep:add']"> 新增 </my-button-text>
-                        <my-button-text v-if="!row.children.length" @click.stop="Delete(row)" v-hasPermi="['system:dep:remove']"> 删除 </my-button-text>
+                        <my-button-text @click.stop="Update(row)" v-hasPermi="['system:dept:edit']"> 修改 </my-button-text>
+                        <my-button-text @click.stop="Add(row)" v-hasPermi="['system:dept:add']"> 新增 </my-button-text>
+                        <my-button-text v-if="!row.children.length" @click.stop="Delete(row)" v-hasPermi="['system:dept:remove']"> 删除 </my-button-text>
                     </template>
                 </my-table>
             </div>

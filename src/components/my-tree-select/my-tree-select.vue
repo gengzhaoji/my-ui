@@ -2,7 +2,7 @@
     <el-tree-select ref="TreeSelect" :data="options" clearable filterable check-strictly collapse-tags collapse-tags-tooltip :size="$store.user.size" v-bind="$attrs" />
 </template>
 
-<script setup name="my-tree-select">
+<script setup name="MyTreeSelect">
 const $vm = inject('$vm'),
     emits = defineEmits(['update:modelValue', 'getLabel']),
     TreeSelect = $ref(null),

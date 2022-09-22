@@ -56,6 +56,6 @@ function filterConfirmClick() {
     emits('column-change-confirm');
 }
 function filterResetClick() {
-    emits('filterResetClick', modelValueProxy);
+    emits('filterResetClick');
 }
 </script>

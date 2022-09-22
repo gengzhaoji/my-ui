@@ -21,7 +21,7 @@
     </div>
 </template>
 
-<script setup name="my-collapsible">
+<script setup name="MyCollapsible">
 const emits = defineEmits(['collapse']),
     /**
      * 属性参数

@@ -77,7 +77,7 @@
     </div>
 </template>
 
-<script setup name="myFileUpload">
+<script setup name="MyFileUpload">
 /**
  * 请求接口
  */

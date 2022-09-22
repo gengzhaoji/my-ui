@@ -75,8 +75,12 @@ export default {
                 text: '基础组件',
                 items: [
                     {
-                        text: 'Button 按钮',
-                        link: '/guide/button',
+                        text: 'myButton 按钮',
+                        link: '/guide/myButton',
+                    },
+                    {
+                        text: 'myTable 表格',
+                        link: '/guide/myTable',
                     },
                 ],
             },

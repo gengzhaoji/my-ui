@@ -12,7 +12,7 @@
     </el-select>
 </template>
 
-<script setup name="my-select">
+<script setup name="MySelect">
 import _camelCase from 'lodash/camelCase';
 
 const $vm = inject('$vm');

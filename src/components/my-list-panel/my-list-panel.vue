@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script setup name="myListPanel">
+<script setup name="MyListPanel">
 /**
  * 插槽
  * @member slot

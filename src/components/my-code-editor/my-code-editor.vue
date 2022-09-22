@@ -20,7 +20,7 @@
     </div>
 </template>
 
-<script setup name="myCodeEditor">
+<script setup name="MyCodeEditor">
 // 引入全局实例
 import CodeMirror from 'codemirror/lib/codemirror';
 import 'codemirror/addon/edit/matchbrackets';

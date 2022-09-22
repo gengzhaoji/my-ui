@@ -21,7 +21,7 @@
     </div>
 </template>
 
-<script setup name="myNumber">
+<script setup name="MyNumber">
 /**
  * 数字组件
  * @module components/my-number

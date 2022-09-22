@@ -14,7 +14,7 @@
     />
 </template>
 
-<script setup name="my-date-picker">
+<script setup name="MyDatePicker">
 import date from '@u/date';
 const emits = defineEmits(['update:modelValue']),
     /***

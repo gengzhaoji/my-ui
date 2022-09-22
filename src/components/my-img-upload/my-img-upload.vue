@@ -40,7 +40,7 @@
     </div>
 </template>
 
-<script setup name="myImgUpload">
+<script setup name="MyImgUpload">
 /**
  * 请求接口
  */

@@ -15,7 +15,7 @@
     </el-input>
 </template>
 
-<script setup name="my-input-number">
+<script setup name="MyInputNumber">
 const emits = defineEmits(['update:modelValue']),
     /***
      * 参数属性

@@ -116,7 +116,7 @@
     </div>
 </template>
 
-<script setup name="my-process">
+<script setup name="MyProcess">
 import Modeler from 'bpmn-js/lib/Modeler';
 import FlowModeler from './flow';
 import BpmData from './BpmData';

@@ -4,7 +4,8 @@
     </el-menu>
 </template>
 
-<script setup name="myMenu">
+<script setup name="MyMenu">
+import MenuList from './MenuList.vue';
 /**
  * 菜单组件
  * @module components/my-menu

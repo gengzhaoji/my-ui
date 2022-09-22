@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<script setup name="myLazy">
+<script setup name="MyLazy">
 import { useIntersectionObserver } from '@vueuse/core';
 let lazyShow = $ref(false),
     lazyRef = $ref(null);

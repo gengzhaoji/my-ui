@@ -15,7 +15,7 @@
     </el-input>
 </template>
 
-<script setup name="my-input">
+<script setup name="MyInput">
 const emits = defineEmits(['update:modelValue']),
     attrs = useAttrs(),
     props = defineProps({

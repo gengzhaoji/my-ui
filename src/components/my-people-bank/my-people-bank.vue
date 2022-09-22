@@ -35,7 +35,7 @@
     </el-dialog>
 </template>
 
-<script setup name="myPeopleBank">
+<script setup name="MyPeopleBank">
 import { pageUser } from '@/api/system';
 
 const $vm = inject('$vm'),

@@ -14,7 +14,7 @@
  *  http://www.sortablejs.com/index.html
  */
 import Sortable from 'sortablejs';
-import { insertAfter } from '@/utils/dom';
+import { insertAfter } from '@u/dom';
 import { guid } from '@u/util';
 
 /**

@@ -4,7 +4,7 @@
     </my-button>
 </template>
 
-<script setup name="my-button-export">
+<script setup name="MyButtonExport">
 const $vm = inject('$vm'),
     /**
      * props

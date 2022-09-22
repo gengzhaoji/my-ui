@@ -5,14 +5,22 @@ import Theme from 'vitepress/client/theme-default';
 
 // 导入主题样式
 import 'vitepress-theme-demoblock/theme/styles/index.css';
-import './style.css';
+import './style.scss';
 // 导入插件的主题
 import { registerComponents } from './register-components.js';
+
+// MyUi组件
+import MyUi from '../../../src/components/index';
+import * as ElIcons from '@element-plus/icons';
 
 export default {
     ...Theme,
     enhanceApp: ({ app }) => {
         app.use(ElementPlus);
+        app.use(MyUi);
         registerComponents(app);
+        for (const name in ElIcons) {
+            app.component(name, ElIcons[name]);
+        }
     },
 };

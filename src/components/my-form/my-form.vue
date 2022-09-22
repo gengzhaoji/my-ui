@@ -154,7 +154,7 @@
     </el-form>
 </template>
 
-<script setup name="myForm">
+<script setup name="MyForm">
 import { useElementSize } from '@vueuse/core';
 import _camelCase from 'lodash/camelCase';
 

@@ -22,64 +22,64 @@ import Guarder from '@s/guarder';
 import User from '@s/user';
 
 export default {
-    install: function (App, options) {
+    install: function (app, options) {
         plugins.forEach((plugin) => {
-            App.use(plugin);
+            app.use(plugin);
         });
         for (const name in ElIcons) {
             /*
              * 以elIcon为前缀的命名规则，是为了适配已经使用属性名添加图标的内置组件，
              * 例如：<el-button icon="el-icon-refresh"></el-button>
              */
-            // App.component('elIcon' + name, ElIcons[name]);
-            App.component(name, ElIcons[name]);
+            // app.component('elIcon' + name, ElIcons[name]);
+            app.component(name, ElIcons[name]);
         }
         /**
          * 全局指令
          */
-        App.directive('draggable', draggable);
-        App.directive('hasPermi', hasPermi);
-        App.directive('waterMarker', waterMarker);
-        App.directive('waves', waves);
-        App.directive('loadmore', loadmore);
-        App.directive('clipboard', clipboard);
-        App.directive('showTip', showTip);
+        app.directive('draggable', draggable);
+        app.directive('hasPermi', hasPermi);
+        app.directive('waterMarker', waterMarker);
+        app.directive('waves', waves);
+        app.directive('loadmore', loadmore);
+        app.directive('clipboard', clipboard);
+        app.directive('showTip', showTip);
         /**
          * 原型链全局挂载方法
          */
-        App.config.globalProperties.msgSuccess = function (msg) {
+        app.config.globalProperties.msgSuccess = function (msg) {
             ElMessage({ showClose: true, message: msg, type: 'success' });
         };
 
-        App.config.globalProperties.msgError = function (msg) {
+        app.config.globalProperties.msgError = function (msg) {
             ElMessage({ showClose: true, message: msg, type: 'error' });
         };
 
-        App.config.globalProperties.msgInfo = function (msg) {
+        app.config.globalProperties.msgInfo = function (msg) {
             ElMessage.info(msg);
         };
 
-        App.config.globalProperties.resetForm = function (refName) {
+        app.config.globalProperties.resetForm = function (refName) {
             if (refName) {
                 // 不是公用的my-form标签的ref逻辑
                 refName?.resetFields?.() || refName?.$refs?.refMyForm?.resetFields?.();
             }
         };
 
-        App.config.globalProperties.$store = {
+        app.config.globalProperties.$store = {
             com: Com(),
             dict: Dict(),
             guarder: Guarder(),
             user: User(),
         };
 
-        App.config.globalProperties.clone = clone;
+        app.config.globalProperties.clone = clone;
 
-        App.config.globalProperties.cloneDeep = cloneDeep;
+        app.config.globalProperties.cloneDeep = cloneDeep;
 
-        App.config.globalProperties.selectDictLabel = selectDictLabel;
+        app.config.globalProperties.selectDictLabel = selectDictLabel;
 
-        App.config.globalProperties.addDateRange = addDateRange;
+        app.config.globalProperties.addDateRange = addDateRange;
 
         /**
          * vite动态加载图片静态文件
@@ -87,14 +87,14 @@ export default {
          * @returns
          */
         const modules = import.meta.glob('../assets/img/**/*', { eager: true });
-        App.config.globalProperties.getImgUrl = (path) => modules[path].default;
+        app.config.globalProperties.getImgUrl = (path) => modules[path].default;
 
         /**
          * 公用$$confirm提示函数
          * @param {string/object} data
          * @returns
          */
-        App.config.globalProperties.$$confirm = function (data) {
+        app.config.globalProperties.$$confirm = function (data) {
             let options = {};
             if (typeof data === 'string') {
                 options.item = data;

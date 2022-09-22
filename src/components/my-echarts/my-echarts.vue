@@ -2,7 +2,7 @@
     <div class="echarts" ref="myEcharts" :style="styles"></div>
 </template>
 
-<script setup name="myEcharts">
+<script setup name="MyEcharts">
 import { useResizeObserver } from '@vueuse/core';
 
 /**

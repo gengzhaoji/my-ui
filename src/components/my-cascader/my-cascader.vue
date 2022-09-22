@@ -13,7 +13,7 @@
     />
 </template>
 
-<script setup name="my-cascader">
+<script setup name="MyCascader">
 const $vm = inject('$vm'),
     emits = defineEmits(['getLabel']),
     attrs = useAttrs(),
