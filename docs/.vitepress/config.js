@@ -95,6 +95,18 @@ export default {
                             text: 'MyTable 表格',
                             link: '/ui/guide/MyTable',
                         },
+                        {
+                            text: 'MyCapture 截取屏幕',
+                            link: '/ui/guide/MyCapture',
+                        },
+                        {
+                            text: 'MyCascader 级联选择',
+                            link: '/ui/guide/MyCascader',
+                        },
+                        {
+                            text: 'MyCornerMark 角标',
+                            link: '/ui/guide/MyCornerMark',
+                        },
                     ],
                 },
             ],
