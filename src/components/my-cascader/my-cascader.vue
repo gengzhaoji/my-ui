@@ -26,20 +26,20 @@ const $vm = inject('$vm'),
             default: () => [],
         },
     }),
-    cascader = $ref(null),
-    options = $ref(null);
+    cascader = ref(null);
+let options = ref([]);
 
 watch(
     () => props.list,
     (val) => {
-        options = val;
+        options.value = val;
     },
     { deep: true, immediate: true }
 );
 watch(
     () => $vm.$store.com[props.type?.replace('GET', '')],
     (val) => {
-        if (props.type) options = val;
+        if (props.type) options.valu = val;
     },
     { deep: true, immediate: true }
 );
@@ -50,10 +50,10 @@ if (props.type) $vm.$store?.com[props.type]();
 
 function cascaderChange(item) {
     if (!attrs.props.multiple) {
-        emits('getLabel', cascader.getCheckedNodes()[0]?.label || '');
-        cascader.popperVisible = false;
+        emits('getLabel', unref(cascader).getCheckedNodes()[0]?.label || '');
+        unref(cascader).popperVisible = false;
     } else {
-        emits('getLabel', cascader.getCheckedNodes() || []);
+        emits('getLabel', unref(cascader).getCheckedNodes() || []);
     }
 }
 </script>

@@ -9,7 +9,7 @@ hero:
     actions:
         - theme: brand
           text: 快速开始
-          link: /installation
+          link: /ui/installation
 
 features:
     - title: 💡 简洁至上

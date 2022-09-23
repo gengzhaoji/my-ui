@@ -6,6 +6,8 @@ export default {
     lang: 'en-cn',
     lastUpdated: true,
     hmr: { overlay: false },
+    appearance: true,
+    ignoreDeadLinks: true,
     // 生成html的head配置：站点favicon...
     head: [
         ['meta', { name: 'keywords', content: 'vite vue element 后台管理系统' }],
@@ -24,10 +26,6 @@ export default {
                 href: '/favicon.ico',
             },
         ],
-        // 统计代码
-        ['script', { src: 'https://hm.baidu.com/hm.js?3a995a34b126c8652c75166fa2690df9' }],
-        // 百度推送代码
-        ['script', { src: '/push.js' }],
     ],
     themeConfig: {
         // 展示搜索框
@@ -40,56 +38,79 @@ export default {
         },
         // 头部导航
         nav: [
-            { text: '菜单配置', link: '/menu/', activeMatch: '/menu/' },
-            { text: '权限配置', link: '/power/', activeMatch: '/power/' },
+            { text: '首页', link: '/' },
+            { text: '组件', link: '/ui/installation' },
+            { text: '问题总结', link: '/bug/' },
+            { text: '知识分享', link: '/knowledge/' },
             { text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' },
         ],
         // 侧边栏
-        sidebar: [
-            {
-                text: '基础',
-                items: [
-                    {
-                        text: '安装',
-                        link: '/installation',
-                    },
-                    {
-                        text: '快速开始',
-                        link: '/quickstart',
-                    },
-                    {
-                        text: '文件配置',
-                        link: '/configuration',
-                    },
-                    {
-                        text: '代码生成器',
-                        link: '/coder',
-                    },
-                    {
-                        text: '自定义代码片段',
-                        link: '/page',
-                    },
-                ],
-            },
-            {
-                text: '基础组件',
-                items: [
-                    {
-                        text: 'myButton 按钮',
-                        link: '/guide/myButton',
-                    },
-                    {
-                        text: 'myTable 表格',
-                        link: '/guide/myTable',
-                    },
-                ],
-            },
-        ],
+        sidebar: {
+            '/ui/': [
+                {
+                    text: '基础',
+                    collapsible: true,
+                    items: [
+                        {
+                            text: '安装',
+                            link: '/ui/installation',
+                        },
+                        {
+                            text: '快速开始',
+                            link: '/ui/quickstart',
+                        },
+                        {
+                            text: '文件配置',
+                            link: '/ui/configuration',
+                        },
+                        {
+                            text: '代码生成器',
+                            link: '/ui/coder',
+                        },
+                        {
+                            text: '自定义代码片段',
+                            link: '/ui/page',
+                        },
+                        { text: '菜单配置', link: '/ui/menu/' },
+                        { text: '权限配置', link: '/ui/power/' },
+                    ],
+                },
+                {
+                    text: '基础组件',
+                    collapsible: true,
+                    items: [
+                        {
+                            text: 'MyButton 按钮',
+                            link: '/ui/guide/MyButton',
+                        },
+                        {
+                            text: 'MyButtonExport 导出按钮',
+                            link: '/ui/guide/MyButtonExport',
+                        },
+                        {
+                            text: 'MyButtonText 操作按钮',
+                            link: '/ui/guide/MyButtonText',
+                        },
+                        {
+                            text: 'MyTable 表格',
+                            link: '/ui/guide/MyTable',
+                        },
+                    ],
+                },
+            ],
+            '/bug/': [
+                {
+                    text: '常见',
+                    items: [
+                        {
+                            text: '安装',
+                            link: '/bug/installation',
+                        },
+                    ],
+                },
+            ],
+        },
         lineNumbers: true,
-        // footer: {
-        //     message: 'Released under the MIT License.',
-        //     copyright: 'Copyright © 2022-present Evan You',
-        // },
     },
     markdown: {
         config: (md) => {

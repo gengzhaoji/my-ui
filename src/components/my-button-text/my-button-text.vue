@@ -8,8 +8,9 @@
 
 <script setup name="MyButtonText"></script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .caozuo + .caozuo {
+    margin-left: 0;
     > span {
         border-left: 1px solid #e6e9f4;
         padding-left: 10px;

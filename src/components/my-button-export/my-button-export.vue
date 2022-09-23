@@ -25,7 +25,10 @@ const $vm = inject('$vm'),
  * @Function exportFn
  */
 function exportFn() {
-    if (!props.load) return;
+    if (!props.load) {
+        new Error('load 必须传');
+        return;
+    }
     $vm.$$confirm(props.confirm)
         .then(() => {
             props

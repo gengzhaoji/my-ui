@@ -49,7 +49,7 @@ const $emit = defineEmits(['size-change', 'update:page', 'current-change']),
  * @property {Boolean} [autoLayout = true] 控制分页器 可以自动根据组件当前的长度来显示隐藏部分子组件（如分页器变窄时，可以自动隐藏 'pager'组件）
  * @property {Boolean} [background = true] 控制 分页器的 页码按钮 是否有 背景色
  */
-const layouts = {
+let layouts = {
         full: 'total,sizes, ->, prev, pager, next, jumper',
         small: 'total,sizes, ->, prev, next, jumper',
         mini: 'total,sizes,->,prev,pager, next',

@@ -11,6 +11,29 @@ export default ({ command, mode }) => {
                 dts: 'auto-import.d.js', // 生成 `auto-import.d.js` 全局声明
             }),
         ],
+        css: {
+            // 消除vite2打包出现警告，"@charset" must be the first，
+            preprocessorOptions: {
+                scss: {
+                    charset: false,
+                },
+            },
+            // 消除vite2打包出现警告，"@charset" must be the first，
+            postcss: {
+                plugins: [
+                    {
+                        postcssPlugin: 'internal:charset-removal',
+                        AtRule: {
+                            charset: (atRule) => {
+                                if (atRule.name === 'charset') {
+                                    atRule.remove();
+                                }
+                            },
+                        },
+                    },
+                ],
+            },
+        },
         // alias 现在会被传递给 @rollup/plugin-alias 并不再需要开始/结尾处的斜线了。
         // 此行为目前是一个直接替换，所以 1.0 风格的目录别名需要删除其结尾处的斜线：
         resolve: {

@@ -1,5 +1,5 @@
 <template>
-    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" v-bind="$attrs">
+    <el-table ref="myTable" :class="['my-table', { 'flex-grow-1': fit }]" :data="tableData" size="$store.user.size" v-bind="$attrs">
         <template v-for="col in displayColumns" :key="`${col.prop}-${col.type}`">
             <!-- col 没有children 属性 -->
             <el-table-column v-if="!col.children" resizable v-bind="col">
@@ -129,7 +129,7 @@ watch(
         columnsProxy = [...val];
         resetDisplayColumns();
     },
-    { immediate: true }
+    { immediate: true, deep: true }
 );
 /**
  * 监听表头显示列的数据，从而改变原始props.columns的display值
@@ -175,7 +175,7 @@ function resetDisplayColumns() {
  */
 function filterResetClick() {
     props.columns.forEach((item, i) => {
-        const { width, display } = props.initColumns[i].width;
+        const { width, display } = props?.initColumns[i];
         if (width) {
             item.width = width;
         } else {

@@ -83,7 +83,7 @@ let myImgUploadDisabled = $computed(() => props.disabled || elForm?.disabled),
     upload = $ref(null),
     fileType = ['png', 'jpg', 'jpeg'];
 
-const fileList = $computed({
+let fileList = $computed({
     get: () =>
         props.modelValue.map((item) => ({
             id: item.id,

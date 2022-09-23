@@ -53,7 +53,7 @@ const props = defineProps({
             type: String,
             default: 'my-print-page-container',
         },
-        parentDom: [HTMLElement, Function, String],
+        parentDom: [Function, String],
         rootStyle: {
             type: Object,
             default: () => {

@@ -19,7 +19,7 @@
 </template>
 
 <script setup name="ColumnFilter">
-const emits = defineEmits(['update:modelValue', 'column-change-confirm']),
+const emits = defineEmits(['update:modelValue', 'column-change-confirm', 'filterResetClick']),
     props = defineProps({
         columns: {
             type: Array,

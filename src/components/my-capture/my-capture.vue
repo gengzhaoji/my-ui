@@ -49,7 +49,6 @@ const $emit = defineEmits(['on-capture', 'on-output']),
             default: () => date(new Date(), 'yyyy-MM-dd hh:mm:ss'),
         },
         dom: {
-            type: HTMLElement,
             default() {
                 return document.body;
             },

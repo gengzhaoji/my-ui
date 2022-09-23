@@ -131,7 +131,7 @@ let dialogImageUrl = $ref(''),
     isDisabled = $ref(true);
 
 // 是否显示提示
-const showTip = $computed(() => props.isShowTip && (props.fileType ?? props.fileSize)),
+let showTip = $computed(() => props.isShowTip && (props.fileType ?? props.fileSize)),
     // 是否禁用上传功能
     exportShow = $computed(() => props.disabled || elForm?.disabled),
     fileList = $computed({

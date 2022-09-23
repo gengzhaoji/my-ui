@@ -49,7 +49,9 @@ const columns = [
 
 ```vue
 <template>
-    <my-table :data="tableData" :columns="columns" :initColumns="initColumns" columnFilter />
+    <ClientOnly>
+        <my-table :data="tableData" :columns="columns" :initColumns="initColumns" columnFilter />
+    </ClientOnly>
 </template>
 
 <script setup>
@@ -68,7 +70,21 @@ const initColumns = [
             prop: 'address',
         },
     ],
-    columns = initColumns,
+    columns = [
+        {
+            label: '时间',
+            prop: 'date',
+            display: 'always', // 永远显示
+        },
+        {
+            label: '名称',
+            prop: 'name',
+        },
+        {
+            label: '描述',
+            prop: 'address',
+        },
+    ],
     tableData = [
         {
             date: '2016-05-03',

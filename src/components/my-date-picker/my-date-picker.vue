@@ -35,8 +35,8 @@ const emits = defineEmits(['update:modelValue']),
             type: Boolean,
             default: true,
         },
-    }),
-    isArray = $ref(null),
+    });
+let isArray = null,
     attrs = useAttrs();
 
 let valueFormat = $computed(() => {
