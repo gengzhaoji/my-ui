@@ -15,8 +15,14 @@
 
 <script setup name="MyCascader">
 import _camelCase from 'lodash/camelCase';
+/**模块store数据 */
+import Com from '@s/com';
+import Dict from '@s/dict';
 
-const $vm = inject('$vm'),
+const store = {
+        com: Com(),
+        dict: Dict(),
+    },
     emits = defineEmits(['getLabel']),
     attrs = useAttrs(),
     /***
@@ -51,7 +57,7 @@ watch(
     { deep: true, immediate: true }
 );
 watch(
-    () => props.$store?.com[unref(dictType)?.replace('GET', '')],
+    () => store?.com[unref(dictType)?.replace('GET', '')],
     (val) => {
         if (unref(dictType)) options.value = val;
     },
@@ -61,7 +67,7 @@ watch(
 /**
  * 初始化执行逻辑
  */
-if (unref(dictType)) $vm.$store?.com[unref(dictType)]();
+if (unref(dictType)) store?.com[unref(dictType)]();
 
 function cascaderChange(item) {
     if (!attrs.props.multiple) {

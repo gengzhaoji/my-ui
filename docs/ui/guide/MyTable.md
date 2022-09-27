@@ -1,8 +1,8 @@
-# myTable 表格
+# MyTable 表格
 
 完全兼容 [el-table](https://element-plus.org/zh-CN/component/table.html)，扩展了部分功能。
 
--   使用`columns`来定义 table 的列
+## 使用`columns`来定义 table 的列
 
 :::demo 使用`columns`来定义 table 的列
 
@@ -43,7 +43,7 @@ const columns = [
 
 :::
 
--   使用`columnFilter`来动态定义 table 的列
+## 使用`columnFilter`来动态定义 table 的列
 
 :::demo `columns` 中 `display` 的值包含（`always`永远显示，`false`不显示，`true`显示）
 
@@ -124,3 +124,10 @@ const initColumns = [
 | on-reach-bottom       | 表格滚动到底部时触发   | scrollDistance 离底部的距离 |
 | on-reach-top          | 表格滚动到顶部时触发   | scrollTop 离顶部的距离      |
 | on-scroll             | 表格滚动时触发         | e                           |
+
+## 插槽
+
+| 插槽名               | 说明                                                           | 插槽作用域 |
+| -------------------- | -------------------------------------------------------------- | ---------- |
+| `item.prop`          | 每个`columns`对象的`prop`即为**插槽名**                        | scope      |
+| `{item.prop}_header` | 每个`columns`对象的`prop`拼接`_header`即为**列`header`插槽名** | scope      |

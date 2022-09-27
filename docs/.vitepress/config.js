@@ -91,10 +91,7 @@ export default {
                             text: 'MyButtonText 操作按钮',
                             link: '/ui/guide/MyButtonText',
                         },
-                        {
-                            text: 'MyTable 表格',
-                            link: '/ui/guide/MyTable',
-                        },
+
                         {
                             text: 'MyCapture 截取屏幕',
                             link: '/ui/guide/MyCapture',
@@ -106,6 +103,98 @@ export default {
                         {
                             text: 'MyCornerMark 角标',
                             link: '/ui/guide/MyCornerMark',
+                        },
+                        {
+                            text: 'MyDatePicker 日期时间选择',
+                            link: '/ui/guide/MyDatePicker',
+                        },
+                        {
+                            text: 'MyEcharts 图表',
+                            link: '/ui/guide/MyEcharts',
+                        },
+                        {
+                            text: 'MyEditor 富文本',
+                            link: '/ui/guide/MyEditor',
+                        },
+                        {
+                            text: 'MyFileUpload 文件上传',
+                            link: '/ui/guide/MyFileUpload',
+                        },
+                        {
+                            text: 'MyForm 表单',
+                            link: '/ui/guide/MyForm',
+                        },
+                        {
+                            text: 'MyHeader 头部',
+                            link: '/ui/guide/MyHeader',
+                        },
+                        {
+                            text: 'MyImgUpload 图片上传',
+                            link: '/ui/guide/MyImgUpload',
+                        },
+                        {
+                            text: 'MyInput 输入框',
+                            link: '/ui/guide/MyInput',
+                        },
+                        {
+                            text: 'MyInputNumber 数字输入框',
+                            link: '/ui/guide/MyInputNumber',
+                        },
+                        {
+                            text: 'MyLazy 懒渲染',
+                            link: '/ui/guide/MyLazy',
+                        },
+                        {
+                            text: 'MyListPanel 分页内容',
+                            link: '/ui/guide/MyListPanel',
+                        },
+                        {
+                            text: 'MyMarquee 无缝滚动',
+                            link: '/ui/guide/MyMarquee',
+                        },
+                        {
+                            text: 'MyMenu 菜单',
+                            link: '/ui/guide/MyMenu',
+                        },
+                        {
+                            text: 'MyNumber 数字',
+                            link: '/ui/guide/MyNumber',
+                        },
+                        {
+                            text: 'MyPager 分页',
+                            link: '/ui/guide/MyPager',
+                        },
+                        {
+                            text: 'MyPanel 面板容器',
+                            link: '/ui/guide/MyPanel',
+                        },
+                        {
+                            text: 'MyPreview 文件预览',
+                            link: '/ui/guide/MyPreview',
+                        },
+                        {
+                            text: 'MyPrint 打印',
+                            link: '/ui/guide/MyPrint',
+                        },
+                        {
+                            text: 'MySelect 下拉选择',
+                            link: '/ui/guide/MySelect',
+                        },
+                        {
+                            text: 'MySignature 签名',
+                            link: '/ui/guide/MySignature',
+                        },
+                        {
+                            text: 'MySortable 拖拽排序',
+                            link: '/ui/guide/MySortable',
+                        },
+                        {
+                            text: 'MyTable 表格',
+                            link: '/ui/guide/MyTable',
+                        },
+                        {
+                            text: 'MyTimer 计时器',
+                            link: '/ui/guide/MyTimer',
                         },
                     ],
                 },

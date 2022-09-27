@@ -39,7 +39,7 @@ const emits = defineEmits(['update:modelValue']),
 let isArray = null,
     attrs = useAttrs();
 
-let valueFormat = $computed(() => {
+let valueFormat = computed(() => {
         if (attrs['value-format']) {
             return attrs['value-format'];
         } else {
@@ -54,7 +54,7 @@ let valueFormat = $computed(() => {
             }
         }
     }),
-    fieldValue = $computed({
+    fieldValue = computed({
         get() {
             if (isArray == null) isArray = Array.isArray(props.modelValue) || new RegExp('range', 'gi').test(attrs.type);
             return props.modelValue;
@@ -67,7 +67,7 @@ let valueFormat = $computed(() => {
             }
         },
     }),
-    shortcuts = $computed(() => {
+    shortcuts = computed(() => {
         if (props.autoshortcuts) {
             if (['datetimerange', 'daterange'].includes(attrs.type)) {
                 return [
@@ -131,7 +131,7 @@ let valueFormat = $computed(() => {
     });
 
 // 初始化执行逻辑
-if (props.now) fieldValue = date(new Date(), valueFormat);
+if (props.now) fieldValue.value = date(new Date(), unref(valueFormat));
 </script>
 
 <style scoped lang="scss">

@@ -17,6 +17,8 @@ import store from '../../../src/store';
 
 // 引入全局资源
 import * as ElIcons from '@element-plus/icons';
+import { selectDictLabel } from '@u/util';
+import '../../../src/style/index.scss';
 /**模块store数据 */
 import Com from '@s/com';
 import Dict from '@s/dict';
@@ -39,6 +41,7 @@ export default {
             dict: Dict(),
             user: User(),
         };
+        app.config.globalProperties.selectDictLabel = selectDictLabel;
         registerComponents(app);
     },
 };

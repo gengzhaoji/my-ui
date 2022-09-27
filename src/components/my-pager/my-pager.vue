@@ -69,7 +69,7 @@ let layouts = {
         },
         size: {
             type: Number,
-            default: 20,
+            default: 10,
         },
         total: {
             type: Number,
@@ -93,22 +93,22 @@ let layouts = {
         },
     }),
     // 是否显示
-    visible = $computed(() => props.total * 1 > 0),
+    visible = computed(() => props.total * 1 > 0),
     // 计算总页数
-    pageCount = $computed(() => (props.total > 0 ? Math.ceil(props.total / props.size) : 0)),
+    pageCount = computed(() => (props.total > 0 ? Math.ceil(props.total / props.size) : 0)),
     // 布局配置
-    currentLayout = $ref(layouts[props.layout] || props.layout);
+    currentLayout = ref(layouts[props.layout] || props.layout);
 
 // 显示的时候监听组件宽度
-if (visible) {
+if (visible.value) {
     const { width } = useElementSize(myPager);
-    currentLayout = width.value >= 800 ? layouts.full : layouts.mini;
+    currentLayout.value = width.value >= 800 ? layouts.full : layouts.mini;
 }
 
 watch(
     () => props.layout,
     (val) => {
-        currentLayout = layouts[val] || val;
+        currentLayout.value = layouts[val] || val;
     }
 );
 

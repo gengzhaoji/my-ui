@@ -1,5 +1,5 @@
 <template>
-    <el-input ref="input" v-model="fieldValue" :clearable="clearable" :size="$store.user.size" :maxlength="20" v-bind="$attrs">
+    <el-input ref="input" v-model="fieldValue" clearable :size="$store.user.size" :maxlength="20" v-bind="$attrs">
         <template #prefix v-if="$slots.prefix">
             <slot name="prefix"></slot>
         </template>
@@ -21,6 +21,7 @@ const emits = defineEmits(['update:modelValue']),
      * 参数属性
      * @property {} modelValue 默认值
      * @property {String} numberType 数据类型（整型，浮点型）默认为整型，float-n，n为保留小数点后几位
+     * @property {Number} `numberType=init` 时才有效， numberLength 只能输入几位整数
      */
     props = defineProps({
         modelValue: null,
@@ -33,10 +34,6 @@ const emits = defineEmits(['update:modelValue']),
             },
         },
         numberLength: Number,
-        clearable: {
-            type: Boolean,
-            default: true,
-        },
     }),
     type = computed(() => props.numberType.split('-')[0]),
     digit = computed(() => props.numberType.split('-')[1]);
@@ -64,9 +61,7 @@ function setNum(val) {
         }
     } else if (type.value === 'init') {
         val = val.replace(/[^0-9]/gi, '');
-        if (props.numberLength) {
-            val = val.slice(0, props.numberLength);
-        }
+        if (props.numberLength) val = val.slice(0, props.numberLength);
     }
     // 判断最大值逻辑
     if (attrs.max && Number(val) > Number(attrs.max)) return attrs.max;

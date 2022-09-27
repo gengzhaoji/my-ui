@@ -8,7 +8,6 @@ import draggable from './directives/draggable';
 import hasPermi from './directives/hasPermi';
 import waterMarker from './directives/waterMarker';
 import waves from './directives/waves';
-import loadmore from './directives/loadmore';
 import clipboard from './directives/clipboard';
 import showTip from './directives/showTip';
 
@@ -41,7 +40,6 @@ export default {
         app.directive('hasPermi', hasPermi);
         app.directive('waterMarker', waterMarker);
         app.directive('waves', waves);
-        app.directive('loadmore', loadmore);
         app.directive('clipboard', clipboard);
         app.directive('showTip', showTip);
         /**

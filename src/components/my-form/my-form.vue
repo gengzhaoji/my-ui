@@ -157,14 +157,21 @@
 <script setup name="MyForm">
 import { useElementSize } from '@vueuse/core';
 import _camelCase from 'lodash/camelCase';
+import { cloneDeep } from '@u/convert';
+/**模块store数据 */
+import Com from '@s/com';
+import Dict from '@s/dict';
 
-const $vm = inject('$vm'),
+const store = {
+        com: Com(),
+        dict: Dict(),
+    },
     $attrs = useAttrs(),
     refMyForm = ref(null),
     MyFormWidth = useElementSize(refMyForm).width;
 
 // 查询功能的宽度
-let queryWidth = $ref(220);
+let queryWidth = 220;
 /***
  * props
  * @property {Array} formItem 生成form表单的配置数组
@@ -173,9 +180,9 @@ let queryWidth = $ref(220);
  * @property {Number} columns 默认一行显示的form-item数量 默认为3个
  * @property {Boolean} listenEl 是否监听该form的宽度以自适应  一行显示的form-item数量 (必须在是query为true的时候才会生效)
  * @property {Boolean} collapsible 是否支持表单项展开、收起 (必须在是query为true的时候才会生效)
- * @property {boolean} [collapsed=true] 初始收起表单项目，collapsible=true是才有效
- * @property {boolean} [detail=false] 表单是否为详情展示表单默认为FALSE
- * @property {boolean} [colFlag=false] 是否开启表单响应式
+ * @property {Boolean} [collapsed=true] 初始收起表单项目，collapsible=true是才有效
+ * @property {Boolean} [detail=false] 表单是否为详情展示表单默认为FALSE
+ * @property {Boolean} [colFlag=false] 是否开启表单响应式
  */
 const props = defineProps({
         formItem: {
@@ -216,7 +223,7 @@ const props = defineProps({
         },
     }),
     // 一行显示的form-item数量
-    currentColumn = $computed(() => {
+    currentColumn = computed(() => {
         const width = MyFormWidth.value;
         nextTick(() => {
             queryWidth = document.getElementById('MyFormQuery')?.getBoundingClientRect().width || queryWidth;
@@ -238,9 +245,9 @@ const props = defineProps({
         }
     }),
     // 当前的折叠状态
-    currentCollapsed = $ref(props.collapsed),
+    currentCollapsed = ref(props.collapsed),
     // 默认必填
-    defaultRules = $computed(() => {
+    defaultRules = computed(() => {
         if (!props.query && !props.detail) {
             let rules = Object.create(null);
             props.formItem.forEach((item) => {
@@ -258,13 +265,13 @@ const props = defineProps({
         }
     }),
     // form-item宽度
-    itemWidth = $computed(() => `calc(${100 / currentColumn}% - ${10 + (queryWidth + 1) / currentColumn}px) !important`),
+    itemWidth = computed(() => `calc(${100 / currentColumn.value}% - ${10 + (queryWidth + 1) / currentColumn.value}px) !important`),
     // 是否使用el-row布局进行响应式页面
-    row = $computed(() => !!$attrs.row || props.formItem.some((item) => !!item.col) || props.colFlag);
+    row = computed(() => !!$attrs.row || props.formItem.some((item) => !!item.col) || props.colFlag);
 
 // form-item的参数处理逻辑
 function itemFn(item) {
-    const date = $vm.cloneDeep(item);
+    const date = cloneDeep(item);
     delete date.label;
     delete date.prop;
     delete date.itemType;
@@ -276,7 +283,7 @@ function itemFn(item) {
 // 下拉选择框详情显示Label函数
 function DictLabelFn(item) {
     const dictType = item.type || (item.code && `GET${_camelCase(item.code)}`);
-    if (dictType) ($vm.$store?.dict[dictType] || $vm.$store?.com[dictType])();
+    if (dictType) (store?.dict[dictType] || store?.com[dictType])();
 }
 </script>
 

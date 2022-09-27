@@ -1,6 +1,6 @@
 # MyButton 按钮
 
-完全兼容 el-button，添加了自动化 size 功能，根据屏幕宽度，自动化全局 size。
+完全兼容 [`el-button`](https://element-plus.org/zh-CN/component/button.html)，添加了自动化 `size` 功能，根据屏幕宽度，自动化全局 `size`。
 
 :::demo 使用`type`，`plain`，`round`来定义 Button 的样式
 

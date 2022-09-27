@@ -7,7 +7,7 @@ import MyCascader from './my-cascader';
 import MyCornerMark from './my-corner-mark';
 import MyDatePicker from './my-date-picker';
 import MyEcharts from './my-echarts';
-// import MyEditor from './my-editor';
+import MyEditor from './my-editor';
 import MyFileUpload from './my-file-upload';
 import MyForm from './my-form';
 import MyHeader from './my-header';
@@ -43,7 +43,7 @@ export const components = [
     MyCornerMark,
     MyDatePicker,
     MyEcharts,
-    // MyEditor,
+    MyEditor,
     MyFileUpload,
     MyForm,
     MyHeader,

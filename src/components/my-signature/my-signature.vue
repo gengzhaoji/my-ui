@@ -1,6 +1,6 @@
 <template>
-    <el-dialog title="签名" width="500px" @open="init" append-to-body draggable v-bind="$attrs">
-        <canvas v-bind="{ height: 200, width: 470 }" ref="refCanvas" />
+    <el-dialog title="签名" :width="`${width + 30}px`" @open="init" append-to-body draggable v-bind="$attrs">
+        <canvas v-bind="{ height, width }" ref="refCanvas" />
         <template #footer>
             <my-button @click="clearFn">重新签名</my-button>
             <my-button type="primary" @click="submitFn">确认签名</my-button>
@@ -22,7 +22,21 @@ import SignaturePad from 'signature_pad';
 
 const $vm = inject('$vm');
 const $emits = defineEmits(['getImg']);
+/***
+ * 参数属性
+ * @property {Number} [height = 200] 签字版的高度
+ * @property {Number} [width = 470] 签字版的宽度
+ * @property {Object} signatureObj SignaturePad的配置属性
+ */
 const props = defineProps({
+    height: {
+        type: Number,
+        default: 200,
+    },
+    width: {
+        type: Number,
+        default: 470,
+    },
     signatureObj: {
         type: Object,
         default: () => ({ backgroundColor: '#b1b3b8' }),
