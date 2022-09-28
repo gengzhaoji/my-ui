@@ -11,7 +11,7 @@
 ```vue
 <template>
     <div>
-        <my-panel title="打印区域" theme="border-left">
+        <my-panel title="打印区域" theme="border-left" :window="window">
             <template #handle>
                 <my-print :print-range="'.print-range1'">
                     <el-button type="primary" icon="tickets"></el-button>
@@ -50,7 +50,7 @@ for (let i = 0; i < 50; i++) {
 
 ```vue
 <template>
-    <my-panel title="分页处理" theme="border-left">
+    <my-panel title="分页处理" theme="border-left" :window="window">
         <template #handle>
             <my-print :print-range="'.print-range3'">
                 <el-button type="primary" icon="tickets"></el-button>

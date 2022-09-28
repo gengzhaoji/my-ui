@@ -72,8 +72,13 @@ const options = {
 
 ## 属性
 
-| 属性          | 说明                         | 类型                  | 可选 | 默认值 |
-| ------------- | ---------------------------- | --------------------- | ---- | ------ |
-| modelValue    | 默认值                       | [String, Array, Date] |      |        |
-| now           | 是否默认为当前时间           | Boolean               |      | false  |
-| autoshortcuts | 是否添加默认规则的 shortcuts | Boolean               |      | true   |
+| 属性    | 说明                                         | 类型                 | 默认值 |
+| ------- | -------------------------------------------- | -------------------- | ------ |
+| geo     | 需要注册的地图 geoJson                       | Object               |        |
+| map     | 需要注册的地图名称， map 和 geo 需要同时设置 | String               |        |
+| options | echarts 配置项                               | `{Object, Function}` |        |
+| width   | 图表的宽度                                   | String               | 100%   |
+| height  | 图表的高度                                   | String               | 100%   |
+| loading | 是否显示 loading 效果                        | Boolean              | true   |
+| group   | 分组标识                                     | `{string,number}`    |        |
+| toggle  | 是否开启全屏/取消全屏切换功能                | Boolean              | false  |

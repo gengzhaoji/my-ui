@@ -1,9 +1,9 @@
 <template>
-    <el-button ref="elButton" link class="caozuo" type="primary" :size="$store.user.size" v-bind="$attrs">
+    <my-button ref="elButton" link class="caozuo" type="primary" v-bind="$attrs">
         <template #default v-if="$slots.default">
             <slot name="default"></slot>
         </template>
-    </el-button>
+    </my-button>
 </template>
 
 <script setup name="MyButtonText"></script>

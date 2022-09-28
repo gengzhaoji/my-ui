@@ -27,28 +27,28 @@
 
 ## `html2canvas` 的配置项
 
-| 属性                   | 说明                                                                                                                                              | 类型          | 默认值                  |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------------------- |
-| allowTaint             | 是否允许跨域图像（原 `h2c` 组件默认是 `false`，封装时定义为 `true`），会污染画布，导致无法使用`canvas.toDataURL`方法                              | Boolean       | true                    |
-| backgroundColor        | `canvas` 的背景颜色默认为白，设置 `null` 为透明                                                                                                   | String        | #fffff                  |
-| canvas                 | 现有 `canvas` 元素用作绘图的基础                                                                                                                  | `HTMLElement` | null                    |
-| foreignObjectRendering | 如果浏览器支持，是否使用 `ForeignObject` 呈现                                                                                                     | Boolean       | false                   |
-| imageTimeout           | 加载图像的超时时间（以毫秒为单位）。设置 `0` 为禁用超时，默认是 `15s`                                                                             | Number        | 15000                   |
-| ignoreElements         | 谓词功能，可从渲染中删除匹配的元素                                                                                                                | Function      | (element) => false      |
-| logging                | 是否在 `console` 中打印转化过程，`h2c` 中默认打印，封装转为默认不打印                                                                             | Boolean       | false                   |
-| onclone                | 克隆文档以进行渲染时调用的回调函数可用于修改将要渲染的内容，而不会影响原始源文档                                                                  |               | null                    |
-| proxy                  | 代理将用于加载跨域图像的网址。如果保留为空，则不会加载跨域图像。                                                                                  |               | null                    |
-| removeContainer        | 是否清除 `h2c` 组件调用时生成的临时 `dom` 节点，默认 `true`                                                                                       | Boolean       | true                    |
-| scale                  | 图片的比例 默认为浏览器的 `dpr` 比                                                                                                                | Number        | window.devicePixelRatio |
-| useCORS                | 是否允许开启跨域，原 `h2`c 默认为 `false`， 封装时定义为 `true`                                                                                   | Boolean       | true                    |
-| width                  | `canvas` 的宽度                                                                                                                                   | Number        | element.width           |
-| height                 | `canvas` 的高度                                                                                                                                   | Number        | element.height          |
-| x                      | `canvas` 的 原点 处于 dom 原点的 水平距离（x 距离），并在此位置开始渲染（原点为左上角）                                                           | Number        | x = ele.x-offset        |
-| y                      | `canvas` 的 原点 处于 dom 原点的 垂直距离（y 距离），并在此位置开始渲染（原点为左上角）                                                           | Number        | y = ele.y-offset        |
-| scrollX                | 渲染元素时要使用的 x 滚动位置（例如，如果 Element 使用 position: fixed）                                                                          | Number        | element.scrollX         |
-| scrollY                | 呈现元素时要使用的 y 滚动位置（例如，如果 Element 使用 position: fixed）                                                                          | Number        | element.scrollY         |
-| windowWidth            | 在渲染 dom 时的实时 window.innerWidth, 可以手动修改 (修改此参数会让 dom 内一些根据 windows 大小而改变布局/大小的节点以此值来改变原来的位置和大小) | Number        | Window.innerWidth       |
-| innerHeight            | 在渲染 dom 时的实时 window.innerWidth, 可以手动修改                                                                                               | Number        | Window.innerHeight      |
+| 属性                   | 说明                                                                                                                 | 类型          | 默认值                  |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------- | ----------------------- |
+| allowTaint             | 是否允许跨域图像（原 `h2c` 组件默认是 `false`，封装时定义为 `true`），会污染画布，导致无法使用`canvas.toDataURL`方法 | Boolean       | true                    |
+| backgroundColor        | `canvas` 的背景颜色默认为白，设置 `null` 为透明                                                                      | String        | #fffff                  |
+| canvas                 | 现有 `canvas` 元素用作绘图的基础                                                                                     | `HTMLElement` | null                    |
+| foreignObjectRendering | 如果浏览器支持，是否使用 `ForeignObject` 呈现                                                                        | Boolean       | false                   |
+| imageTimeout           | 加载图像的超时时间（以毫秒为单位）。设置 `0` 为禁用超时，默认是 `15s`                                                | Number        | 15000                   |
+| ignoreElements         | 谓词功能，可从渲染中删除匹配的元素                                                                                   | Function      | (element) => false      |
+| logging                | 是否在 `console` 中打印转化过程，`h2c` 中默认打印，封装转为默认不打印                                                | Boolean       | false                   |
+| onclone                | 克隆文档以进行渲染时调用的回调函数可用于修改将要渲染的内容，而不会影响原始源文档                                     |               | null                    |
+| proxy                  | 代理将用于加载跨域图像的网址。如果保留为空，则不会加载跨域图像。                                                     |               | null                    |
+| removeContainer        | 是否清除 `h2c` 组件调用时生成的临时 `dom` 节点，默认 `true`                                                          | Boolean       | true                    |
+| scale                  | 图片的比例 默认为浏览器的 `dpr` 比                                                                                   | Number        | window.devicePixelRatio |
+| useCORS                | 是否允许开启跨域，原 `h2`c 默认为 `false`， 封装时定义为 `true`                                                      | Boolean       | true                    |
+| width                  | `canvas` 的宽度                                                                                                      | Number        | element.width           |
+| height                 | `canvas` 的高度                                                                                                      | Number        | element.height          |
+| x                      | `canvas` 的 原点 处于 dom 原点的 水平距离（x 距离），并在此位置开始渲染（原点为左上角）                              | Number        | x = ele.x-offset        |
+| y                      | `canvas` 的 原点 处于 dom 原点的 垂直距离（y 距离），并在此位置开始渲染（原点为左上角）                              | Number        | y = ele.y-offset        |
+| scrollX                | 渲染元素时要使用的 x 滚动位置（例如，如果 `Element` 使用 position: fixed）                                           | Number        | element.scrollX         |
+| scrollY                | 呈现元素时要使用的 y 滚动位置（例如，如果 `Element` 使用 position: fixed）                                           | Number        | element.scrollY         |
+| windowWidth            | 在渲染 dom 时的实时 window.innerWidth, 可以手动修改                                                                  | Number        | Window.innerWidth       |
+| innerHeight            | 在渲染 dom 时的实时 window.innerWidth, 可以手动修改                                                                  | Number        | Window.innerHeight      |
 
 ## 插槽
 

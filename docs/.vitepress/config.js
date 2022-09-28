@@ -214,7 +214,7 @@ export default {
                     text: 'HTML规范',
                     collapsible: true,
                     items: [
-                        { text: '代码规范', link: '/code/format' },
+                        { text: '代码规范', link: '/code/html/format' },
                         { text: '注释规范', link: '/code/html/annotation' },
                         { text: '文件模板', link: '/code/html/template' },
                     ],
@@ -246,7 +246,6 @@ export default {
                     ],
                 },
             ],
-
             '/knowledge/': [
                 {
                     text: 'Js',
@@ -298,6 +297,10 @@ export default {
                         {
                             text: 'VueRouter 传参问题',
                             link: '/bug/',
+                        },
+                        {
+                            text: 'VitePress 打包问题',
+                            link: '/bug/VitePress',
                         },
                         {
                             text: '谷歌浏览器无法调试问题',
