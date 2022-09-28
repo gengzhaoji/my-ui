@@ -155,12 +155,12 @@
 
 ```vue
 <template>
-        <my-panel title="容器标题" icon="menu">
-            <template #handle>
-                <my-button type='primary'>操作</-button>
-            </template>
-            我是内容
-        </my-panel>
+    <my-panel title="容器标题" icon="menu">
+        <template #handle>
+            <my-button type="primary">操作</my-button>
+        </template>
+        我是内容
+    </my-panel>
 </template>
 
 <style lang="scss" scoped>

@@ -27,7 +27,11 @@ export default {
             },
         ],
     ],
+    vue: {
+        reactivityTransform: true,
+    },
     themeConfig: {
+        logo: '/logoH.png',
         // 展示搜索框
         algolia: {
             appKey: '',
@@ -38,12 +42,11 @@ export default {
         },
         // 头部导航
         nav: [
-            { text: '首页', link: '/' },
-            { text: '组件', link: '/ui/installation' },
-            { text: '问题总结', link: '/bug/' },
-            { text: '知识分享', link: '/knowledge/' },
-            { text: '代码规范', link: '/code/html/format' },
-            { text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' },
+            { text: '组件', link: '/ui/', activeMatch: '/ui/' },
+            { text: '代码规范', link: '/code/', activeMatch: '/code/' },
+            { text: '知识分享', link: '/knowledge/', activeMatch: '/knowledge/' },
+            { text: '问题总结', link: '/bug/', activeMatch: '/bug/' },
+            { text: 'Gitee', link: 'https://gitee.com/gengzhaoji/my-ui' },
         ],
         // 侧边栏
         sidebar: {
@@ -54,7 +57,7 @@ export default {
                     items: [
                         {
                             text: '安装',
-                            link: '/ui/installation',
+                            link: '/ui/',
                         },
                         {
                             text: '快速开始',
@@ -72,12 +75,10 @@ export default {
                             text: '自定义代码片段',
                             link: '/ui/page',
                         },
-                        { text: '菜单配置', link: '/ui/menu/' },
-                        { text: '权限配置', link: '/ui/power/' },
                     ],
                 },
                 {
-                    text: '基础组件',
+                    text: '组件',
                     collapsible: true,
                     items: [
                         {
@@ -200,23 +201,20 @@ export default {
                     ],
                 },
             ],
-            '/bug/': [
+            '/code/': [
                 {
-                    text: '常见',
+                    text: '开发规范',
+                    collapsible: true,
                     items: [
-                        {
-                            text: '安装',
-                            link: '/bug/installation',
-                        },
+                        { text: '开发规范', link: '/code/' },
+                        { text: '菜单配置', link: '/code/menu' },
                     ],
                 },
-            ],
-            '/code/': [
                 {
                     text: 'HTML规范',
                     collapsible: true,
                     items: [
-                        { text: '代码规范', link: '/code/html/format' },
+                        { text: '代码规范', link: '/code/format' },
                         { text: '注释规范', link: '/code/html/annotation' },
                         { text: '文件模板', link: '/code/html/template' },
                     ],
@@ -248,14 +246,84 @@ export default {
                     ],
                 },
             ],
+
+            '/knowledge/': [
+                {
+                    text: 'Js',
+                    collapsible: true,
+                    items: [
+                        {
+                            text: 'js 基础',
+                            link: '/knowledge/js/basics',
+                        },
+                    ],
+                },
+                {
+                    text: 'Vue',
+                    collapsible: true,
+                    items: [
+                        {
+                            text: 'vue3 新特性',
+                            link: '/knowledge/',
+                        },
+                        {
+                            text: 'pinia 基础',
+                            link: '/knowledge/vue/pinia',
+                        },
+                    ],
+                },
+                {
+                    text: 'Three',
+                    collapsible: true,
+                    items: [
+                        {
+                            text: 'Three 基础',
+                            link: '/knowledge/three/basics',
+                        },
+                        {
+                            text: 'Three 灯光',
+                            link: '/knowledge/three/light',
+                        },
+                        {
+                            text: 'Three 例子',
+                            link: '/knowledge/three/demo',
+                        },
+                    ],
+                },
+            ],
+            '/bug/': [
+                {
+                    text: '插件',
+                    items: [
+                        {
+                            text: 'VueRouter 传参问题',
+                            link: '/bug/',
+                        },
+                        {
+                            text: '谷歌浏览器无法调试问题',
+                            link: '/bug/debugg',
+                        },
+                    ],
+                },
+                {
+                    text: '问题',
+                    items: [
+                        {
+                            text: 'ElTable 树形表格',
+                            link: '/bug/ElTable',
+                        },
+                    ],
+                },
+            ],
         },
-        lineNumbers: true,
     },
     markdown: {
         config: (md) => {
             // 这里可以使用 markdown-it 插件，vitepress-theme-demoblock就是基于此开发的
             const { demoBlockPlugin } = demoblock;
-            md.use(demoBlockPlugin);
+            md.use(demoBlockPlugin, {
+                cssPreprocessor: 'scss',
+            });
         },
     },
 };
