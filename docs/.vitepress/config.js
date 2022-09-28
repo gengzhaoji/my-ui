@@ -42,6 +42,7 @@ export default {
             { text: '组件', link: '/ui/installation' },
             { text: '问题总结', link: '/bug/' },
             { text: '知识分享', link: '/knowledge/' },
+            { text: '代码规范', link: '/code/html/format' },
             { text: 'Gitlab', link: 'http://192.168.1.16:9980/fe/my-ui' },
         ],
         // 侧边栏
@@ -207,6 +208,43 @@ export default {
                             text: '安装',
                             link: '/bug/installation',
                         },
+                    ],
+                },
+            ],
+            '/code/': [
+                {
+                    text: 'HTML规范',
+                    collapsible: true,
+                    items: [
+                        { text: '代码规范', link: '/code/html/format' },
+                        { text: '注释规范', link: '/code/html/annotation' },
+                        { text: '文件模板', link: '/code/html/template' },
+                    ],
+                },
+                {
+                    text: 'CSS规范',
+                    collapsible: true,
+                    items: [
+                        { text: '代码规范', link: '/code/css/format' },
+                        { text: '注释规范', link: '/code/css/annotation' },
+                        { text: 'SASS规范', link: '/code/css/sass' },
+                    ],
+                },
+                {
+                    text: '命名规范',
+                    collapsible: true,
+                    items: [
+                        { text: 'HTML/CSS命名', link: '/code/name/file' },
+                        { text: 'className命名', link: '/code/name/classname' },
+                        { text: '图片命名', link: '/code/name/img' },
+                    ],
+                },
+                {
+                    text: 'JS规范',
+                    collapsible: true,
+                    items: [
+                        { text: '语言规范', link: '/code/js/language' },
+                        { text: '编码规范', link: '/code/js/format' },
                     ],
                 },
             ],
