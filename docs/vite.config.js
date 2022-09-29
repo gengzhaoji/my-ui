@@ -5,6 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite';
 
 export default ({ command, mode }) => {
     return defineConfig({
+        // 基础路径，配合vue-router的createWebHashHistory使用
+        base: isEnvProduction ? './' : '/my-ui/',
         plugins: [
             AutoImport({
                 imports: ['vue', 'vue-router'], // 自动导入vue和vue-router相关函数
