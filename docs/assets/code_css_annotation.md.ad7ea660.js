@@ -1,1 +1,0 @@
-import{_ as t,c as a,o as e}from"./app.20eef6dd.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"code/css/annotation.md","lastUpdated":1664326466000}'),o={name:"code/css/annotation.md"};function n(s,r,c,d,i,p){return e(),a("div")}var f=t(o,[["render",n]]);export{m as __pageData,f as default};
