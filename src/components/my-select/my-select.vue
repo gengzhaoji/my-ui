@@ -16,12 +16,14 @@
 import _camelCase from 'lodash/camelCase';
 import vLoadmore from '@u/directives/loadmore';
 /**模块store数据 */
-import Com from '@s/com';
-import Dict from '@s/dict';
+// import Com from '@s/com';
+// import Dict from '@s/dict';
 
 const store = {
-        com: Com(),
-        dict: Dict(),
+        // com: Com(),
+        // dict: Dict(),
+        com: {},
+        dict: {},
     },
     emits = defineEmits(['update:modelValue', 'getLabel']);
 /***

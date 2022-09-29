@@ -1,5 +1,5 @@
 // pinia
-import { createPinia } from 'pinia';
+// import { createPinia } from 'pinia';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 // 导入vitepress-theme-demoblock主题，并注册组件(包含主题中默认的组件)。
@@ -19,7 +19,8 @@ import '../../../src/style/index.scss';
 export default {
     ...Theme,
     enhanceApp: ({ app }) => {
-        app.use(createPinia()).use(ElementPlus).use(MyUi);
+        // app.use(createPinia()).use(ElementPlus).use(MyUi);
+        app.use(ElementPlus).use(MyUi);
         for (const name in ElIcons) {
             app.component(name, ElIcons[name]);
         }

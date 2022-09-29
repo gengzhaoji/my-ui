@@ -4,6 +4,9 @@ import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 
 export default ({ command, mode }) => {
+    const env = loadEnv(mode, process.cwd());
+    // 生产环境判断
+    const isEnvProduction = mode === 'production';
     return defineConfig({
         // 基础路径，配合vue-router的createWebHashHistory使用
         base: isEnvProduction ? './' : '/my-ui/',
