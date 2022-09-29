@@ -1,15 +1,5 @@
 <template>
-    <el-select
-        v-model="fieldValue"
-        v-loadmore="loadmoreFn"
-        :size="$store.user.size"
-        collapse-tags-tooltip
-        collapse-tags
-        clearable
-        filterable
-        @change="selectChange"
-        v-bind="$attrs"
-    >
+    <el-select v-model="fieldValue" :size="$store.user.size" collapse-tags-tooltip collapse-tags clearable filterable @change="selectChange" v-bind="$attrs">
         <slot>
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
         </slot>
@@ -24,13 +14,12 @@
 
 <script setup name="MySelect">
 import _camelCase from 'lodash/camelCase';
-import loadmore from '@u/directives/loadmore';
+import vLoadmore from '@u/directives/loadmore';
 /**模块store数据 */
 import Com from '@s/com';
 import Dict from '@s/dict';
 
-const vLoadmore = loadmore,
-    store = {
+const store = {
         com: Com(),
         dict: Dict(),
     },

@@ -63,11 +63,11 @@
 
 ## 属性
 
-| 属性   | 说明               | 类型                 | 可选                                             | 默认值    |
-| ------ | ------------------ | -------------------- | ------------------------------------------------ | --------- |
-| type   | 颜色               | String               | 'primary', 'success', 'warning', 'danger','info' | 'primary' |
-| size   | 尺寸               | String               | 'large', '', 'small'                             | ''        |
-| target | 添加到目标的选择器 | [String,HTMLElement] |                                                  |           |
+| 属性   | 说明               | 类型               | 可选                                             | 默认值    |
+| ------ | ------------------ | ------------------ | ------------------------------------------------ | --------- |
+| type   | 颜色               | String             | 'primary', 'success', 'warning', 'danger','info' | 'primary' |
+| size   | 尺寸               | String             | 'large', '', 'small'                             | ''        |
+| target | 添加到目标的选择器 | String,HTMLElement |                                                  |           |
 
 ## 插槽
 

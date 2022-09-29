@@ -9,7 +9,7 @@
 ```vue
 <template>
     <my-marquee style="height: 150px" :data="list">
-        <div v-for="item in list" :key="item.title" class="item">
+        <div v-for="item in list" :key="item.title" class="marqueeItem">
             <span class="title">{{ item.title }}</span>
             <span class="date">{{ item.date }}</span>
         </div>
@@ -29,7 +29,7 @@ for (let i = 0; i < 20; i++) {
 </script>
 
 <style lang="scss" scoped>
-.item {
+.marqueeItem {
     height: 30px;
     line-height: 30px;
 }
@@ -48,7 +48,7 @@ for (let i = 0; i < 20; i++) {
 ```vue
 <template>
     <my-marquee style="height: 150px" :data="list" direction="down">
-        <div v-for="item in list" :key="item.title" class="item">
+        <div v-for="item in list" :key="item.title" class="marqueeItem">
             <span class="title">{{ item.title }}</span>
             <span class="date">{{ item.date }}</span>
         </div>
@@ -66,16 +66,6 @@ for (let i = 0; i < 20; i++) {
     });
 }
 </script>
-
-<style lang="scss" scoped>
-.item {
-    height: 30px;
-    line-height: 30px;
-}
-.date {
-    margin-left: 50px;
-}
-</style>
 ```
 
 :::
@@ -169,7 +159,7 @@ for (let i = 0; i < 20; i++) {
 ```vue
 <template>
     <my-marquee style="height:150px;" :data="list" :scroll-length="60" :wait-time="2000">
-        <div v-for="item in list" :key="item.title" class="item">
+        <div v-for="item in list" :key="item.title" class="marqueeItem">
             <span class="title">{{ item.title }}</span>
             <span class="date">{{ item.date }}</span>
         </div>
@@ -188,16 +178,6 @@ for (let i = 0; i < 20; i++) {
     });
 }
 </script>
-
-<style lang="scss" scoped>
-.item {
-    height: 30px;
-    line-height: 30px;
-}
-.date {
-    margin-left: 50px;
-}
-</style>
 ```
 
 :::

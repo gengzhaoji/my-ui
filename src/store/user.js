@@ -116,14 +116,14 @@ export default defineStore('user', {
         },
     },
     // 开启数据缓存
-    persist: {
-        enabled: true,
-        strategies: [
-            {
-                key: 'user',
-                storage: localStorage,
-                paths: ['size', 'token', 'activeMenu', 'activeMenuTab', 'menuTabsList', 'theme', 'columns'],
-            },
-        ],
-    },
+    // persist: {
+    //     enabled: true,
+    //     strategies: [
+    //         {
+    //             key: 'user',
+    //             storage: localStorage,
+    //             paths: ['size', 'token', 'activeMenu', 'activeMenuTab', 'menuTabsList', 'theme', 'columns'],
+    //         },
+    //     ],
+    // },
 });

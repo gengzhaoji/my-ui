@@ -40,7 +40,7 @@ const MyCornerMarkId = `MyCornerMarkId${guid()}`,
                 return ['large', '', 'small'].includes(val);
             },
         },
-        target: [String, HTMLElement],
+        target: [String],
     });
 const classes = computed(() => ({
     [`is-${props.size}`]: !!props.size,

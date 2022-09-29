@@ -18,12 +18,12 @@
 
 ## 属性
 
-| 属性          | 说明                                      | 类型          | 可选值 | 默认值        |
-| ------------- | ----------------------------------------- | ------------- | ------ | ------------- |
-| fileName      | 保存的图片名称，默认为当前时间            | String        |        | 当前时间      |
-| dom           | 需要截取的 `Dom` 节点                     | `HTMLElement` |        | document.body |
-| beforeCapture | 截图前与执行函数，必须返回 `Promise` 对象 | Function      |        |               |
-| options       | `html2canvas` 的配置项                    | Object        |        | {}            |
+| 属性          | 说明                                      | 类型        | 可选值 | 默认值        |
+| ------------- | ----------------------------------------- | ----------- | ------ | ------------- |
+| fileName      | 保存的图片名称，默认为当前时间            | String      |        | 当前时间      |
+| dom           | 需要截取的 `Dom` 节点                     | HTMLElement |        | document.body |
+| beforeCapture | 截图前与执行函数，必须返回 `Promise` 对象 | Function    |        |               |
+| options       | `html2canvas` 的配置项                    | Object      |        | {}            |
 
 ## `html2canvas` 的配置项
 

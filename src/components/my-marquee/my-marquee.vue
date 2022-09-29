@@ -12,9 +12,9 @@
 <script setup name="MyMarquee">
 /**
  * 无缝滚动
- * @module $ui/components/my-marquee
+ * @module components/my-marquee
  */
-import { requestAnimationFrame, cancelAnimationFrame } from '@/utils/util';
+// import { requestAnimationFrame, cancelAnimationFrame } from '@u/util';
 /**
  * 插槽
  * @member slots

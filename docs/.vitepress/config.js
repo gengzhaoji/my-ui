@@ -319,6 +319,12 @@ export default {
                 },
             ],
         },
+        socialLinks: [
+            {
+                icon: 'github',
+                link: 'https://github.com/gengzhaoji',
+            },
+        ],
     },
     markdown: {
         config: (md) => {
