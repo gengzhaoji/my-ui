@@ -1,0 +1,1 @@
+import{_ as e,c as o,o as d,a as c}from"./app.b8918201.js";const m=JSON.parse('{"title":"\u9879\u76EE\u7F16\u53F7","description":"","frontmatter":{},"headers":[],"relativePath":"new/number.md","lastUpdated":1690168678000}'),p={name:"new/number.md"},a=c("",16),t=[a];function r(_,n,s,i,D,R){return d(),o("div",null,t)}var l=e(p,[["render",r]]);export{m as __pageData,l as default};
